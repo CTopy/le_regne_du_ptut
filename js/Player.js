@@ -9,13 +9,17 @@ Player = function(game, canvas) {
 
 Player.prototype = {
     _initCamera : function(scene, canvas) {
-        // On crée la caméra
-        this.camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
+        // Parameters: alpha, beta, radius, target position, scene
+        var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 30, new BABYLON.Vector3(0, 0, 0), scene);
 
-        // On demande à la caméra de regarder au point zéro de la scène
-        this.camera.setTarget(BABYLON.Vector3.Zero());
+        // Positions the camera overwriting alpha, beta, radius
+            camera.setPosition(new BABYLON.Vector3(0, 0, 20));
+        
+        // Empêcher l'utilisateur de bouger la caméra avec le clavier
+            camera.inputs.clear();
+            //camera.inputs.addMouse;
 
-        // On affecte le mouvement de la caméra au canvas
-        this.camera.attachControl(canvas, true);
+        // This attaches the camera to the canvas
+            camera.attachControl(canvas, true);
     }
 };
