@@ -1,0 +1,16 @@
+/* Le canvas doit s'afficher sur la totalité de l'écran.
+Les éléments de l'interface seront ajoutés au dessus grâce à un positionnement absolu */
+
+html, body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#renderCanvas {
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
