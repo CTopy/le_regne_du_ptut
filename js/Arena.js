@@ -10,10 +10,9 @@ Arena = function(game) {
 
     // Création de notre lumière principale
     var lumiere1 = new BABYLON.HemisphericLight("lumiere1", new BABYLON.Vector3(1, 1, 0), scene);
-    lumiere1.range = 10;
     
     // Création d'un sol
-    var plateau = BABYLON.Mesh.CreateGround("plateau", 20, 13, 2, scene);
+    var plateau = BABYLON.Mesh.CreateGround("plateau", 60, 46, 2, scene);
     
     // Redimensionner la texture
     materiauPlateau.diffuseTexture.uScale = 1.0;
