@@ -23,7 +23,7 @@ Dans le dossier "css", les fichiers css
 Dans le dossier "js", les fichiers PHP, c'est bien, tu suis.
 
 Le dossier "assets" permet de répertorier tous les médias de l'application (images, polices, vidéos, audio)
-Le dossier "stockage" permet de placer les fichiers de travail que l'ont doit s'échanger ou tout simplement stocker temporairement sur le
+Le dossier "stockage" permet de placer les fichiers de travail que l'on doit s'échanger ou tout simplement stocker temporairement sur le
 dépo Git, comme les images non compressées, les fichiers AfDesign, les fichiers reaper etc. Je vous fait confiance pour bien ranger ce dossier.
 
 LES FICHIERS .keep
