@@ -40,6 +40,7 @@ Game.prototype = {
     // Prototype d'initialisation de la scène
     _initScene : function(engine) {
         var scene = new BABYLON.Scene(engine);
+        engine.enableOfflineSupport = false;
         scene.clearColor=new BABYLON.Color3(0,0,0);
         return scene;
     }
