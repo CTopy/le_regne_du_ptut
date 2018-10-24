@@ -32,7 +32,7 @@ Game = function(canvasId) {
             engine.resize();
         }
     },false);
-
+    
 };
 
 

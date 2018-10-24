@@ -23,7 +23,7 @@ Arena = function(game) {
     
     BABYLON.SceneLoader.ImportMesh("", "", "../assets/models/cultiste.babylon", scene, function(newMeshes) {
             newMeshes.forEach(function(mesh){
-               mesh.rotation = new BABYLON.Vector3(BABYLON.Tools.ToRadians(45),0,0); 
+               mesh.position = new BABYLON.Vector3(-4,0,4);
             });
         });
 };
