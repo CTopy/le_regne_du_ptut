@@ -7,6 +7,7 @@
         <meta name="description" content="Lorsque le monde est en danger, que les Anciens sont sur le point de se réveiller, et que les cultes impies ont envahit la planète, seuls quelques personnes prêtes à côtoyer l'insanité se dressent pour tenter d'endiguer le Mal." />
         
         <!-- SCRIPTS DE BASE -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdn.babylonjs.com/babylon.js"></script>
         <script src="http://code.jquery.com/pep/0.4.3/pep.min.js"></script>
         
@@ -15,6 +16,7 @@
         <script src="js/Game.js"></script>
         <script src="js/Player.js"></script>
         <script src="js/Arena.js"></script>
+        <script src="js/Vue.js"></script>
         <script src="js/general.js"></script>
     </head>
     <body>
@@ -22,18 +24,45 @@
         <canvas id="renderCanvas"></canvas>
         
         <!-- INTERFACE DE JEU -->
-        <div class="joueurActif interface">
-            <h2>Détective</h2>
-            <p>Santé mentale : 3</p>
-        </div>
-        <div class="j2 interface">
-            <h2>Docteur</h2>
-            <p>Santé mentale : 1</p>
+        <div id="topy" class="joueurActif interface">
+            <div class="investigateur">
+                <img class="portrait" src="assets/images/investigateurs/detective.jpg" />
+                <p>TOPY</p>
+                <p>Détective</p>
+                <p>Lorsque vous <em>Prenez le bus</em>, défaussez la carte <em>Indice</em> de votre choix pour vous rendre dans un lieu de n'importe quelle ville. Pour une action, déplacez-vous gratuitement d'une gare routière à une autre gare routière.</p>
+            </div>
+            
+            <div class="nbActions">
+                <p>4</p>
+            </div>
+            
+            <div class="santeMentale">
+                <img src="assets/images/folie.jpg" />
+                <img src="assets/images/folie.jpg" />
+                <img src="assets/images/folie.jpg" />
+                <img src="assets/images/folie.jpg" />
+            </div>
+            
+            <div class="main">
+                <img class="carte" src="assets/images/arkham.jpg" />
+                <img class="carte" src="assets/images/innsmouth.jpg" />
+                <img class="carte" src="assets/images/arkham.jpg" />
+                <img class="carte" src="assets/images/kingsport.jpg" />
+                <img class="carte" src="assets/images/innsmouth.jpg" />
+                <img class="carte" src="assets/images/innsmouth.jpg" />
+                <img class="carte" src="assets/images/oeil_mi_go.jpg" />
+                <img class="carte" src="assets/images/arkham.jpg" />
+            </div>
         </div>
         
-        <div class="j3 interface">
-            <h2>Occultiste</h2>
-            <p>Santé mentale : 4</p>
+        <div class="j2 joueurPassif interface">
+            <div class="investigateur">
+                <img class="portrait" src="assets/images/investigateurs/chasseresse.jpg" />
+                <p>AUGUSTE-PIGNARD</p>
+                <p>Chasseresse</p>
+                <p>Retirez tous les cultistes de votre lieu lors de l'action <em>Vaincre un cultiste</em>. Une fois par tour, vous pouvez pour 1 seule action <em>Vaincre un Shoggoth</em>de votre lieu.</p>
+            </div>
+        </div>
         </div>
     </body>
 </html>
