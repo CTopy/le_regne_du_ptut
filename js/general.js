@@ -1,5 +1,6 @@
 // Lorsque le DOM est chargé
 document.addEventListener("DOMContentLoaded", function () {
+    var vue = new Vue();
     
     // Constante permettant de passer en mode débug
     // ('faut bien pouvoir accéder à l'inspecteur pour voir les erreurs -_-)
@@ -32,4 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
     }
+    
+    $(".carte").click(function () {
+        vue.afficherCarte($(this));
+    });
 });

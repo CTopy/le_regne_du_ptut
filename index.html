@@ -16,18 +16,15 @@
         <script src="js/Game.js"></script>
         <script src="js/Player.js"></script>
         <script src="js/Arena.js"></script>
+        <script src="js/Vue.js"></script>
         <script src="js/general.js"></script>
     </head>
     <body>
         <!-- BABYLONJS -->
         <canvas id="renderCanvas"></canvas>
-        <div id="dark">
-            <div class="dialogue">
-            </div>
-        </div>
         
         <!-- INTERFACE DE JEU -->
-        <div class="joueurActif interface">
+        <div id="topy" class="joueurActif interface">
             <div class="investigateur">
                 <img class="portrait" src="assets/images/investigateurs/detective.jpg" />
                 <p>TOPY</p>
@@ -47,24 +44,25 @@
             </div>
             
             <div class="main">
-                <img class="carte" src="assets/images/dos_indice.jpg" />
-                <img class="carte" src="assets/images/dos_indice.jpg" />
-                <img class="carte" src="assets/images/dos_indice.jpg" />
-                <img class="carte" src="assets/images/dos_indice.jpg" />
-                <img class="carte" src="assets/images/dos_indice.jpg" />
-                <img class="carte" src="assets/images/dos_indice.jpg" />
-                <img class="carte" src="assets/images/dos_indice.jpg" />
-                <img class="carte" src="assets/images/dos_indice.jpg" />
+                <img class="carte" src="assets/images/arkham.jpg" />
+                <img class="carte" src="assets/images/innsmouth.jpg" />
+                <img class="carte" src="assets/images/arkham.jpg" />
+                <img class="carte" src="assets/images/kingsport.jpg" />
+                <img class="carte" src="assets/images/innsmouth.jpg" />
+                <img class="carte" src="assets/images/innsmouth.jpg" />
+                <img class="carte" src="assets/images/oeil_mi_go.jpg" />
+                <img class="carte" src="assets/images/arkham.jpg" />
             </div>
         </div>
         
         <div class="j2 joueurPassif interface">
+            <div class="investigateur">
+                <img class="portrait" src="assets/images/investigateurs/chasseresse.jpg" />
+                <p>AUGUSTE-PIGNARD</p>
+                <p>Chasseresse</p>
+                <p>Retirez tous les cultistes de votre lieu lors de l'action <em>Vaincre un cultiste</em>. Une fois par tour, vous pouvez pour 1 seule action <em>Vaincre un Shoggoth</em>de votre lieu.</p>
+            </div>
         </div>
-        
-        <div class="j3 joueurPassif interface">
-        </div>
-        
-        <div class="j4 joueurPassif interface">
         </div>
     </body>
 </html>

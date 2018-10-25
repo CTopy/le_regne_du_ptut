@@ -21,9 +21,11 @@ Arena = function(game) {
     // Attribution de la texture au plateau
     plateau.material = materiauPlateau;
     
+    /*
     BABYLON.SceneLoader.ImportMesh("", "", "../assets/models/cultiste.babylon", scene, function(newMeshes) {
             newMeshes.forEach(function(mesh){
                mesh.position = new BABYLON.Vector3(-4,0,4);
             });
         });
+        */
 };

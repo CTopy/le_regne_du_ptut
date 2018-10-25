@@ -181,24 +181,71 @@ p {
 
 /***** JOUEUR PASSIF *****/
 
+/* GENERAL */
+.joueurPassif {
+    --largeur : 20vw;
+    max-width : var(--largeur);
+    max-height : calc(var(--largeur) * 0.39);
+    
+    background-image: url(../assets/images/backgrounds/tableau_joueur_resume.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+    left: -10vw;
+    transition : left 0.5s;
+    left : 0;
+}
+
+.joueurPassif:hover {
+    left: 0;
+}
+
+/* INVESTIGATEUR */
+
+.joueurPassif .investigateur {
+    position : absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    /* Marges */
+    left : 3%;
+    top : 2%;
+    max-width : 30%;
+    max-height: 100%;
+    
+    padding : 5px;
+    box-sizing: border-box;
+}
+
+.joueurPassif .investigateur * {
+    margin : 5% 0 3% 0;
+    text-align: justify;
+}
+
+.joueurPassif .investigateur p:first-of-type {
+    font-size: 10pt;
+    margin : 0;
+}
+
+.joueurPassif .investigateur p:last-child {
+    font-size: 8pt;
+}
+
+.joueurPassif .investigateur img {
+    max-height: auto;
+    max-width: 100%;
+    border-radius: 1000px;
+}
+
 /***** POSITIONNEMENT JOUEUR 2 *****/
 .j2 {
-    min-height: 10vh;
-    max-height: 15vh;
-    width: 15vw;
     
-    top: 50vh;
-    background-color: lightgray;
+    top: 20vh;
 }
 
 /***** POSITIONNEMENT JOUEUR 3 *****/
 .j3 {
-    min-height : 10vh;
-    max-height: 15vh;
-    width: 15vw;
-    
-    top: 30vh;
-    background-color: lightgray;
 }
 
 /***** POSITIONNEMENT JOUEUR 4 *****/
@@ -220,10 +267,15 @@ p {
     z-index: 5;
 }
 
-.dialogue {
-    height : 50vh;
-    width : 50vw;
-    background-color : whitesmoke;
-    border-radius: 10px;
-    opacity: 1;
+#dark .carte {
+    height : 70vh;
+    width : auto;
+    position : relative;
+}
+
+#quitter {
+    position : absolute;
+    top: 5%;
+    right: 5%;
+    max-width: 5%;
 }
