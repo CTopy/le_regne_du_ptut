@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
 /* Le canvas doit s'afficher sur la totalité de l'écran.
 Les éléments de l'interface seront ajoutés au dessus grâce à un positionnement absolu */
 
-html, body, .interface {
+html, body, .interface, #dark {
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -20,35 +22,208 @@ body {
     position : relative;
 }
 
-/* Positionnement de l'interface */
+/**************************************************************
+************************* INTERFACE ***************************/
 
+/***** GENERAL *****/
 .interface {
     position : absolute;
 }
 
-.joueurActif {
-    height : 20vh;
-    width : 30vw;
-    background-color: red;
-    
-    top : 80vh;
-    left : 35vw;
+p {
+    font-family: 'Oswald', sans-serif;
+    color : whitesmoke;
 }
 
-.j2 {
-    min-height : 10vh;
-    max-height: 15vh;
-    width : 15vw;
+.joueurActif>*, .joueurPassif>* {
+    position : absolute;
+    top : 0;
+    left : 0;
+}
+
+.carte {
+    border-radius: 4%;
+}
+
+/***** JOUEUR ACTIF *****/
+
+/* TABLEAU DE JOUEUR */
+.joueurActif {
+    --largTabJoueur: 60vw;
+    max-height: calc(var(--largTabJoueur) * 0.32);
+    max-width: var(--largTabJoueur);
     
-    top : 50vh;
+    background-image: url(../assets/images/backgrounds/tableau_joueur.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+    top: calc((100vh - (var(--largTabJoueur) * 0.32)) + 15vh);
+    left: calc((100vw - var(--largTabJoueur)) / 2);
+    
+    transition-property: top;
+    transition-duration: 0.5s;
+}
+
+.joueurActif:hover {
+    top: calc(100vh - (var(--largTabJoueur) * 0.32));
+}
+
+.joueurActif>img {
+    height: 100%;
+    width: 100%;
+}
+
+/* DIV INVESTIGATEUR */
+.joueurActif .investigateur {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*background-color: rgba(0, 255, 255, 0.25);*/
+    
+    /* Marges */
+    left : 2%;
+    top : 6%;
+    max-width : 20%;
+    max-height: 100%;
+    
+    padding : 5px;
+    box-sizing: border-box;
+}
+
+.joueurActif .investigateur * {
+    margin : 0 0 3% 0;
+    text-align: justify;
+}
+
+.joueurActif .investigateur p:first-of-type {
+    font-size: 18pt;
+}
+
+.joueurActif .investigateur p:last-child {
+    font-size: 10pt;
+}
+
+.joueurActif .investigateur img {
+    max-height: auto;
+    max-width: 65%;
+    border-radius: 1000px;
+}
+
+/* MAIN */
+
+.joueurActif .main {
+    max-width: 80%;
+    left: 24%;
+    top: 40%;
+    padding-left: 4%;
+}
+
+.joueurActif .main img {
+    max-width: 15%;
+    position: relative;
+    margin-left: -5%;
+    transition : transform 0.5s;
+}
+
+.joueurActif .main img:hover {
+    transform : scale(1.1);
+    z-index : 3;
+}
+
+/* SANTE MENTALE */
+
+.joueurActif .santeMentale {
+    display : flex;
+    top: 0;
+    left: 0;
+    max-width: 35%;
+    
+    top : 8%;
+    left : 25%;
+}
+
+.joueurActif .santeMentale img {
+    border-radius: 1000px;
+    border: 3px solid #000000;
+    max-width : 15%;
+    align-self:center;
+}
+
+/* NB ACTIONS */
+
+.nbActions {
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1000px;
+    background-image: url(https://c.pxhere.com/photos/a3/bc/background_texture_cement_floor_concrete_design_grunge_layer-670973.jpg!d);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width : 7vh;
+    height : 7vh;
+    
+    left : 82%;
+    top : 1%;
+    border : 3px solid black;
+    box-sizing: border-box;
+}
+
+.nbActions p {
+    font-size: 30pt;
+    font-weight: bold;
+    margin : 0;
+    
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6), 
+        -1px 1px 10px rgba(0, 0, 0, 0.6), 
+        -1px -1px 10px rgba(0, 0, 0, 0.6), 
+        1px -1px 10px rgba(0, 0, 0, 0.6);
+}
+
+/***** JOUEUR PASSIF *****/
+
+/***** POSITIONNEMENT JOUEUR 2 *****/
+.j2 {
+    min-height: 10vh;
+    max-height: 15vh;
+    width: 15vw;
+    
+    top: 50vh;
     background-color: lightgray;
 }
 
+/***** POSITIONNEMENT JOUEUR 3 *****/
 .j3 {
     min-height : 10vh;
     max-height: 15vh;
-    width : 15vw;
+    width: 15vw;
     
-    top : 30vh;
+    top: 30vh;
     background-color: lightgray;
+}
+
+/***** POSITIONNEMENT JOUEUR 4 *****/
+.j4 {
+    
+}
+
+/***** BOITES DE DIALOGUE *****/
+
+#dark {
+    position : absolute;
+    top : 0;
+    left : 0;
+    
+    background-color: rgba(0, 0, 0, 0.5);
+    display : flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 5;
+}
+
+.dialogue {
+    height : 50vh;
+    width : 50vw;
+    background-color : whitesmoke;
+    border-radius: 10px;
+    opacity: 1;
 }

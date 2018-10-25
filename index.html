@@ -7,6 +7,7 @@
         <meta name="description" content="Lorsque le monde est en danger, que les Anciens sont sur le point de se réveiller, et que les cultes impies ont envahit la planète, seuls quelques personnes prêtes à côtoyer l'insanité se dressent pour tenter d'endiguer le Mal." />
         
         <!-- SCRIPTS DE BASE -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdn.babylonjs.com/babylon.js"></script>
         <script src="http://code.jquery.com/pep/0.4.3/pep.min.js"></script>
         
@@ -20,20 +21,50 @@
     <body>
         <!-- BABYLONJS -->
         <canvas id="renderCanvas"></canvas>
+        <div id="dark">
+            <div class="dialogue">
+            </div>
+        </div>
         
         <!-- INTERFACE DE JEU -->
         <div class="joueurActif interface">
-            <h2>Détective</h2>
-            <p>Santé mentale : 3</p>
-        </div>
-        <div class="j2 interface">
-            <h2>Docteur</h2>
-            <p>Santé mentale : 1</p>
+            <div class="investigateur">
+                <img class="portrait" src="assets/images/investigateurs/detective.jpg" />
+                <p>TOPY</p>
+                <p>Détective</p>
+                <p>Lorsque vous <em>Prenez le bus</em>, défaussez la carte <em>Indice</em> de votre choix pour vous rendre dans un lieu de n'importe quelle ville. Pour une action, déplacez-vous gratuitement d'une gare routière à une autre gare routière.</p>
+            </div>
+            
+            <div class="nbActions">
+                <p>4</p>
+            </div>
+            
+            <div class="santeMentale">
+                <img src="assets/images/folie.jpg" />
+                <img src="assets/images/folie.jpg" />
+                <img src="assets/images/folie.jpg" />
+                <img src="assets/images/folie.jpg" />
+            </div>
+            
+            <div class="main">
+                <img class="carte" src="assets/images/dos_indice.jpg" />
+                <img class="carte" src="assets/images/dos_indice.jpg" />
+                <img class="carte" src="assets/images/dos_indice.jpg" />
+                <img class="carte" src="assets/images/dos_indice.jpg" />
+                <img class="carte" src="assets/images/dos_indice.jpg" />
+                <img class="carte" src="assets/images/dos_indice.jpg" />
+                <img class="carte" src="assets/images/dos_indice.jpg" />
+                <img class="carte" src="assets/images/dos_indice.jpg" />
+            </div>
         </div>
         
-        <div class="j3 interface">
-            <h2>Occultiste</h2>
-            <p>Santé mentale : 4</p>
+        <div class="j2 joueurPassif interface">
+        </div>
+        
+        <div class="j3 joueurPassif interface">
+        </div>
+        
+        <div class="j4 joueurPassif interface">
         </div>
     </body>
 </html>
