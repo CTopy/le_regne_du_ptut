@@ -18,6 +18,7 @@ Player.prototype = {
 
         // On affecte le mouvement de la caméra au canvas
         this.camera.attachControl(canvas, true);
+        this.camera.inputs.detachControl;
         
         this.camera.clearControl;
         

@@ -14,7 +14,7 @@ Vue.prototype = {
         //Récupérer l'image de la carte cliquée
         var imageCarte = carte.attr("src");
         
-        //Générer le code HTML de la carte, avec une croix
+        //Générer le code HTML de la carte
         var codeHTML = "<img class=\"carte\" src="+imageCarte+" /><img src=\"assets/images/quitter.png\" id=\"quitter\" />";
         
         //Ajouter l'overlay noir à la page

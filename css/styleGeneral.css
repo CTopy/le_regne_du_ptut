@@ -91,16 +91,20 @@ p {
 }
 
 .joueurActif .investigateur * {
-    margin : 0 0 3% 0;
+    margin : 0 0 4% 0;
     text-align: justify;
 }
 
 .joueurActif .investigateur p:first-of-type {
-    font-size: 18pt;
+    font-size: 1.3vw;
+}
+
+.joueurActif .investigateur p:nth-child(2) {
+    font-size: 1.1vw;
 }
 
 .joueurActif .investigateur p:last-child {
-    font-size: 10pt;
+    font-size: 0.7vw;
 }
 
 .joueurActif .investigateur img {
@@ -203,44 +207,24 @@ p {
 /* INVESTIGATEUR */
 
 .joueurPassif .investigateur {
-    position : absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    /* Marges */
-    left : 3%;
-    top : 2%;
-    max-width : 30%;
-    max-height: 100%;
-    
-    padding : 5px;
-    box-sizing: border-box;
-}
-
-.joueurPassif .investigateur * {
-    margin : 5% 0 3% 0;
-    text-align: justify;
-}
-
-.joueurPassif .investigateur p:first-of-type {
-    font-size: 10pt;
-    margin : 0;
-}
-
-.joueurPassif .investigateur p:last-child {
-    font-size: 8pt;
+    max-width : 25%;
+    top : 10%;
+    left : 65%;
 }
 
 .joueurPassif .investigateur img {
-    max-height: auto;
     max-width: 100%;
     border-radius: 1000px;
+    margin : 0;
+}
+
+.joueurPassif .investigateur p:first-of-type {
+    margin : -3% 0 3% 0; 
+    font-size : 0.7vw;
 }
 
 /***** POSITIONNEMENT JOUEUR 2 *****/
 .j2 {
-    
     top: 20vh;
 }
 
