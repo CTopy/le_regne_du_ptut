@@ -5,6 +5,7 @@ Player = function(game, canvas) {
     // Initialisation de la caméra
     this._initCamera(this.scene, canvas);
     
+    var id = window.setInterval(this.getCoords, 1000);
 };
 
 Player.prototype = {
@@ -20,7 +21,24 @@ Player.prototype = {
         this.camera.attachControl(canvas, true);
         this.camera.inputs.detachControl;
         
-        this.camera.clearControl;
+        // Paramétrer la caméra
+        this.camera.upperBetaLimit = 1.3;       //Rester au dessus du plateau
+        this.camera.lowerRadiusLimit = 13;      //Ne pas trop zoomer
+        this.camera.upperRadiusLimit = 75;      //Ne pas trop dezoomer
+        this.camera.panningDistanceLimit = 30;  //Ne pas trop s'éloigner
+        this.camera.panningSensibility = 200;  //La caméra se déplace plus vite que par défaut
         
-    }
+        // Cette partie du code sera à retirer dans le programme final, elle permet de mettre en place un viseur qui donne
+        // les coordonnées à laquelle la caméra regarde. Ca sera utile notamment pour créer les lieux
+            var self = this;
+
+            var id = window.setInterval(function () {
+                console.log(self.camera.target);
+            },2000);
+
+            $("[src=\"assets/images/folie.jpg\"]").click(function() {
+                window.clearInterval(id);
+            });
+        //***********************************************************
+    },
 };

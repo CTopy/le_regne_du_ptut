@@ -25,6 +25,14 @@ body {
 /**************************************************************
 ************************* INTERFACE ***************************/
 
+#crosshair {
+    height : 3vh;
+    width : 3vh;
+    position : absolute;
+    top : 48.5vh;
+    left : calc(50vw - 1.5vh);
+}
+
 /***** GENERAL *****/
 .interface {
     position : absolute;
