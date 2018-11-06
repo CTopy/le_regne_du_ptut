@@ -33,8 +33,9 @@ Game = function(canvasId) {
         }
     },false);
     
+    // Création des lieux
+    var test = new Lieu("test", 5, ARKHAM);
 };
-
 
 Game.prototype = {
     // Prototype d'initialisation de la scène
