@@ -51,6 +51,9 @@ p {
 
 .carte {
     border-radius: 4%;
+}
+
+#quitter, .carte{
     cursor : pointer;
 }
 
@@ -66,15 +69,14 @@ p {
     background-size: contain;
     background-repeat: no-repeat;
     
-    top: calc((100vh - (var(--largTabJoueur) * 0.32)) + 15vh);
+    bottom: -12vh;
     left: calc((100vw - var(--largTabJoueur)) / 2);
     
-    transition-property: top;
-    transition-duration: 0.5s;
+    transition : bottom 0.5s;
 }
 
 .joueurActif:hover {
-    top: calc(100vh - (var(--largTabJoueur) * 0.32));
+    bottom: 0;
 }
 
 .joueurActif>img {
@@ -208,9 +210,8 @@ p {
     background-size: contain;
     background-repeat: no-repeat;
     
-    left: -10vw;
+    left: -17vw;
     transition : left 0.5s;
-    left : 0;
     overflow: visible;
 }
 
@@ -279,7 +280,7 @@ p {
 }
 
 .joueurPassif .carte:not(:first-child) {
-    margin-left: -13%;
+   margin-left: -13%;
 }
 
 /* SANTE MENTALE ET ACTIONS */
@@ -292,28 +293,36 @@ p {
 }
 
 .joueurPassif .santeMentale {
-    width : 10%;
+    height: 2.2vw;
+    width : 2.2vw;
     left : 93%;
     margin-top: -3%;
-    background-color : rgba(0, 167, 255, 0.49);
+    background-image: url(../assets/images/folie.jpg);
+    background-size: contain;
+    border-radius: 1000px;
 }
 
 .joueurPassif .santeMentale p {
-    font-size: 18pt;
+    margin-top: -0.01vw;
+    left:0;
+    font-size: 1.5vw;
+    text-align: center;
+    text-shadow: 2px 2px 3px black, -2px 2px 3px black;
 }
 
 /***** POSITIONNEMENT JOUEUR 2 *****/
 .j2 {
-    top: 15vh;
+    top: 10vh;
 }
 
 /***** POSITIONNEMENT JOUEUR 3 *****/
 .j3 {
+    top : 30vh;
 }
 
 /***** POSITIONNEMENT JOUEUR 4 *****/
 .j4 {
-    
+    top: 50vh;
 }
 
 /***** BOITES DE DIALOGUE *****/
