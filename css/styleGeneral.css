@@ -162,6 +162,10 @@ p {
     align-self:center;
 }
 
+.joueurActif .santeMentale p {
+    display : none;
+}
+
 /* NB ACTIONS */
 
 .nbActions {
@@ -266,7 +270,6 @@ p {
     position: relative;
     max-width: 65%;
     max-height: 95%;
-    background-color: rgba(0, 255, 255, 0.4);
     top: 10%;
     left: 3%;
 }
@@ -280,24 +283,23 @@ p {
 }
 
 /* SANTE MENTALE ET ACTIONS */
-.nbActions {
+.joueurPassif .nbActions {
     display : none;
 }
 
-.santeMentale img:not(:first-of-type) {
+.joueurPassif .santeMentale img{
     display:none;
 }
 
-.santeMentale img {
-    position: relative;
-    border-radius: 5000px;
+.joueurPassif .santeMentale {
     width : 10%;
     left : 93%;
     margin-top: -3%;
+    background-color : rgba(0, 167, 255, 0.49);
 }
 
-.santeMentale p {
-    font-size: 100vw;
+.joueurPassif .santeMentale p {
+    font-size: 18pt;
 }
 
 /***** POSITIONNEMENT JOUEUR 2 *****/
