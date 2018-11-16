@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <title>Le Réveil de Cthulhu</title>
+        <meta name="description" content="Lorsque le monde est en danger, que les Anciens sont sur le point de se réveiller, et que les cultes impies ont envahit la planète, seuls quelques personnes prêtes à côtoyer l'insanité se dressent pour tenter d'endiguer le Mal." />
+        
+        <!-- SCRIPTS DE BASE -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdn.babylonjs.com/babylon.js"></script>
+        <script src="http://code.jquery.com/pep/0.4.3/pep.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="css/styleGeneral.css" />
+        
+        
+    </head>
+    <body>
+        <!-- BABYLONJS -->
+        <canvas id="renderCanvas"></canvas>
+        
+        <!-- INTERFACE DE JEU -->
+        <img src="assets/images/crosshair.png" id="crosshair" />
+        
+        <!-- ACTIONS -->
+        <div id="actions">
+            <div>
+                <div class="action">
+                    <img src="/assets/images/actions/deplacer_cultiste.png" />
+                    <p>Déplacer un cultiste</p>
+                </div>
+                <div class="action">
+                    <img src="/assets/images/actions/deplacer_shoggoth.png" />
+                    <p>Déplacer un Shoggoth</p>
+                </div>
+                <div class="action">
+                    <img src="/assets/images/actions/donner_carte.png" />
+                    <p>Donner une carte</p>
+                </div>
+                <div class="action">
+                    <img src="/assets/images/actions/marcher.png" />
+                    <p>Marcher</p>
+                </div>
+                <div class="action">
+                    <img src="/assets/images/actions/prendre_carte.png" />
+                    <p>Prendre une carte</p>
+                </div>
+                <div class="action">
+                    <img src="/assets/images/actions/vaincre_cultiste.png" />
+                    <p>Vaincre un cultiste</p>
+                </div>
+                <div class="action">
+                    <img src="/assets/images/actions/vaincre_shoggoth.png" />
+                    <p>Vaincre un Shoggoth</p>
+                </div>
+                <div class="action action--cache">
+                    <img src="/assets/images/actions/bus.png" />
+                    <p>Prendre le bus</p>
+                </div>
+            </div>
+            <div class="action">
+                <img src="/assets/images/actions/passer_tour.png" />
+                <p>Passer son tour</p>
+            </div>
+        </div>
+        
+        <!-- GRANDS ANCIENS -->
+        <div id="gdAnciens">
+            <div class="ancien" data-num="1">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Azathoth.jpg/280px-Azathoth.jpg" />
+                <p>Azathoth</p>
+                <p>Un Shoggoth apparaît aléatoirement, et tous les Shoggoths se déplacent.</p>
+            </div>
+            <div class="ancien" data-num="2">
+                <img src="https://d1lxrd8xkfqt44.cloudfront.net/wp-content/uploads/2018/08/07170249/hr_gec46675_a.jpg" />
+                <p>Nyarlathotep</p>
+                <p>Chaque investigateur choisis entre perdre 1 point de santé mentale, où invoquer un cultiste sur son lieu. Un investigateur fou n'a pas le choix...</p>
+            </div>
+            <div class="ancien" data-num="3">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Yog-Sothoth_couleur.jpg/280px-Yog-Sothoth_couleur.jpg" />
+                <p>Yog-Sothoth</p>
+                <p>4 cultistes apparaissent aléatoirement.</p>
+            </div>
+            <div class="ancien ancien--cache" data-num="4">
+                <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/P3IPDsA/question-mark-scribble-animation-doodle-cartoon-4k_bdi1p4a_e_thumbnail-full01.png" />
+                <p>Hastur</p>
+                <p>Pour partir d'un lieu contenant au moins 2 cultistes en Marchant, vous devez d'abord <em>Vaincre un cultiste</em> de ce lieu.</p>
+            </div>
+            <div class="ancien ancien--cache" data-num="5">
+                <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/P3IPDsA/question-mark-scribble-animation-doodle-cartoon-4k_bdi1p4a_e_thumbnail-full01.png" />
+                <p>Shubb-Niggurath</p>
+                <p>Chaque investigateur choisis entre perdre 1 point de santé mentale, où invoquer un cultiste sur son lieu. Un investigateur fou n'a pas le choix...</p>
+            </div>
+            <div class="ancien ancien--cache" data-num="6">
+                <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/P3IPDsA/question-mark-scribble-animation-doodle-cartoon-4k_bdi1p4a_e_thumbnail-full01.png" />
+                <p>Atlach-Nacha</p>
+                <p>Chaque investigateur choisis entre perdre 1 point de santé mentale, où invoquer un cultiste sur son lieu. Un investigateur fou n'a pas le choix...</p>
+            </div>
+            <div class="ancien ancien--cache" data-num="cthulhu">
+                <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/P3IPDsA/question-mark-scribble-animation-doodle-cartoon-4k_bdi1p4a_e_thumbnail-full01.png" />
+                <p>Cthulhu</p>
+                <p>Chaque investigateur choisis entre perdre 1 point de santé mentale, où invoquer un cultiste sur son lieu. Un investigateur fou n'a pas le choix...</p>
+            </div>
+            
+        </div>
+        
+        <!-- TABLEAUX DE JOUEURS -->
+        <div id="joueurs">
+            <!-- JOUEUR ACTIF -->
+            <div id="topy" class="joueurActif interface">
+                <div class="investigateur">
+                    <img class="portrait" src="assets/images/investigateurs/detective.jpg" />
+                    <p>TOPY TOPIGNACKQ</p>
+                    <p>Détective</p>
+                    <p>Lorsque vous <em>Prenez le bus</em>, défaussez la carte <em>Indice</em> de votre choix pour vous rendre dans un lieu de n'importe quelle ville. Pour une action, déplacez-vous gratuitement d'une gare routière à une autre gare routière.</p>
+                </div>
+
+                <div class="nbActions">
+                    <p>4</p>
+                </div>
+
+                <div class="santeMentale">
+                    <div>
+                        <p>4</p>
+                    </div>
+                    <img src="assets/images/folie.jpg" />
+                    <img src="assets/images/folie.jpg" />
+                    <img src="assets/images/folie.jpg" />
+                    <img src="assets/images/folie.jpg" />
+                </div>
+
+                <div class="main">
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                    <img class="carte" src="assets/images/kingsport.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                    <img class="carte" src="assets/images/oeil_mi_go.jpg" />
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                </div>
+            </div>
+
+            <!-- JOUEUR PASSIF 2 (TOUT EN HAUT) -->
+            <div class="j2 joueurPassif interface">
+                <div class="investigateur">
+                    <img class="portrait" src="assets/images/investigateurs/chasseresse.jpg" />
+                    <p>AUGUSTE-PIGNARD</p>
+                    <p>Chasseresse</p>
+                    <p>Lorsque vous <em>Prenez le bus</em>, défaussez la carte <em>Indice</em> de votre choix pour vous rendre dans un lieu de n'importe quelle ville. Pour une action, déplacez-vous gratuitement d'une gare routière à une autre gare routière.</p>
+                </div>
+
+                <div class="nbActions">
+                    <p>4</p>
+                </div>
+
+                <div class="santeMentale">
+                    <div>
+                        <p>1</p>
+                    </div>
+                    <img src="assets/images/folie.jpg" />
+                </div>
+
+                <div class="main">
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                    <img class="carte" src="assets/images/kingsport.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                    <img class="carte" src="assets/images/oeil_mi_go.jpg" />
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                </div>
+            </div>
+
+            <!-- JOUEUR PASSIF 3 (AU MILIEU) -->
+            <div class="j3 joueurPassif interface">
+                <div class="investigateur">
+                    <img class="portrait" src="assets/images/investigateurs/occultiste.jpg" />
+                    <p>GABIEN FUNTZ **</p>
+                    <p>Occultiste</p>
+                    <p>A chaque tour, pour une action, vous pouvez <em>Déplacer un cultiste</em>. Pour trois actions, vous pouvez <em>Déplacer un Shoggoth</em>.</p>
+                </div>
+
+                <div class="nbActions">
+                    <p>4</p>
+                </div>
+
+                <div class="santeMentale">
+                    <div>
+                        <p>3</p>
+                    </div>
+                    <img src="assets/images/folie.jpg" />
+                    <img src="assets/images/folie.jpg" />
+                    <img src="assets/images/folie.jpg" />
+                </div>
+
+                <div class="main">
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                    <img class="carte" src="assets/images/kingsport.jpg" />
+                </div>
+            </div>
+
+                    <!-- JOUEUR PASSIF 4 (AU MILIEU) -->
+            <div class="j4 joueurPassif interface">
+                <div class="investigateur">
+                    <img class="portrait" src="assets/images/investigateurs/docteur.jpg" />
+                    <p>ANNNNE-SOPHIIIE</p>
+                    <p>Docteur</p>
+                    <p>Lors de votre tour, effectuez 5 actions au lieu de 4.</p>
+                </div>
+
+                <div class="nbActions">
+                    <p>5</p>
+                </div>
+
+                <div class="santeMentale">
+                    <div>
+                        <p>4</p>
+                    </div>
+                    <img src="assets/images/folie.jpg" />
+                    <img src="assets/images/folie.jpg" />
+                    <img src="assets/images/folie.jpg" />
+                    <img src="assets/images/folie.jpg" />
+                </div>
+
+                <div class="main">
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                    <img class="carte" src="assets/images/kingsport.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                </div>
+            </div>
+        </div>
+    
+        <!-- Scripts généraux -->
+        <script src="js/constantes.js"></script>
+        <script src="js/general.js"></script>
+    
+        <!-- Scripts du jeu -->
+        <script src="js/Lieu.js"></script>
+    
+        <!-- Scripts BabylonJS -->
+        <script src="js/Game.js"></script>
+        <script src="js/Player.js"></script>
+        <script src="js/Arena.js"></script>
+        <script src="js/Vue.js"></script>
+    
+    </body>
+</html>
