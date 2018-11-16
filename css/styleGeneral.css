@@ -69,7 +69,7 @@ p {
     background-size: contain;
     background-repeat: no-repeat;
     
-    bottom: -12vh;
+    bottom: -16vh;
     left: calc((100vw - var(--largTabJoueur)) / 2);
     
     transition : bottom 0.5s;
@@ -89,7 +89,6 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /*background-color: rgba(0, 255, 255, 0.25);*/
     
     /* Marges */
     left : 2%;
@@ -175,7 +174,7 @@ p {
     justify-content: center;
     align-items: center;
     border-radius: 1000px;
-    background-image: url(https://c.pxhere.com/photos/a3/bc/background_texture_cement_floor_concrete_design_grunge_layer-670973.jpg!d);
+    background-color: gray;
     background-repeat: no-repeat;
     background-size: cover;
     width : 7vh;
@@ -356,4 +355,63 @@ button {
     position : absolute;
     top : 0;
     left : 0;
+}
+        
+ /* GRANDS ANCIENS */
+
+#gdAnciens {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100vw;
+    display:flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#gdAnciens img {
+    height: 5vw;
+    width: 5vw;
+    object-fit: cover;
+    margin: 0 15px;
+    border-radius: 5000px;
+}
+
+.ancien {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.ancien p {
+    margin: 0;
+}
+
+.ancien p:nth-of-type(2) {
+    position: absolute;
+    top: auto;
+    left: 0;
+    max-width: 7vw;
+    font-size: 0.9em;
+    top: 13vh;
+    text-align: center;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: -1
+}
+
+.ancien img:hover ~ p {
+    z-index: 2;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.ancien--cache p {
+    display: none;
+}
+
+.ancien--cache[data-num="cthulhu"] p:first-of-type {
+    display: block;
 }
