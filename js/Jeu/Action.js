@@ -155,3 +155,27 @@ class VaincreShoggoth extends Action {
         }
     }
 }
+
+class ScellerPortail extends Action {
+    constructor (investigateur) {
+        this.nom = "Sceller un Portail";
+        super(investigateur);
+        var cartes = investigateur.main;
+    }
+    
+    preaction() {
+        
+    }
+                        
+    faireAction() {
+        for (var i=0; i<6; i++) {
+            for (var uneCarte of cartes) {
+                if (typeof uneCarte === typeof new Indice()) {
+                    if (investigateur.lieu === uneCarte.ville) {
+                        investigateur.main.enleverCarte(uneCarte);
+                    }
+                }
+            }
+        }
+    }
+}
