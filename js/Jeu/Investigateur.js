@@ -7,8 +7,10 @@ class Investigateur{
         this.santeMentale = 4;
         this.effet="";
         this.image="";
+        this.element3D="";
         this.estFou=false;
-        this.lieu=GARE;
+       /* this.lieu=GARE;
+        this.position=GARE.origine;  //Babylon Vector 3*/
     }
     
     devenirFou() {
@@ -24,13 +26,15 @@ class Investigateur{
         this.image = "";
     }
     
-    marcher(destination){
+    marcher(lieu){
         var coordoneeDestination = destination.ajouterEntite;
+        //animation?
+        var animationMvnt = new BABYLON.animation("animationInvestigateur", "position", 30,BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
         this.lieu=coordoneeDestination;
     }
 }
 
-class Detective{
+class Detective extends Investigateur{
     constructor(joueur){
         super(joueur);
         this.personnage="Détective";
@@ -39,8 +43,17 @@ class Detective{
         this.nbCarteEnMainPutainDeMagicien = 7;
         this.effet="Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail."
         this.image="./images/detective.jpg";
+        this.element3D=""
         this.estFou=false;
+        this.position;
+        this.pion = BABYLON.SceneLoader.ImportMesh("", "", "./assets/modeles/investigateur.babylon", scene, function(newMeshes) {
+            newMeshes.forEach(function(mesh){
+               mesh.position = position;
+            });
+        });
     }
+    
+    
     
     devenirFou(){
         this.estFou=true;
@@ -55,8 +68,8 @@ class Detective{
         this.image="./images/detective.jpg";
     }
 }
-
-class Docteur{
+/*
+class Docteur extends Investigateur{
     constructor(joueur){
         super(joueur);
         this.personnage="Docteur";
@@ -82,7 +95,7 @@ class Docteur{
     }
 }
 
-class Docteur{
+class Docteur extends Investigateur{
     constructor(joueur){
         super(joueur);
         this.personnage="Conducteur";
@@ -107,3 +120,4 @@ class Docteur{
         this.image="./images/conducteur.jpg";
     }
 }
+*/
