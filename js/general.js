@@ -37,4 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $(".carte").click(function () {
         vue.afficherCarte($(this));
     });
+    
+    var detective = new Detective("Ludo");
+    alert(detective.pion);
 });
