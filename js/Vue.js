@@ -8,6 +8,8 @@ class Vue {
         this.fond.attr("id", "dark");
         console.log(this.fond);
         this.canvas = $("#renderCanvas");
+        this.cylindres = -1;
+        this.scene = JEU.scene;
     }
     
     afficherCarte(carte) {
@@ -44,6 +46,36 @@ class Vue {
     effacerDialogue() {
         this.fond.remove();
     }
+    
+    afficherEntite(entite) {
+        //Récupérer l'index de l'entité dans son lieu
+        let index = entite.lieu.findIndex(function() {
+           return entite; 
+        });
+        
+        entite.mesh.visibility = false;
+        entite.mesh.position = entite.lieu.coords[index];
+        entite.mesh.visibility = true;
+    }
+    
+    //Fonction pour test
+        creerCube(lieu) {
+            this.cylindres++;
+            //Récupérer l'index de l'entité dans son lieu
+            let mesh = BABYLON.MeshBuilder.CreateCylinder("cylindre"+this.cylindres, {}, this.scene);
+            mesh.visibility = false;
+            mesh.position = lieu.coords[this.cylindres%7];
+            console.log(this.cylindres%6);
+            mesh.visibility = true;
+    }
 }
 
 var vue = new Vue();
+for (var i=0; i<7; i++) {
+    vue.creerCube(GARE);
+    vue.creerCube(UNIVERSITE);
+    vue.creerCube(COMMISSARIAT);
+    vue.creerCube(PARC);
+    vue.creerCube(LOGE_SECRETE);
+    vue.creerCube(RESTAURANT);
+}

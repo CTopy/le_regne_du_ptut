@@ -10,7 +10,7 @@ class Lieu {
 
         this.nom = nom;
         this.ville = ville;       //Constante : ARKHAM, KINGSPORT, INNSMOUTH, DUNWICH
-        this.portail = false;             //Booléen
+        this.portail = NON;             //0 : NON, 1 : OUI, 2 : SCELLE
 
         //Si l'origine n'est pas de type BABYLON.Vector3 on renvoie une erreur;
         if (typeof origine === typeof new BABYLON.Vector3(0,0,0))
@@ -48,7 +48,7 @@ class Lieu {
             diameter: 2.5
         }, scene);
         this.mesh.position = this.origine;
-//        this.mesh.visibility = false;
+        this.mesh.visibility = false;
     }
     
     /**Définir tous les attributs non définis dans le constructeur
@@ -85,8 +85,24 @@ var UNIVERSITE = new Lieu('Université', new BABYLON.Vector3(-19.4,0.1,7.7),ARKH
 var COMMISSARIAT = new Lieu('Commissariat', new BABYLON.Vector3(-11.4,0.1,7.9),ARKHAM);
 var PARC = new Lieu('Parc', new BABYLON.Vector3(-18.0,0.1,0.4),ARKHAM);
 
-PARC.portail = true;
+GARE.definir(new Array(UNIVERSITE), UNIVERSITE);
+UNIVERSITE.definir(new Array(GARE, PARC, COMMISSARIAT),PARC);
+PARC.definir(new Array(UNIVERSITE, LOGE_SECRETE, COMMISSARIAT), null);
+COMMISSARIAT.definir(new Array(UNIVERSITE, PARC, LOGE_SECRETE), PARC);
+LOGE_SECRETE.definir(new Array(COMMISSARIAT, PARC), PARC);
+RESTAURANT.definir(new Array(LOGE_SECRETE), LOGE_SECRETE);
+
+PARC.portail = OUI;
 
 var lieux = new Array(
     GARE,
+    UNIVERSITE,
+    PARC,
+    COMMISSARIAT,
+    LOGE_SECRETE,
+    RESTAURANT
+);
+
+var lieuxPortail = new Array(
+    PARC 
 );

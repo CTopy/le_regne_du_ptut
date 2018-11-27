@@ -1,11 +1,10 @@
 $("document").ready(function(){
     //Initialisation du jeu, chargement dynamique des scripts
     
-    //Chargement de l'affichage
-    chargerScript("js/Vue.js");
-    
     //Chargement des éléments du Jeu
     chargerScript("js/Jeu/Lieu.js");
+        //Chargement de l'affichage
+        chargerScript("js/Vue.js");
     chargerScript("js/Jeu/Action.js");
     chargerScript("js/Jeu/Deck.js");
     chargerScript("js/Jeu/Carte.js");
