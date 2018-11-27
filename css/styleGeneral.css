@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 
+@font-face {
+  font-family: "Built";
+  src: url(../assets/fonts/built.ttf);
+    font-feature-settings: "liga" 0;
+}
+
+@font-face {
+  font-family: "Built light";
+  src: url(../assets/fonts/built_light.ttf);
+}
+
 /* Le canvas doit s'afficher sur la totalité de l'écran.
 Les éléments de l'interface seront ajoutés au dessus grâce à un positionnement absolu */
 
@@ -39,8 +50,10 @@ body {
 }
 
 p {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Built light';
     color : whitesmoke;
+    letter-spacing: 1px;
+    line-height: 1.2em;
 }
 
 .joueurActif>*, .joueurPassif>* {
@@ -82,6 +95,7 @@ p {
 .joueurActif>img {
     height: 100%;
     width: 100%;
+    
 }
 
 /* DIV INVESTIGATEUR */
@@ -105,38 +119,68 @@ p {
     text-align: justify;
 }
 
-.joueurActif .investigateur p:first-of-type {
-    font-size: 1.3vw;
+.joueurActif .investigateur p:nth-child(2) {
+    font-family: 'Built';
+    font-size: 1.6vw;
+    margin-top: -6px;
+    text-shadow: -2px 2px 7px black;
 }
 
-.joueurActif .investigateur p:nth-child(2) {
-    font-size: 1.1vw;
+.joueurActif .investigateur p:nth-child(3) {
+    font-family: 'Built';
+    font-size: 1.5vw;
+    text-shadow: -2px 2px 0 black;
+    color: #BCCA9B;
+    margin-top: -7px;
 }
 
 .joueurActif .investigateur p:last-child {
-    font-size: 0.7vw;
+    font-size: 0.6vw;
+    font-family: 'Oswald';
+    width: 100%;
+    padding: 20px 10px;
+    text-shadow: -2px 2px 0 black;
+    text-align: center;
+    background-image: url(../assets/images/backgrounds/description_joueur.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+    
+    
+    
+}
+
+.joueurActif .investigateur div{
+    background-image: url(../assets/images/backgrounds/description_joueur.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding-left: 25px;
+    
 }
 
 .joueurActif .investigateur img {
     max-height: auto;
-    max-width: 65%;
+    max-width: 55%;
     border-radius: 1000px;
+    border: 10px solid black;
+    box-shadow: 1px 1px 35px black;
 }
 
 /* MAIN */
 
 .joueurActif .main {
     max-width: 80%;
-    left: 24%;
-    top: 40%;
+    left: 31%;
+    top: 37%;
     padding-left: 4%;
 }
 
 .joueurActif .main img {
-    max-width: 15%;
     position: relative;
-    margin-left: -5%;
+    margin-left: -11%;
     transition : transform 0.5s;
+    height : 11vw;
 }
 
 .joueurActif .main img:hover {
@@ -157,10 +201,10 @@ p {
 }
 
 .joueurActif .santeMentale img {
-    border-radius: 1000px;
-    border: 3px solid #000000;
-    max-width : 15%;
+    border-radius: 100px;
+    max-width : 18%;
     align-self:center;
+    margin-right: 3px;
 }
 
 .joueurActif .santeMentale p {
@@ -174,15 +218,14 @@ p {
     justify-content: center;
     align-items: center;
     border-radius: 1000px;
-    background-color: gray;
+    background-image: url(../assets/images/backgrounds/action.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     width : 7vh;
     height : 7vh;
     
     left : 82%;
-    top : 1%;
-    border : 3px solid black;
+    top : 3%;
     box-sizing: border-box;
 }
 
@@ -201,7 +244,7 @@ p {
 
 /* GENERAL */
 .joueurPassif {
-    --largeur : 25vw;
+    --largeur : 33vw;
     max-width : var(--largeur);
     max-height : calc(var(--largeur) * 0.39);
     
@@ -209,20 +252,22 @@ p {
     background-size: contain;
     background-repeat: no-repeat;
     
-    left: -17vw;
+    left: -22.5vw;
     transition : left 0.5s;
     overflow: visible;
+    
 }
 
 .joueurPassif:hover {
     left: 0;
+    
 }
 
 /* INVESTIGATEUR */
 
 .joueurPassif .investigateur {
     top : 10%;
-    left : 67%;
+    left : 65%;
     
     display : flex;
     flex-direction: column;
@@ -231,12 +276,15 @@ p {
 
 .joueurPassif .investigateur img {
     max-width: 100%;
-    border-radius: 1000px;
+    border-radius: 100px;
     margin : 0;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
+    margin-top: -2%;
     
-    max-width : 80%;
+    max-width : 35%;
     z-index : 2;
+    border: 8px solid black;
+    box-shadow: 1px 1px 35px black;
 }
 
 .joueurPassif .investigateur p {
@@ -248,20 +296,50 @@ p {
     font-size : 0.7vw;
 }
 
-.joueurPassif .investigateur p:nth-child(3) {
-    display : none;
+.joueurPassif .investigateur p:first-child{
+        font-family: 'Built';
+        font-size: 20px;
+        text-align: center;
+        margin-top: 24px;
+        text-shadow: 2px 3px 6px rgba(0,0,0,1);
 }
 
-.joueurPassif .investigateur p:nth-child(4) {
+.joueurPassif .investigateur p:nth-child(2){
+        font-size: 20px;
+        text-align: center;
+        margin-top: -8px;
+        font-family: 'Built';
+        color: #BCCA9B;
+        text-shadow: 2px 3px 0px rgba(0,0,0,1);   
+}
+
+.joueurPassif .investigateur div:nth-child(2) {
+    /*display: none;*/
+    width: 200px;
+    height: 90px;
+    background-image: url(../assets/images/backgrounds/description_joueur.png);
+    background-repeat: no-repeat;
+    background-size: 78%;
+    background-position: center;
+    
+    
+}
+
+.joueurPassif .investigateur p:nth-child(3) {
     position : relative;
     font-size : 0.6vw;
     text-align: center;
-    width : 200%;
+    width : 69%;
     border-radius : 5px;
+    text-align: justify;
     transition: all 0.25s linear;
+    font-family: 'Oswald';
     
-    right: 150%;
-    margin-top: -32%;
+   
+    margin-top: -40%;
+    text-shadow: 1px 2px 0 rgba(0,0,0,1);
+    
+    display: none;
 }
 
 /* MAIN */
@@ -275,38 +353,49 @@ p {
 }
 
 .joueurPassif .carte {
-    height : 5vw;
+    height : 10vw;
 }
 
 .joueurPassif .carte:not(:first-child) {
-   margin-left: -13%;
+   margin-left: -25%;
 }
 
 /* SANTE MENTALE ET ACTIONS */
-.joueurPassif .nbActions {
-    display : none;
-}
 
 .joueurPassif .santeMentale img{
     display:none;
 }
 
 .joueurPassif .santeMentale {
-    height: 2.2vw;
-    width : 2.2vw;
-    left : 93%;
-    margin-top: -3%;
-    background-image: url(../assets/images/folie.jpg);
+    height: 3.5vw;
+    width : 3.5vw;
+    left : 100%;
+    top: 49%;
+    background-image: url(../assets/images/backgrounds/folie.jpg);
     background-size: contain;
-    border-radius: 1000px;
+    border-radius: 100px;
+}
+
+.joueurPassif .nbActions{
+    background-image: url(../assets/images/backgrounds/action.jpg);
+    height: 3.5vw;
+    width : 3.5vw;
+    left : 100%;
+    top: 21%;
+    border-radius: 100px;
+}
+
+.joueurPassif .nbActions p{
+    font-family: 'Built';
 }
 
 .joueurPassif .santeMentale p {
-    margin-top: -0.01vw;
+    margin-top: 0.3vw;
     left:0;
-    font-size: 1.5vw;
+    font-size: 2.5vw;
     text-align: center;
     text-shadow: 2px 2px 3px black, -2px 2px 3px black;
+    font-family: 'Built';
 }
 
 /***** POSITIONNEMENT JOUEUR 2 *****/
@@ -316,12 +405,12 @@ p {
 
 /***** POSITIONNEMENT JOUEUR 3 *****/
 .j3 {
-    top : 30vh;
+    top : 36vh;
 }
 
 /***** POSITIONNEMENT JOUEUR 4 *****/
 .j4 {
-    top: 50vh;
+    top: 62vh;
 }
 
 /***** BOITES DE DIALOGUE *****/
@@ -331,7 +420,7 @@ p {
     top : 0;
     left : 0;
     
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     display : flex;
     justify-content: space-around;
     align-items: center;
@@ -346,8 +435,8 @@ p {
 
 #quitter {
     position : absolute;
-    top: 5%;
-    right: 5%;
+    top: 11%;
+    right: 35%;
     max-width: 5%;
 }
 
@@ -360,7 +449,7 @@ button {
  /* GRANDS ANCIENS */
 
 #gdAnciens {
-    top: 0;
+    top: -10px;
     left: 0;
     position: absolute;
     width: 100vw;
@@ -375,37 +464,63 @@ button {
     object-fit: cover;
     margin: 0 15px;
     border-radius: 5000px;
+    border: 5px solid #0E0E0E;
+   
 }
 
+.ancien--cache{
+    background-image: url(../assets/images/grandsAnciens/tableau_grand_ancien_resume_cacher.png);
+    background-repeat: no-repeat;
+    background-size: 120px;
+    background-position: center;
+    height: 40px;
+    top: -75px;
+   
+
+}
+
+.ancien--decouvert{
+    cursor: pointer;
+    top: -75px;
+    background-image: url(../assets/images/grandsAnciens/tableau_grand_ancien_resume_decouvert.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50px;
+    background-size: 120px;
+    background-position: center;
+    transition : top 0.5s;
+}
+
+.ancien--decouvert:hover {
+    top: 0;
+    transition : top 0.5s;
+}
 .ancien {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+    padding-top: 110px;
 }
 
 .ancien p {
-    margin: 0;
+    
+    font-family: 'Built';
+    text-shadow: 2px 2px 3px black;
+    margin-top: -96%;
+    
 }
 
 .ancien p:nth-of-type(2) {
     position: absolute;
-    top: auto;
-    left: 0;
     max-width: 7vw;
-    font-size: 0.9em;
-    top: 13vh;
+    font-size: 9px;
+    top: 14.3vh;
+    width: 80%;
     text-align: center;
-    background-color: rgba(0,0,0,0.8);
-    opacity: 0;
-    transition: opacity 0.5s;
-    z-index: -1
-}
+    font-family: 'Oswald';
+    text-shadow: 2px 2px 1px black;
 
-.ancien img:hover ~ p {
-    z-index: 2;
-    opacity: 1;
-    transition: opacity 0.5s;
 }
 
 .ancien--cache p {
@@ -444,14 +559,15 @@ button {
 }
 
 .action img {
-    width: 75px;
-    height: 75px;
+    width: 90px;
+    height: 90px;
     object-fit: cover;
     transform: scale(1);
     transition: transform 0.5s;
 }
 
 .action p {
+    font-family: 'Built';
     opacity: 0;
     z-index: -1;
     transition: opacity 0.5s;
@@ -474,6 +590,6 @@ button {
 }
 
 #actions>div:last-child img {
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
 }
