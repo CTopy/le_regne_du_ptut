@@ -35,3 +35,5 @@ Vue.prototype = {
     $("#dark").remove();
 }
 }
+
+var vue = new Vue();

@@ -17,9 +17,23 @@ $("document").ready(function(){
     chargerScript("js/Jeu/Investigateur.js");
     chargerScript("js/Jeu/GrandAncien.js");
     
-    chargerScript("js/general.js");
-    
+    debutPartie();
 });
+
+function debutPartie() {
+    
+}
+
+function tourDeJeu() {
+}
+
+function perdu() {
+    
+}
+
+function gagne() {
+    
+}
     
 function chargerScript(path) {
     let script = document.createElement("script");
