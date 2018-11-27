@@ -217,7 +217,7 @@ class ScellerPortail extends Action {
     }
     
     afficher(investigateur) {
-            if (investigateur.nbAction>0 &&) {
+            if (investigateur.nbAction>0) {
             var iconeScelPort = document.getElementById("scellerPort");
             iconeScelPort.css("display","block");
             iconeScelPort.addEventListener("click", preaction());

@@ -1,6 +1,7 @@
 // Page entièrement chargé, on lance le jeu
+var JEU;
 document.addEventListener("DOMContentLoaded", function () {
-    new Game('renderCanvas');
+    JEU = new Game('renderCanvas');
 }, false);
 
 // Constructeur de l'objet Game.js
@@ -32,9 +33,6 @@ Game = function(canvasId) {
             engine.resize();
         }
     },false);
-    
-    // Création des lieux
-    var test = new Lieu("test", 5, ARKHAM);
 };
 
 Game.prototype = {
