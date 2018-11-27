@@ -4,6 +4,7 @@ class Entite {
     constructor(modele3D) {
         this.modele3D = modele3D
         this.mesh;
+        this.lieu;
     }
 }
 
