@@ -1,29 +1,27 @@
 "use strict"
 
 class Investigateur{
-    constructor(joueur){
+    constructor(joueur, nbAction, effet, image, element3D, cartesMax, nomPerso){
         this.joueur=joueur;
-        this.nbAction = 4;
-        this.santeMentale = 4;
-        this.effet="";
-        this.image="";
-        this.element3D="";
+        this.nbAction = nbAction;
+        this.effet=effet;
+        this.image=image;
+        this.element3D=element3D;
         this.estFou=false;
-       /* this.lieu=GARE;
+        this.lieu=GARE;
         this.position=GARE.origine;  //Babylon Vector 3*/
+        this.cartesMax = cartesMax;
+        this.santeMentale = 4;
+        this.main = new Main();
+        this.nomPersonnage = nomPerso;
+        this.mesh;
     }
     
     devenirFou() {
         this.estFou=true;
-        this.nbAction = 3;
-        this.effet = "";
-        this.image = "";
     }
     seRetablirDeFolie(){
         this.estFou=false;
-        this.nbAction = 3;
-        this.effet = "";
-        this.image = "";
     }
     
     marcher(lieu){
@@ -37,24 +35,19 @@ class Investigateur{
 
 class Detective extends Investigateur{
     constructor(joueur){
-        super(joueur);
-        this.personnage="Détective";
-        this.nbAction = 4;
-        this.santeMentale = 4;
-        this.nbCarteEnMainPutainDeMagicien = 7;
-        this.effet="Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail."
-        this.image="./images/detective.jpg";
-        this.element3D=""
-        this.estFou=false;
-        this.position = lieu.origine;
-        this.pion = BABYLON.SceneLoader.ImportMesh("", "", "./assets/modeles/investigateur.babylon", scene, function(newMeshes) {
+        super(joueur, 
+              4, 
+              "Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail.", 
+              "./images/detective.jpg", 
+              "./assets/modeles/investigateur.babylon", 
+              7,
+             "Détective");
+        this.mesh = BABYLON.SceneLoader.ImportMesh("", "", this.element3D, scene, function(newMeshes) {
             newMeshes.forEach(function(mesh){
                mesh.position = position;
             });
         });
     }
-    
-    
     
     devenirFou(){
         this.estFou=true;
@@ -69,26 +62,30 @@ class Detective extends Investigateur{
         this.image="./images/detective.jpg";
     }
 }
-/*
+
 class Docteur extends Investigateur{
     constructor(joueur){
-        super(joueur);
-        this.personnage="Docteur";
-        this.nbAction = 5;
-        this.santeMentale = 4;
-        this.nbCarteEnMainPutainDeMagicien = 7;
-        this.effet="Vous pouvez effectuer jusqu'à 5 actions par tour."
-        this.image="./images/docteur.jpg";
-        this.estFou=false;
+        super(joueur, 
+              5, 
+              "Vous pouvez effectuer jusqu'à 5 actions par tour.", 
+              "./images/docteur.jpg", 
+              "./assets/modeles/investigateur.babylon", 
+              7,
+              "Docteur");
+        this.mesh = BABYLON.SceneLoader.ImportMesh("", "", this.element3D, scene, function(newMeshes) {
+            newMeshes.forEach(function(mesh){
+               mesh.position = position;
+            });
+        });
     }
     
-    this.devenirFou = function(){
+    devenirFou(){
         this.estFou=true;
         this.nbAction = 4;
         this.effet = "Vous pouvez effectuer jusqu'à 4 actions par tour.";
         this.image = "./images/docteurFou.jpg";
     }
-    this.seRetablirDeFolie = function(){
+    seRetablirDeFolie(){
         this.estFou=false;
         this.nbAction = 5;
         this.effet="Vous pouvez effectuer jusqu'à 5 actions par tour."
@@ -96,29 +93,32 @@ class Docteur extends Investigateur{
     }
 }
 
-class Docteur extends Investigateur{
+class Conducteur extends Investigateur{
     constructor(joueur){
-        super(joueur);
-        this.personnage="Conducteur";
-        this.nbAction = 4;
-        this.santeMentale = 4;
-        this.nbCarteEnMainPutainDeMagicien = 7;
-        this.effet="Lors de l'action marcher, vous POUVEZ vous déplacer de 2 lieux au lieu de 1. De plus, vous êtes immunisé contre les effets d'Ithaqua."
-        this.image="./images/conducteur.jpg";
-        this.estFou=false;
+        super(joueur, 
+              5, 
+              "Lors de l'action marcher, vous POUVEZ vous déplacer de 2 lieux au lieu de 1. De plus, vous êtes immunisé contre les effets d'Ithaqua.", 
+              "./images/docteur.jpg", 
+              "./assets/modeles/investigateur.babylon", 
+              7,
+              "Conducteur");
+        this.mesh = BABYLON.SceneLoader.ImportMesh("", "", this.element3D, scene, function(newMeshes) {
+            newMeshes.forEach(function(mesh){
+               mesh.position = position;
+            });
+        });
     }
     
-    this.devenirFou = function(){
+    devenirFou(){
         this.estFou=true;
         this.nbAction = 3;
         this.effet = "Lors de l'action marcher, vous DEVEZ vous déplacer de 2 lieux au lieu de 1. De plus, vous êtes immunisé contre les effets d'Ithaqua.";
         this.image = "./images/conducteurFou.jpg";
     }
-    this.seRetablirDeFolie = function(){
+    seRetablirDeFolie(){
         this.estFou=false;
         this.nbAction = 4;
         this.effet="Lors de l'action marcher, vous POUVEZ vous déplacer de 2 lieux au lieu de 1. De plus, vous êtes immunisé contre les effets d'Ithaqua."
         this.image="./images/conducteur.jpg";
     }
 }
-*/
