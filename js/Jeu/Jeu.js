@@ -1,9 +1,6 @@
 $("document").ready(function(){
     //Initialisation du jeu, chargement dynamique des scripts
     
-    //Chargement des constantes
-    chargerScript("js/Jeu/constantes.js");
-    
     //Chargement de l'affichage
     chargerScript("js/Vue.js");
     

@@ -1,8 +1,5 @@
 // Lorsque le DOM est chargé
 document.addEventListener("DOMContentLoaded", function () {
-    // Constante permettant de passer en mode débug
-    // ('faut bien pouvoir accéder à l'inspecteur pour voir les erreurs -_-)
-    const DEBUG_MODE = true;
     // Passer à "true" pour activer le mode débug
     
     // Empêcher l'utilisateur d'ouvrir le menu contextuel (clic droit)

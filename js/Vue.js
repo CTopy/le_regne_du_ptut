@@ -38,11 +38,10 @@ class Vue {
         });
         
         //Ajouter un écouteur à la croix pour qu'elle quitte la carte
-        quitter.click(this.effacerDialogue);
+        quitter.click(this.effacerDialogue.bind(this));
     }
     
     effacerDialogue() {
-        alert(this.fond);
         this.fond.remove();
     }
 }

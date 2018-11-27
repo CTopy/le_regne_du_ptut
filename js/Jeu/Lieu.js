@@ -45,7 +45,7 @@ class Lieu {
         //Mesh invisible qui nous permet de gérer le click sur ce lieu
         this.mesh = BABYLON.MeshBuilder.CreateCylinder(this.nom, {
             height: 0.1,
-            diameter: 2.2
+            diameter: 2.5
         }, scene);
         this.mesh.position = this.origine;
 //        this.mesh.visibility = false;
@@ -78,12 +78,12 @@ class Lieu {
 };
 
 //********** DEFINITION DES LIEUX **********//
-var GARE = new Lieu("Gare", new BABYLON.Vector3(-23.6, 0.1, 5.3), ARKHAM);
-var UNIVERSITE = new Lieu("Université", new BABYLON.Vector3(-19.4, 0.1, 7.5), ARKHAM);
-var PARC = new Lieu("Parc", new BABYLON.Vector3(-18.0, 0.1, 5.3), ARKHAM);
-var COMMISSARIAT = new Lieu("Commissariat", new BABYLON.Vector3(-18.0, 0.1, 5.3), ARKHAM);
-var LOGE_SECRETE = new Lieu("Loge secrète", new BABYLON.Vector3(-13.0, 0.1, 2.9), ARKHAM);
-var RESTAURANT = new Lieu("Restaurant", new BABYLON.Vector3(-7.0, 0.1, 4.2), ARKHAM);
+var GARE = new Lieu('Gare', new BABYLON.Vector3(-23.6,0.1,5.6),ARKHAM);
+var RESTAURANT = new Lieu('Restaurant', new BABYLON.Vector3(-6.1,0.1,4.3),ARKHAM);
+var LOGE_SECRETE = new Lieu('Loge Secrète', new BABYLON.Vector3(-11.9,0.1,2.8),ARKHAM);
+var UNIVERSITE = new Lieu('Université', new BABYLON.Vector3(-19.4,0.1,7.7),ARKHAM);
+var COMMISSARIAT = new Lieu('Commissariat', new BABYLON.Vector3(-11.4,0.1,7.9),ARKHAM);
+var PARC = new Lieu('Parc', new BABYLON.Vector3(-18.0,0.1,0.4),ARKHAM);
 
 PARC.portail = true;
 
