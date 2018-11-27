@@ -1,11 +1,12 @@
     $("document").ready(function(){
         //Initialisation du jeu, chargement dynamique des scripts
 
-        //Chargement de l'affichage
-        chargerScript("js/Vue.js");
+        
 
         //Chargement des éléments du Jeu
         chargerScript("js/Jeu/Lieu.js");
+            //Chargement de l'affichage
+            chargerScript("js/Vue.js");
         chargerScript("js/Jeu/Action.js");
         chargerScript("js/Jeu/Deck.js");
         chargerScript("js/Jeu/Carte.js");
@@ -24,7 +25,13 @@ class Jeu {
         this.actions = new Array(new Marcher(), new VaincreCultiste(), new VaincreShoggoth(), new ScellerPortail());
         this.joueurs = new Array(new Detective(), new Detective());
         this.gdAnciens = new Array(new Cthulhu());
-        this.paquetIndice() = new Deck();
+        this.paquetIndice = new Deck();
+        this.paquetRelique = new Deck();
+        this.defausseIndice = new Deck();
+        this.defausseRelique = new Deck();
+        this.paquetInvocation = new Deck();
+        this.defausseInvocation = new Deck();
+        
         
         //Le joueur qui commence est aléatoire
         this.joueurActif = this.joueurs[Math.floor(Math.random() * Math.floor(joueurs.length))];
@@ -71,11 +78,12 @@ class Jeu {
     }
     
     phasePioche() {
-        
+        this.joueurActif.main.piocher(paquetIndice);
     }
     
     phaseInvocation() {
-        
+        this.defausseInvocation(paquetInvocation);
+        this.defausseInvocation[(defausseInvocation.length)-1].lieu;
     }
 
     checkFin() {
