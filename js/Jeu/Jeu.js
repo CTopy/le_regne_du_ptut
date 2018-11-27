@@ -1,9 +1,6 @@
 $("document").ready(function(){
     //Initialisation du jeu, chargement dynamique des scripts
     
-    //Chargement des constantes
-    chargerScript("js/Jeu/constantes.js");
-    
     //Chargement de l'affichage
     chargerScript("js/Vue.js");
     
@@ -20,23 +17,42 @@ $("document").ready(function(){
     debutPartie();
 });
 
+var joueurs = new Array(new Detective(), new Detective()); 
+
 function debutPartie() {
-    var joueurs = new Investigateur[];
-    for(var unJoueur of joueurs) {
-        var marcher = new Marcher(joueurActif);
-        var vaincCult = new VaincreCultiste(joueurActif);
-        var vaincShog = new VaincreShoggoth(joueurActif);
-        var scelPort = new ScellerPortail(joueurActif);
-    }
+    var marcher = new Marcher();
+    var vaincCult = new VaincreCultiste();
+    var vaincShog = new VaincreShoggoth();
+    var scelPort = new ScellerPortail();
+
+    var actions = new Array(marcher, vaincCult, vaincShog, scelPort);
+    
+    //Déterminer le joueur qui commence
+    var index = Math.floor(Math.random() * Math.floor(joueurs.length));
+    tourDeJeu(index, actions);
+    
 }
 
-function tourDeJeu() {
-    var joueurActif;
-    marcher.afficher(joueurActif);
-    vaincCult.afficher(joueurActif);
-    vaincShog.afficher(joueurActif);
-    scelPort.afficher(joueurActif);
+function tourDeJeu(index, actions) {
+    let joueurActif = joueur[index];
+    joueurActif.nbAction = 4;
+    for(uneAction of actions) {
+        uneAction.afficher()
+    }
+    joueurActif.watch(nbAction, function() {
+    for(uneAction of actions) {
+        uneAction.cacher()
+    }
+    for(uneAction of actions) {
+        uneAction.afficher()
+    }
+    });
     
+    var passerTour = document.getElementById("passerTour");
+    if (index < joueurs.length)
+        passerTour.addEventListener("click", tourDeJeu(joueurs[index+1]));
+    else 
+        passerTour.addEventListener("click", tourDeJeu(joueurs[0]), actions);
 }
 
 function perdu() {
