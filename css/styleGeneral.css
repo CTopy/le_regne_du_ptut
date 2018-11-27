@@ -592,33 +592,291 @@ button {
 #actions>div:last-child img {
     height: 150px;
     width: 150px;
-}
-
-
+    }
+    
 /**************************************************************
-************************* INTERFACE 4/3 ***************************/
+************************* INTERFACE 2-3 ***************************/
 
 
-@media screen and (min-aspect-ratio: 4/3) {
+@media screen and (max-width: 1400px){
 
     /***** JOUEUR ACTIF *****/
 
 /* TABLEAU DE JOUEUR */
     .joueurActif {
-    --largTabJoueur: 70vw;
-    bottom: -11.3vh;
+    --largTabJoueur: 81vw;
+    bottom: -14.5vh;
+    left: 22vh;
+    z-index: 1;
 }
 
 /* MAIN */
 
 .joueurActif .main {
-    max-width: 80%;
-    left: 25%;
+    max-width: 60%;
+    left: 26%;
     top: 43%;
 }
 
 .joueurActif .main img {
-    margin-left: -6%;
+    margin-left: -6.5%;
+    height : 12vw;
 }
+
+
+/* ACTIONS */
+
+#actions {
+    margin-right: 10px;
+    top: 8vh;
+    height: 70vh;
+}
+
+.action img {
+    width: 80px;
+    height: 80px;
+}
+
+.action p {
+    font-family: 'Built';
+    font-size: 14px;
+    color: aqua;
+}
+
+#actions>div:last-child img {
+    height: 100px;
+    width: 100px;
+    
+}
+
+
+/* SANTE MENTALE */
+
+.joueurActif .santeMentale {
+    max-width: 32%;
+    top : 8%;
+    left : 25%;
+}
+    
+/* NB ACTIONS */
+
+.nbActions {
+    width : 7vh;
+    height : 7vh;
+}
+
+.nbActions p {
+    font-size: 30pt;  
+}
+    
+.joueurActif .investigateur p:last-child {
+    font-size: 0.9vw;
+    font-family: 'Oswald';
+    width: 90%;
+    padding: 14px 20px;
+    text-shadow: -2px 2px 0 black;  
+    
+}
+
+.joueurActif .investigateur div{
+    background-image: url(../assets/images/backgrounds/description_joueur.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding-left: 25px;
+    
+}
+    
+/***** POSITIONNEMENT JOUEUR 2 *****/
+.j2 {
+    top: 14vh;
+}
+
+/***** POSITIONNEMENT JOUEUR 3 *****/
+.j3 {
+    top : 35vh;
+}
+
+/***** POSITIONNEMENT JOUEUR 4 *****/
+.j4 {
+    top: 56vh;
+}
+
+    
+ /***** JOUEUR PASSIF *****/
+
+/* GENERAL */
+.joueurPassif {
+    --largeur : 37vw;
+    left: -22.8vw;   
+}
+
+/* INVESTIGATEUR */
+
+.joueurPassif .investigateur {
+    top : 10%;
+    left : 58%;
+}
+
+.joueurPassif .investigateur img {
+    margin-bottom: 2%;
+    margin-top: -2%;
+    max-width : 33%;
+    border: 5px solid black;
+}
+
+.joueurPassif .investigateur p:first-of-type {
+    top: 25px;
+    font-size : 0.9vw;
+}
+
+.joueurPassif .investigateur p:first-child{
+        font-size: 20px;
+        margin-top: 18px;
+}
+    
+.joueurPassif .investigateur div:nth-child(2) {
+    /*display: none;*/
+    width: 190px;
+    height: 80px;
+    margin-left: -10px;   
+}
+
+.joueurPassif .investigateur p:nth-child(3) {
+    position : relative;
+    font-size : 0.6vw;
+    text-align: center;
+    width : 69%;
+    border-radius : 5px;
+    text-align: justify;
+    transition: all 0.25s linear;
+    font-family: 'Oswald';
+    margin-top: -40%;
+    text-shadow: 1px 2px 0 rgba(0,0,0,1);
+    
+    
+}
+
+/* SANTE MENTALE ET ACTIONS */
+
+.joueurPassif .santeMentale {
+    top: 48%;
+}
+
+.joueurPassif .nbActions{
+    top: 22%;
+}
+
+.joueurPassif .nbActions p{
+    font-size: 30px;
+}
+
+.joueurPassif .santeMentale p {
+    margin-top: 0.6vw;
+    font-size: 2vw;
+}
+    
+/* MAIN */
+
+.joueurPassif .main {
+    max-width: 65%;
+    max-height: 95%;
+    top: 11%;
+    left: 2%;
+}
+
+.joueurPassif .carte {
+    height : 10.8vw;
+}
+
+.joueurPassif .carte:not(:first-child) {
+   margin-left: -25%;
+}
+
+/***** BOITES DE DIALOGUE *****/
+
+#dark .carte + img {
+    position : absolute;
+    top: 11%;
+    right: 35%;
+    max-width: 5%;
+}
+     
+ /* GRANDS ANCIENS */
+
+#gdAnciens {
+    top: -18px;
+    width: 100vw;
+    margin-top: 9px;
+}
+
+#gdAnciens img {
+    height: 5vw;
+    width: 5vw;
+    margin: 13px 20px 0 20px;
+   
+}
+
+.ancien--cache{
+    background-size: 110px;
+    height: 40px;
+    top: -79px;
+}
+
+.ancien--decouvert{
+    top: -79px;
+    height: 40px;
+    background-size: 110px;
+}
+
+.ancien--decouvert:hover {
+    top: 0;
+    transition : top 0.5s;
+}
+    
+.ancien {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-top: 110px;
+}
+
+.ancien p {
+    
+    font-family: 'Built';
+    text-shadow: 2px 2px 3px black;
+    margin-top: -85%;
+    
+}
+
+.ancien p:nth-of-type(2) {
+    max-width: 7.2vw;
+    font-size: 9px;
+    top: 12vh;
+    width: 90%;
+    text-align: center;
+
+
+}
+
+}
+
+@media screen and (max-width: 1300px){
+    #gdAnciens{
+        display: none;
+    }
+    
+    .joueurActif {
+        display: none;
+    }
+    
+    #actions{
+        display: none;
+    }
+    
+    .joueurPassif{
+        display: none;
+    }
 
 }
