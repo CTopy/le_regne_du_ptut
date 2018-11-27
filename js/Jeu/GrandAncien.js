@@ -1,75 +1,59 @@
 "use strict";
 
 class GrandAncien{
-    constructor(){
-        this.nom;
-        this.effet;
-        this.reveille; //boolean
-        this.invocation; //video d'invocation?
+    constructor(nom, effet, invocation){
+        this.nom = nom;
+        this.effet = effet;
+        this.estReveille = false; //boolean
+        this.invocation = invocation; //video d'invocation?
     }
     
     reveil(){
         //lancer la video?
-        this.reveille = true;
+        this.estReveille = true;
     }
 }
 
 class Azathoth extends GrandAncien{
     constructor(){
-        this.nom = "Azathoth"
-        this.effet="Retirez de la parie 3 cultistes de la réserve."
-        this.reveille=false;
-        this.invocation="";
+        super("Azathoth", "Retirez de la parie 3 cultistes de la réserve.", "")
     }
     reveil(){
         //lancer la video?
-        this.reveille = true;
+        this.estReveille = true;
         //jeu.reserveCultiste-3;
     }
 }
 
 class Yig extends GrandAncien{
     constructor(){
-        this.nom = "Yig"
-        this.effet="Sceller un portail nécessite une carte indice supplémentaire d'une ville reliée."
-        this.reveille=false;
-        this.invocation="";
+        super("Yig", "Sceller un portail nécessite une carte indice supplémentaire d'une ville reliée.", "")
     }
     reveil(){
         //lancer la video?
-        this.reveille = true;
-        //jeu.reserveCultiste--;
+        this.estReveille = true;
+        //jeu.reserveCultiste-3;
     }
 }
 
 class Dagon extends GrandAncien{
     constructor(){
-        this.nom = "Dagon"
-        this.effet="Placez un cultiste sur chaque portail qu'il soit ouvert ou fermé."
-        this.reveille=false;
-        this.invocation="";
+        super("Dagon", "Placez un cultiste sur chaque portail qu'il soit ouvert ou fermé.", "")
     }
     reveil(){
         //lancer la video?
-        this.reveille = true;
-        for(var unLieu of lieux){
-            if(unLieux.portail){
-                unLieu.ajouterEntite(new Cultiste());
-            }
-        }
+        this.estReveille = true;
+        //jeu.reserveCultiste-3;
     }
 }
 
-class Cthulhu extends GrandAncien{
+class Dagon extends GrandAncien{
     constructor(){
-        this.nom = "Cthulhu"
-        this.effet="Le monde est plongé dans la folie, le chaos et la destruction. Vous avez perdu la partie."
-        this.reveille=false;
-        this.invocation="";
+        super("Cthulhu", "Le monde est plongé dans la folie, le chaos et la destruction. Vous avez perdu la partie.", "")
     }
     reveil(){
         //lancer la video?
-        this.reveille = true;
-        //jeu.perdu!;
+        this.estReveille = true;
+        //jeu.reserveCultiste-3;
     }
 }
