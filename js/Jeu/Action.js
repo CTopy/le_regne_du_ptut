@@ -15,9 +15,23 @@ class Marcher extends Action {
         this.nom = "Marcher";
         super(investigateur);
     }
+    
+    afficher(investigateur) {
+        //on affiche l'icone marcher si l'investigateur a assez d'action
+        if (investigateur.nbAction>0) {
+            var iconeMarcher = document.getElementById("marcher");
+            iconeMarcher.css("display","block");
+            iconeMarcher.addEventListener("click", preaction());
+        } else {
+            var iconeMarcher = document.getElementById("marcher");
+            iconeMarcher.css("display","none");
+            iconeMarcher.removeEventListener("click", preaction());
+        }
+    }
+
     //redéfinition des méthodes
     preaction() {
-        //on prend les lieux connectés à l"emplacement de l'investigateur
+        //on prend les lieux connectés à l'emplacement de l'investigateur
         var liens = this.investigateur.lieu.lieuxConnectes;
         for (var unLieu of liens) {
             // pour chaque lieu, on les met en exergue (pour l'utilisateur) et on lui met un écouteur
@@ -42,9 +56,28 @@ class VaincreCultiste extends Action {
     constructor (investigateur) {
         this.nom = "Vaincre un cultiste";
         super(investigateur);
-        this.entites = investigateur.lieu.entité;
+        this.entites = investigateur.lieu.entite;
     }
     
+    afficher(investigateur) {
+        var cultistes=0;
+        for(var uneEntite of this.entites) {
+            if (typeof uneEntite === typeof new Cultiste()) {
+                cultistes++;
+            }
+        }
+
+        if (investigateur.nbAction>0 && cultistes>0) {
+            var iconeVaincCult = document.getElementById("vaincreCult");
+            iconeVaincCult.css("display","block");
+            iconeVaincCult.addEventListener("click", preaction());
+        } else {
+            var iconeVaincCult = document.getElementById("vaincreCult");
+            iconeVaincCult.css("display","none");
+            iconeVaincCult.removeEventListener("click", preaction());
+        }
+    }
+
     preaction() {
         //on créer une div pour le slider
         var newDiv = document.createElement("div");
@@ -103,6 +136,26 @@ class VaincreShoggoth extends Action {
         super(investigateur);
         this.entites = investigateur.lieu.entité;
     }
+    
+    afficher(investigateur) {
+        var shoggoths=0;
+        for(var uneEntite of this.entites) {
+            if (typeof uneEntite === typeof new Shoggoth()) {
+                shoggoths++;
+            }
+        }
+
+        if (investigateur.nbAction>2 && shoggoths>0) {
+            var iconeVaincShog = document.getElementById("vaincreShog");
+            iconeVaincCult.css("display","block");
+            iconeVaincCult.addEventListener("click", preaction());
+        } else {
+            var iconeVaincShog = document.getElementById("vaincreShog");
+            iconeVaincCult.css("display","none");
+            iconeVaincCult.removeEventListener("click", preaction());
+        }
+    }
+    
     
     preaction() {
         //on créer une div pour le slider
@@ -163,8 +216,34 @@ class ScellerPortail extends Action {
         var cartes = investigateur.main;
     }
     
+    afficher(investigateur) {
+            if (investigateur.nbAction>0 &&) {
+            var iconeScelPort = document.getElementById("scellerPort");
+            iconeScelPort.css("display","block");
+            iconeScelPort.addEventListener("click", preaction());
+        } else {
+            var iconeScelPort = document.getElementById("scellerPort");
+            iconeScelPort.css("display","none");
+            iconeScelPort.removeEventListener("click", preaction());
+        }
+    }
+    
     preaction() {
-        
+        var compteur = 0;
+        for (var i=0; i<6; i++) {
+            for (var uneCarte of cartes) {
+                if (typeof uneCarte === typeof new Indice()) {
+                    if (investigateur.lieu === uneCarte.ville) {
+                        compteur++;
+                    }
+                }
+            }
+        }
+        if(compteur===5) {
+            faireAction();
+        } else {
+            alert("Vous n'avez pas assez de cartes "+investigateur.lieu);
+        }
     }
                         
     faireAction() {
