@@ -52,20 +52,24 @@ class Dagon extends GrandAncien{
     reveil(){
         //lancer la video?
         this.reveille = true;
-        //jeu.reserveCultiste--;
+        for(var unLieu of lieux){
+            if(unLieux.portail){
+                unLieu.ajouterEntite(new Cultiste());
+            }
+        }
     }
 }
 
-class Yig extends GrandAncien{
+class Cthulhu extends GrandAncien{
     constructor(){
-        this.nom = "Yig"
-        this.effet="Sceller un portail nécessite une carte indice supplémentaire d'une ville reliée."
+        this.nom = "Cthulhu"
+        this.effet="Le monde est plongé dans la folie, le chaos et la destruction. Vous avez perdu la partie."
         this.reveille=false;
         this.invocation="";
     }
     reveil(){
         //lancer la video?
         this.reveille = true;
-        //jeu.reserveCultiste--;
+        //jeu.perdu!;
     }
 }

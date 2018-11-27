@@ -27,7 +27,7 @@ class Investigateur{
     }
     
     marcher(lieu){
-        var coordoneeDestination = destination.ajouterEntite;
+        var coordoneeDestination = destination.ajouterEntite(this);
         //animation?
         var animationMvnt = new BABYLON.animation("animationInvestigateur", "position", 30,BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
         this.lieu=coordoneeDestination;
@@ -45,7 +45,7 @@ class Detective extends Investigateur{
         this.image="./images/detective.jpg";
         this.element3D=""
         this.estFou=false;
-        this.position;
+        this.position = lieu.origine;
         this.pion = BABYLON.SceneLoader.ImportMesh("", "", "./assets/modeles/investigateur.babylon", scene, function(newMeshes) {
             newMeshes.forEach(function(mesh){
                mesh.position = position;
