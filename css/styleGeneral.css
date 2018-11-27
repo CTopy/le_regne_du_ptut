@@ -66,7 +66,7 @@ p {
     border-radius: 4%;
 }
 
-#quitter, .carte, .action img{
+#dark img+img, .carte, .action img{
     cursor : pointer;
 }
 
@@ -433,11 +433,13 @@ p {
     position : relative;
 }
 
-#quitter {
+/* Croix */
+#dark img+img {
     position : absolute;
     top: 11%;
     right: 35%;
-    max-width: 5%;
+    height: 100px;
+    width: 100px;
 }
 
 button {
@@ -574,7 +576,7 @@ button {
     margin-right: 10px;
 }
 
-.action img:hover + p {
+.action img:hover+p {
     opacity: 1;
     z-index: 1;
     transition: opacity 0.5s;

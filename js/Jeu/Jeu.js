@@ -17,8 +17,6 @@ $("document").ready(function(){
     chargerScript("js/Jeu/Investigateur.js");
     chargerScript("js/Jeu/GrandAncien.js");
     
-    chargerScript("js/general.js");
-    
 });
     
 function chargerScript(path) {

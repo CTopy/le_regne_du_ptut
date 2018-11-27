@@ -7,7 +7,7 @@ class Investigateur{
         this.santeMentale = 4;
         this.effet="";
         this.image="";
-        this.element3D="";
+        this.mesh;
         this.estFou=false;
        /* this.lieu=GARE;
         this.position=GARE.origine;  //Babylon Vector 3*/
@@ -42,7 +42,7 @@ class Detective extends Investigateur{
         this.santeMentale = 4;
         this.nbCarteEnMainPutainDeMagicien = 7;
         this.effet="Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail."
-        this.image="./images/detective.jpg";
+        this.image="./assets/images/investigateurs/detective.jpg";
         this.element3D=""
         this.estFou=false;
         this.position = lieu.origine;
