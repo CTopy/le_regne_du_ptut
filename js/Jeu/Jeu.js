@@ -21,10 +21,22 @@ $("document").ready(function(){
 });
 
 function debutPartie() {
-    
+    var joueurs = new Investigateur[];
+    for(var unJoueur of joueurs) {
+        var marcher = new Marcher(joueurActif);
+        var vaincCult = new VaincreCultiste(joueurActif);
+        var vaincShog = new VaincreShoggoth(joueurActif);
+        var scelPort = new ScellerPortail(joueurActif);
+    }
 }
 
 function tourDeJeu() {
+    var joueurActif;
+    marcher.afficher(joueurActif);
+    vaincCult.afficher(joueurActif);
+    vaincShog.afficher(joueurActif);
+    scelPort.afficher(joueurActif);
+    
 }
 
 function perdu() {
