@@ -1,12 +1,19 @@
 "use strict"
 
-class Investigateur{
+class Entite {
+    constructor(modele3D) {
+        this.modele3D = modele3D
+        this.mesh;
+    }
+}
+
+class Investigateur extends Entite{
     constructor(joueur, nbAction, effet, image, element3D, cartesMax, nomPerso){
+        super(element3D);
         this.joueur=joueur;
         this.nbAction = nbAction;
         this.effet=effet;
         this.image=image;
-        this.element3D=element3D;
         this.estFou=false;
         this.lieu=GARE;
         this.position=GARE.origine;  //Babylon Vector 3*/
