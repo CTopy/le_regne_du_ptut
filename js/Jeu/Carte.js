@@ -1,10 +1,14 @@
 "use strict";
 
+
 class Carte{
     
-    constructor(nom,image){
+    constructor(nom,image, deckOrigine){
         this.nom=nom;
-        this.image=image;
+        this.image=image; //src de l'image
+        var html = createElement("img");
+        html.src = "";
+        html.addClass("carte");
     }
 }
 
