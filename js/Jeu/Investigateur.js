@@ -28,8 +28,9 @@ class Investigateur{
     
     marcher(lieu){
         var coordoneeDestination = destination.ajouterEntite(this);
+        this.lieu.retirerEntite(this);
         //animation?
-        var animationMvnt = new BABYLON.animation("animationInvestigateur", "position", 30,BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+        //var animationMvnt = new BABYLON.animation("animationInvestigateur", "position", 30,BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
         this.lieu=coordoneeDestination;
     }
 }
