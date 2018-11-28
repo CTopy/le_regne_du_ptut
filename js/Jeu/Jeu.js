@@ -24,8 +24,10 @@ class Jeu {
     constructor() {
         //Déclaration des données membres
         this.actions = new Array(new Marcher(), new VaincreCultiste(), new VaincreShoggoth(), new ScellerPortail());
-        this.joueurs = new Array(new Detective(), new Detective());
-        this.gdAnciens = new Array(new Cthulhu());
+        this.joueurs;
+        this.nbjoueur = 4;
+        this.grandsAnciens = new Array(new Azathoth(), new Yig(), Dagon());
+        this.cthulhu = new Cthulhu();
         this.paquetIndice = new Deck();
         this.paquetRelique = new Deck();
         this.defausseIndice = new Deck();
@@ -43,12 +45,6 @@ class Jeu {
     }
     
     mettreEnPlaceJeu() {
-        //Mise en place des Grands Anciens
-        let grandsAnciens = new Array(new Azathoth(), new Yig(), Dagon());
-        grandsAnciens.melanger();
-        for (var i=0; i<7; i++) {
-            
-        }
         
         function melanger(array) {
                 var currentIndex = array.length, temporaryValue, randomIndex;
@@ -67,6 +63,49 @@ class Jeu {
             }
             return array;
         }
+        
+        //Mise en place des Grands Anciens
+        melanger(this.grandsAnciens);
+        
+        let divGlobale;
+        let imgGdAncien;
+        let paraNom;
+        let paraEffet;
+        for (var i=0; i<6; i++) {
+            divGlobale = document.createElement("div");
+            divGlobale.addClass("ancien ancien--cache");
+            imgGdAncien = document.createElement("img");
+            imgGdAncien.src = this.grandsAnciens[i].img;
+            paraNom = document.createElement("p");
+            paraNom.innerHTML = this.grandsAnciens[i].nom;
+            paraEffet = document.createElement("p");
+            paraEffet.innerHTML = this.grandsAnciens[i].effet;
+            divGlobale.append(imgGdAncien, paraNom, paraEffet);
+            $("#gdAnciens").append(divGlobale);
+        }
+        
+        //Mise en place de Cthulhu
+        divGlobale = document.createElement("div");
+        divGlobale.addClass("ancien ancien--cache");
+        imgGdAncien = document.createElement("img");
+        imgGdAncien.src = this.cthulhu.img;
+        paraNom = document.createElement("p");
+        paraNom.innerHTML = this.cthulhu.nom;
+        paraEffet = document.createElement("p");
+        paraEffet.innerHTML = this.cthulhu.effet;
+        divGlobale.append(imgGdAncien, paraNom, paraEffet);
+        $("#gdAnciens").append(divGlobale);
+        
+        //Invocation des cultistes
+        this.phaseInvocation(2,3, new Cultiste());
+        this.phaseInvocation(2,2, new Cultiste());
+        this.phaseInvocation(2,1, new Cultiste());
+        //Invocation du Shoggoth
+        this.phaseInvocation(1,1, new Shoggoth());
+        
+        //On donne un personnage à chaque joueur
+        
+        
     }
 
     tourDeJeu() {
@@ -74,7 +113,7 @@ class Jeu {
             uneAction.afficher()
         }
         //A chaque fois que le joueur joue on réévalue les actions
-        this.joueurActif.watch(joueurActif.nbAction, function() {
+        this.joueurActif.watch(nbAction, function() {
             //Si le joueur est fou, on vérifie si c'est la fin (si tous les joueurs sont fous)
             //ou
             //Si le joueur est sur un portail et que ce portail est scellé
@@ -112,9 +151,22 @@ class Jeu {
         this.joueurActif.main.piocher(paquetIndice);
     }
     
-    phaseInvocation() {
-        this.defausseInvocation(paquetInvocation);
-        this.defausseInvocation[(defausseInvocation.length)-1].lieu;
+    phaseInvocation(nbCarteDefaussee, nbEntiteAInvoc, typeEntiteAInvoc) {
+        for(var j=0 ; j<nbCarteDefaussee ; j++) {
+            this.defausseInvocation.piocher(this.paquetInvocation);
+            let lieuInvoc = this.defausseInvocation[(this.defausseInvocation.length)-1].lieu;
+            if (typeof typeEntiteAInvoc = typeof new Cultiste()) {
+                for (var i=0 ; i<nbEntiteAInvoc ; i++) {
+                    lieuInvoc.ajouterEntite(new Cultiste());
+                    this.nbCultistes++;
+                }
+            } else if (typeof typeEntiteAInvoc = typeof new Shoggoth()) {
+                for (var i=0 ; i<nbEntiteAInvoc ; i++) {
+                    lieuInvoc.ajouterEntite(new Shoggoth());
+                    this.nbShoggoth++;
+                }
+            }
+        }
     }
 
     checkFin() {
