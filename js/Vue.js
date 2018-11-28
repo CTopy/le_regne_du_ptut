@@ -53,14 +53,12 @@ class Vue {
         let index = entite.lieu.findIndex(function() {
            return entite; 
         });
-        
-        entite.mesh.visibility = false;
         entite.mesh.position = entite.lieu.coords[index];
         entite.mesh.visibility = true;
     }
     
     //Fonction pour test
-        creerCube(lieu) {
+        creerCylindre(lieu) {
             this.cylindres++;
             //Récupérer l'index de l'entité dans son lieu
             let mesh = BABYLON.MeshBuilder.CreateCylinder("cylindre"+this.cylindres, {}, this.scene);
@@ -72,9 +70,11 @@ class Vue {
 }
 
 var vue = new Vue();
+var detective = new Detective("topy");
+GARE.ajouterEntite(detective);
 /*
 Permet d'afficher un cylindre sur tous les lieux
 for (var unLieu of lieux)
     for (var i=0; i<10; i++) 
-        vue.creerCube(unLieu);
+        vue.creerCylindre(unLieu);
 */

@@ -71,7 +71,6 @@ class Lieu {
     ajouterEntite(newEntite) {
         this.nbEntites++;
         this.entites.push(newEntite);
-        return this.coords[nbEntites-1];
     }
 
     /** de la meme maniere, nous pouvons retirer une entité

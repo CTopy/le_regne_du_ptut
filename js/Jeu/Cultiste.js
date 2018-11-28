@@ -1,6 +1,6 @@
 "use strict";
 
-class Cultiste{
+class Cultiste extends Entite{
     
     constructor(lieu){
         this.lieu = lieu;

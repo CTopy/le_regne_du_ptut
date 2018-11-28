@@ -1,6 +1,6 @@
 "use strict";
 
-class Shoggoth{
+class Shoggoth extends Entite{
     
     constructor(lieu){
         this.lieu = lieu;
