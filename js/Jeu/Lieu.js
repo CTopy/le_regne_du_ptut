@@ -24,16 +24,21 @@ class Lieu {
         //Contient toutes les entités dans ce lieu
         this.entites = new Array();
         let xyz = this.origine.asArray();      //Variable temporaire, origine sous forme de tableau
+        let x = xyz[0];
+        let y = xyz[1];
+        let z = xyz[2];
         //Les coordonnées des 7 places différentes possibles sur un lieu
         this.coords = new Array(
-            this.origine,
-            new BABYLON.Vector3(xyz[0]*1.076, xyz[1], xyz[2]),
-            new BABYLON.Vector3(xyz[0]*0.928, xyz[1], xyz[2]),
-            new BABYLON.Vector3(xyz[0]*1.076, xyz[1], xyz[2]*1.264),
-            new BABYLON.Vector3(xyz[0], xyz[1], xyz[2]*1.264),
-            new BABYLON.Vector3(xyz[0], xyz[1], xyz[2]*0.698),
-            new BABYLON.Vector3(xyz[0]*0.928, xyz[1], xyz[2]*1.264),
-            new BABYLON.Vector3(xyz[0], xyz[1], xyz[2]*0.698)
+            this.origine,                           //0
+            new BABYLON.Vector3(x+1, y, z),         //1
+            new BABYLON.Vector3(x-1, y, z),         //2
+            new BABYLON.Vector3(x, y, z+1),         //3
+            new BABYLON.Vector3(x+0.5, y, z-1),     //4
+            new BABYLON.Vector3(x-0.5, y, z-1),     //5
+            new BABYLON.Vector3(x+1, y, z+1),       //6
+            new BABYLON.Vector3(x-1, y, z+1),       //7
+            new BABYLON.Vector3(x+1.5, y, z-1),     //8
+            new BABYLON.Vector3(x-1.5, y, z-1)      //9
         );
         
         //La liste des lieux connectés à celui-ci
@@ -78,7 +83,7 @@ class Lieu {
 };
 
 //********** DEFINITION DES LIEUX **********//
-var GARE = new Lieu('Gare', new BABYLON.Vector3(-23.6,0.1,5.6),ARKHAM);
+var GARE = new Lieu('Gare', new BABYLON.Vector3(-23.6,0.1,5.4),ARKHAM);
 var RESTAURANT = new Lieu('Restaurant', new BABYLON.Vector3(-6.1,0.1,4.3),ARKHAM);
 var LOGE_SECRETE = new Lieu('Loge Secrète', new BABYLON.Vector3(-11.9,0.1,2.8),ARKHAM);
 var UNIVERSITE = new Lieu('Université', new BABYLON.Vector3(-19.4,0.1,7.7),ARKHAM);

@@ -17,7 +17,7 @@ class Vue {
         this.canvas.after(this.fond);
         
         //Clone la carte clickée
-        var clone = carte.clone();
+        let clone = carte.clone();
         
         //Création du bouton quitter
         var quitter = $(document.createElement("img"));
@@ -44,6 +44,7 @@ class Vue {
     }
     
     effacerDialogue() {
+        this.fond.empty();
         this.fond.remove();
     }
     
@@ -64,18 +65,16 @@ class Vue {
             //Récupérer l'index de l'entité dans son lieu
             let mesh = BABYLON.MeshBuilder.CreateCylinder("cylindre"+this.cylindres, {}, this.scene);
             mesh.visibility = false;
-            mesh.position = lieu.coords[this.cylindres%7];
-            console.log(this.cylindres%6);
+            mesh.position = lieu.coords[this.cylindres%10];
+            console.log(this.cylindres%10);
             mesh.visibility = true;
     }
 }
 
 var vue = new Vue();
-for (var i=0; i<7; i++) {
-    vue.creerCube(GARE);
-    vue.creerCube(UNIVERSITE);
-    vue.creerCube(COMMISSARIAT);
-    vue.creerCube(PARC);
-    vue.creerCube(LOGE_SECRETE);
-    vue.creerCube(RESTAURANT);
-}
+/*
+Permet d'afficher un cylindre sur tous les lieux
+for (var unLieu of lieux)
+    for (var i=0; i<10; i++) 
+        vue.creerCube(unLieu);
+*/
