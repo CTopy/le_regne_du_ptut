@@ -74,7 +74,7 @@ class Jeu {
             uneAction.afficher()
         }
         //A chaque fois que le joueur joue on réévalue les actions
-        this.joueurActif.watch(nbAction, function() {
+        this.joueurActif.watch(joueurActif.nbAction, function() {
             //Si le joueur est fou, on vérifie si c'est la fin (si tous les joueurs sont fous)
             //ou
             //Si le joueur est sur un portail et que ce portail est scellé
@@ -99,6 +99,13 @@ class Jeu {
         this.checkFin();
         this.phaseInvocation();
         this.checkFin();
+        this.joueurActif.unwatch(nbAction);
+        this.joueurActif.nbAction = joueurActif.nbActionMax;
+        
+        let index = this.joueurActif.indexOf(joueurs);
+        index = index++%4;
+        this.joueurActif = this.joueurs[index];
+        this.tourDeJeu();
     }
     
     phasePioche() {
