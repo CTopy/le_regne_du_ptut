@@ -74,6 +74,14 @@ class Lieu {
         return this.coords[nbEntites-1];
     }
 
+    /** de la meme maniere, nous pouvons retirer une entité
+    **/
+    
+    retirerEntite(entite){
+        this.nbEntites--;
+        this.entites.remove(entite);
+    }
+    
     /** 
     /* Mettre en surbrillance le lieu
     **/
