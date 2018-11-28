@@ -35,15 +35,16 @@ Player.prototype = {
         
         // Cette partie du code sera à retirer dans le programme final, elle permet de mettre en place un viseur qui donne
         // les coordonnées à laquelle la caméra regarde. Ca sera utile notamment pour créer les lieux
-            var self = this;
+        var self = this;
 
-            var id = window.setInterval(function () {
+        var id = window.setInterval(function () {
+            if(false)
                 console.log(self.camera.target);
-            },2000);
+        },2000);
 
-            $("[src=\"assets/images/folie.jpg\"]").click(function() {
-                window.clearInterval(id);
-            });
+        $("[src=\"assets/images/folie.jpg\"]").click(function() {
+            window.clearInterval(id);
+        });
         //***********************************************************
     },
 };

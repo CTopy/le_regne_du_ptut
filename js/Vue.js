@@ -6,7 +6,6 @@ class Vue {
         //Définition du fond pour les boites de dialogue
         this.fond = $(document.createElement("div"));
         this.fond.attr("id", "dark");
-        console.log(this.fond);
         this.canvas = $("#renderCanvas");
         this.cylindres = -1;
         this.scene = JEU.scene;

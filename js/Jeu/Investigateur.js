@@ -3,15 +3,12 @@
 class Entite {
     constructor(modele) {
         this.scene = JEU.scene;
-        this.modele = modele;
-        this.mesh;
         this.lieu;
-        let _this = this;
-        
                 
         // Importer le modèle
-        BABYLON.SceneLoader.ImportMesh("", "./assets/modeles/", _this.modele, _this.scene, function (meshes) {
-            _this.mesh = meshes[0];
+        BABYLON.SceneLoader.ImportMesh("", "./assets/modeles/", modele, this.scene, function (meshes) {
+            console.log(meshes[0]);
+            this.mesh = meshes[0];
         });
     }
 }
@@ -55,6 +52,7 @@ class Detective extends Investigateur{
               "detective.babylon", 
               7,
              "Détective");
+        console.log(this.mesh);
     }
     
     devenirFou(){
