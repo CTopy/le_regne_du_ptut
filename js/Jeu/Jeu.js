@@ -1,4 +1,5 @@
-    $("document").ready(function(){
+
+$("document").ready(function(){
         //Initialisation du jeu, chargement dynamique des scripts
 
         
@@ -42,7 +43,30 @@ class Jeu {
     }
     
     mettreEnPlaceJeu() {
+        //Mise en place des Grands Anciens
+        let grandsAnciens = new Array(new Azathoth(), new Yig(), Dagon());
+        grandsAnciens.melanger();
+        for (var i=0; i<7; i++) {
+            
+        }
         
+        function melanger(array) {
+                var currentIndex = array.length, temporaryValue, randomIndex;
+
+                // While there remain elements to shuffle...
+                while (0 !== currentIndex) {
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+            return array;
+        }
     }
 
     tourDeJeu() {
@@ -125,14 +149,58 @@ class Jeu {
     }
 
     perdu() {
-
+        let baseHTML = "<div id=\"dark\"></div>";
+        let canvas = $("#renderCanvas");
+        
+        //Ajouter le fond noir
+        this.canvas.after(this.baseHTML);
+        
+        //Générer le code HTML de la carte
+        let codeHTML = "<img id=\"perdu\" src=\"assets/images/perdu.png\" /><img src=\"assets/images/quitter.png\" id=\"quitter\" />";
+        
+        //Ajouter l'overlay noir à la page
+        $("#dark").append(codeHTML);
+        
+        //Ajouter un écouteur à la croix pour qu'elle change au survol
+        $("#quitter").hover(function (e){
+            $(this).attr("src", "assets/images/quitter_survol.png");
+        }, function(e) {
+            $(this).attr("src", "assets/images/quitter.png");
+        });
+        
+        //Ajouter un écouteur à la croix pour qu'elle referme la carte
+        $("#quitter").click(this.retourMenu.bind);
     }
 
     gagne() {
-
+        let baseHTML = "<div id=\"dark\"></div>";
+        let canvas = $("#renderCanvas");
+        
+        //Ajouter le fond noir
+        this.canvas.after(this.baseHTML);
+        
+        //Générer le code HTML de la carte
+        let codeHTML = "<img id=\"gagne\" src=\"assets/images/gagne.png\" /><img src=\"assets/images/quitter.png\" id=\"quitter\" />";
+        
+        //Ajouter l'overlay noir à la page
+        $("#dark").append(codeHTML);
+        
+        //Ajouter un écouteur à la croix pour qu'elle change au survol
+        $("#quitter").hover(function (e){
+            $(this).attr("src", "assets/images/quitter_survol.png");
+        }, function(e) {
+            $(this).attr("src", "assets/images/quitter.png");
+        });
+        
+        //Ajouter un écouteur à la croix pour qu'elle referme la carte
+        $("#quitter").click(this.retourMenu.bind);
+    }
+    
+    retourMenu() {
+        window.location.replace("/menu.html"); //Redirection similaire à une redirection HTTP
     }
 
-    function chargerScript(path) {
+    chargerScript(path) {
         let script = document.createElement("script");
         script.type="text/javascript";
         script.src = path;  //Ajouter l'URL du script à charger
