@@ -1,28 +1,54 @@
 "use strict"
 
 class Entite {
-    constructor(modele) {
+    constructor(nomModele, lieu) {
         this.scene = JEU.scene;
-        this.lieu;
-                
-        // Importer le modèle
-        BABYLON.SceneLoader.ImportMesh("", "./assets/modeles/", modele, this.scene, function (meshes) {
-            console.log(meshes[0]);
-            this.mesh = meshes[0];
+        this.nomModele = nomModele;
+        this.lieu = lieu;
+        this.lieu.ajouterEntite(this);
+        console.log(this.lieu.entites);
+    }
+    
+    //Pour des raisons de synchronicité, pour afficher une entité il faut
+    //appeller le constructeur, puis la méthode affichermesh() dans une fonction asynchrone (avec le mot clé async devant)
+    async afficherMesh() {
+        //Si le modèle n'existe pas, on l'importe
+        if (typeof this.mesh === 'undefined') {
+            //Importer
+            let result = await BABYLON.SceneLoader.ImportMeshAsync("", "./assets/modeles/", this.nomModele, this.scene);
+            
+            //Récupérer le mesh
+            this.mesh = result['meshes'][0];
+        }
+        //Récupérer l'index de l'entité dans son lieu
+        let index = this.lieu.entites.findIndex(() => {
+           return this; 
         });
+        
+        this.mesh.visibility = false;
+        this.mesh.position = this.lieu.coords[index];
+        this.mesh.visibility = true;
+    }
+    
+    deplacer(nvLieu) {
+        var deplacement = new BABYLON.Animation("deplacer", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+        deplacement.setKeys(new Array(
+            {frame:0,
+            value:this.mesh.position},
+            {frame:15,
+            value:nvLieu.coords[nvLieu.nbEntites]}
+        ));
     }
 }
 
 class Investigateur extends Entite{
-    constructor(nomJoueur, nbAction, effet, URLimage, element3D, cartesMax, nomPersonnage){
-        super(element3D);
+    constructor(nomJoueur, nbAction, effet, URLimage, nomModele, cartesMax, nomPersonnage){
+        super(nomModele, GARE);
         this.nomJoueur=nomJoueur;
         this.nbAction = nbAction;
         this.nbActionMax = nbAction;
         this.effet=effet;
         this.URLimage=URLimage;
-        this.estFou=false;
-        this.lieu=GARE;
         this.cartesMax = cartesMax;
         this.santeMentale = 4;
 //        this.main = new Main();
@@ -44,15 +70,14 @@ class Investigateur extends Entite{
 }
 
 class Detective extends Investigateur{
-    constructor(joueur){
-        super(joueur, 
+    constructor(nomJoueur){
+        super(nomJoueur, 
               4, 
               "Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail.", 
               "./images/detective.jpg", 
               "detective.babylon", 
               7,
              "Détective");
-        console.log(this.mesh);
     }
     
     devenirFou(){
@@ -68,54 +93,8 @@ class Detective extends Investigateur{
         this.effet="Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail."
         this.image="./images/detective.jpg";
     }
-}
-
-class Docteur extends Investigateur{
-    constructor(joueur){
-        super(joueur, 
-              5, 
-              "Vous pouvez effectuer jusqu'à 5 actions par tour.", 
-              "./images/docteur.jpg", 
-              "docteur.babylon", 
-              7,
-              "Docteur");
-    }
     
-    devenirFou(){
-        this.estFou=true;
-        this.nbActionMax = 4;
-        this.effet = "Vous pouvez effectuer jusqu'à 4 actions par tour.";
-        this.image = "./images/docteurFou.jpg";
-    }
-    seRetablirDeFolie(){
-        this.estFou=false;
-        this.nbActionMax = 5;
-        this.effet="Vous pouvez effectuer jusqu'à 5 actions par tour."
-        this.image="./images/docteur.jpg";
-    }
-}
-
-class Conducteur extends Investigateur{
-    constructor(joueur){
-        super(joueur, 
-              5, 
-              "Lors de l'action marcher, vous POUVEZ vous déplacer de 2 lieux au lieu de 1. De plus, vous êtes immunisé contre les effets d'Ithaqua.", 
-              "./images/docteur.jpg", 
-              "conducteur.babylon", 
-              7,
-              "Conducteur");
-    }
-    
-    devenirFou(){
-        this.estFou=true;
-        this.nbActionMax = 3;
-        this.effet = "Lors de l'action marcher, vous DEVEZ vous déplacer de 2 lieux au lieu de 1. De plus, vous êtes immunisé contre les effets d'Ithaqua.";
-        this.image = "./images/conducteurFou.jpg";
-    }
-    seRetablirDeFolie(){
-        this.estFou=false;
-        this.nbActionMax = 4;
-        this.effet="Lors de l'action marcher, vous POUVEZ vous déplacer de 2 lieux au lieu de 1. De plus, vous êtes immunisé contre les effets d'Ithaqua."
-        this.image="./images/conducteur.jpg";
+    ajusterMesh() {
+        this.mesh.scaling = new BABYLON.Vector3(0.005, 0.005, 0.005);
     }
 }

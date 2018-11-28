@@ -47,15 +47,6 @@ class Vue {
         this.fond.remove();
     }
     
-    afficherEntite(entite) {
-        //Récupérer l'index de l'entité dans son lieu
-        let index = entite.lieu.findIndex(function() {
-           return entite; 
-        });
-        entite.mesh.position = entite.lieu.coords[index];
-        entite.mesh.visibility = true;
-    }
-    
     //Fonction pour test
         creerCylindre(lieu) {
             this.cylindres++;
@@ -67,10 +58,12 @@ class Vue {
             mesh.visibility = true;
     }
 }
+$(document).ready(async function() {
+    let topy = new Detective("topy");
+await topy.afficherMesh();
+topy.ajusterMesh();
+});
 
-var vue = new Vue();
-var detective = new Detective("topy");
-GARE.ajouterEntite(detective);
 /*
 Permet d'afficher un cylindre sur tous les lieux
 for (var unLieu of lieux)
