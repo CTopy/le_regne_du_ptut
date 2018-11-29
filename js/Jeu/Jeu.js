@@ -6,27 +6,29 @@ $(document).ready(async function() {
 
 
 
-$("document").ready(function(){
+$("document").ready(async function(){
     var jeu = new Jeu();
-    jeu.mettreEnPlaceJeu();
-    });
+    jeu.mettreEnPlaceJeu()
+}
 
 class Jeu {
     //Début du jeu
     constructor() {
         //Déclaration des données membres
-        this.actions = new Array(new Marcher(), new VaincreCultiste(), new VaincreShoggoth(), new ScellerPortail());
-        this.joueurs;
+        this.actions = new Array(new Marcher());
+        this.joueurs = new Array();
         this.nbJoueur = 4;
         this.persoJoueur;
-        this.investigateurs = new Array(new Detective());
-        this.grandsAnciens = new Array(new Azathoth(), new Yig(), Dagon());
+        this.investigateurs = new Array(new Detective("Topy"), new Detective("Ludo"));
+        this.grandsAnciens = new Array(new Azathoth(), new Yig(), new Dagon());
         this.paquetIndice = new Deck();
         this.paquetRelique = new Deck();
         this.defausseIndice = new Deck();
         this.defausseRelique = new Deck();
         this.paquetInvocation = new Deck();
         this.defausseInvocation = new Deck();
+        this.cultistes = new Array();
+        this.shoggoths = new Array();
         
         
         //Le joueur qui commence est aléatoire
@@ -34,28 +36,18 @@ class Jeu {
         this.nbCultistes = 0;
         this.nbShoggoth = 0;
 
-        this.tourDeJeu();
+        this.joueurActif = this.joueurs[0];
+    }
+
+    async afficherModeles() {
+        let entites = this.investigateurs.concat(this.cultistes, this.shoggoths);
+        for(let uneEntite of entites) {
+            await uneEntite.afficherMesh();
+            await uneEntite.ajusterMesh();
+        }
     }
     
     mettreEnPlaceJeu() {
-        
-        function melanger(array) {
-                var currentIndex = array.length, temporaryValue, randomIndex;
-
-                // While there remain elements to shuffle...
-                while (0 !== currentIndex) {
-
-                // Pick a remaining element...
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex -= 1;
-
-                // And swap it with the current element.
-                temporaryValue = array[currentIndex];
-                array[currentIndex] = array[randomIndex];
-                array[randomIndex] = temporaryValue;
-            }
-            return array;
-        }
         
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//
         //Mélanger les grands anciens
@@ -88,45 +80,17 @@ class Jeu {
         this.invoquer(1,1, SHOGGOTH);
         
         //********* SELECTION DES PERSONNAGES **********//
-        melanger(this.investigateurs);
-        
-        for(var i=0; i<this.nbJoueur ; i++) {
-            
-            //prendre les 2 premiers investigateurs
-            let investigateur1 = this.investigateurs[0];
-            let investigateur2 = this.investigateurs[1];
-            //Les affiche
-            let baseHTML = "<div id=\"dark\"></div>";
-            let canvas = $("#renderCanvas");
-        
-            //Ajouter le fond noir
-            this.canvas.after(this.baseHTML);
-
-            //Générer le code HTML de la carte
-            let codeHTML = "<img id=\"imgInvestigateur1\" src=\""+investigateur1.URLimage+"\" /><img src=\""+investigateur2.URLimage+"\" id=\"imgImvestigateur2\" />";
-
-            //Ajouter l'overlay noir à la page
-            $("#dark").append(codeHTML);
-            
-            while(//Le joueur n'a pas choisi d'investigateur
-            persoJoueur===null)
-            //On attend click (écouteur)
-                $("#imgInvestigateur1").click(function() {
-                    persoJoueur=investigateur1;
-                });
-            $("#imgInvestigateur2").click(function() {
-                    persoJoueur=investigateur2;
-                });
-                //On lui donne le personnage
-                //On remet le personnage restant au dessus du paquet
-        }
+        //********* AFFICHER TOUS LES MODELES 3D **********//
         
     }
 
     tourDeJeu() {
+        
+        //Au début de chaque tour, on affiche toutes les actions
         for(var uneAction of this.actions) {
-            uneAction.afficher()
+            uneAction.afficher(this.joueurActif);
         }
+        /*
         //A chaque fois que le joueur joue on réévalue les actions
         this.joueurActif.watch(nbAction, function() {
             //Si le joueur est fou, on vérifie si c'est la fin (si tous les joueurs sont fous)
@@ -137,15 +101,16 @@ class Jeu {
             
             //Si l'execution continue, on reset les actions
             for(uneAction of this.actions) {
-                uneAction.cacher()
+                uneAction.cacher();
             }
             for(uneAction of this.actions) {
-                uneAction.afficher()
+                uneAction.afficher(this.joueurActif, this.actions);
             }
         });
         //Si on clique sur le bouton de passer son tour, on passe son tour
         var passerTour = document.getElementById("passerTour");
         passerTour.addEventListener("click", this.passerTour().bind(this));
+        */
     }
     
     passerTour() {
@@ -174,14 +139,18 @@ class Jeu {
             
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
-                    lieuInvoc.ajouterEntite(new Cultiste());
+                    let unCultiste = new Cultiste();
+                    lieuInvoc.ajouterEntite(unCultiste);
+                    this.cultistes.push(unCultiste);
                     this.nbCultistes++;
                 }
             }
             
             if (onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
-                    lieuInvoc.ajouterEntite(new Shoggoth());
+                    let shoggoth = new Shoggoth();
+                    lieuInvoc.ajouterEntite(shoggoth);
+                    this.shoggoths.push(shoggoth);
                     this.nbShoggoth++;
                 }
             }
@@ -276,14 +245,5 @@ class Jeu {
     
     retourMenu() {
         window.location.replace("/menu.html"); //Redirection similaire à une redirection HTTP
-    }
-
-    chargerScript(path) {
-        let script = document.createElement("script");
-        script.type="text/javascript";
-        script.src = path;  //Ajouter l'URL du script à charger
-        script.async = false;
-
-        document.body.appendChild(script);
     }
 }

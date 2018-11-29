@@ -2,18 +2,15 @@
 
 class Cultiste extends Entite{
     
-    constructor(lieu){
-        this.lieu = lieu;
-        var coordoneeDestination = lieu.ajouterEntite(this);
-        
-        this.pion = BABYLON.SceneLoader.ImportMesh("", "", "./assets/modeles/cultiste.babylon", scene, function(newMeshes) {
-            newMeshes.forEach(function(mesh){
-               mesh.position = coordoneeDestination;
-            });
-        });
+    constructor(lieu, modele){
+        super(modele, lieu);
     }
     
     mourir(){
         this.destroy();
+    }
+    
+    ajusterMesh() {
+        this.mesh.scaling = new BABYLON.Vector3(0.0005, 0.0005, 0.0005);
     }
 }

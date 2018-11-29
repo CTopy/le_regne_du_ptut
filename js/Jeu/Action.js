@@ -1,45 +1,98 @@
 class Action {
     //constructeur de la classe mère
-    constructor () {
-        this.nom;
+    constructor (URLimage, nom) {
+        this.nom = nom;
+        //Créer la div qui va contenir l'action
+        this.eltDOM = document.createElement("div");
+        this.eltDOM.classList.add("action");
+        //Par défaut, l'action est cachée
+        this.eltDOM.classList.add("action--cache");
+        
+        //Créer la balise image
+        let img  = document.createElement("img");
+        img.src = URLimage;
+        
+        //Context
+        let p = document.createElement("p");
+        p.innerHTML = nom;
+        
+        this.eltDOM.appendChild(img);
+        this.eltDOM.appendChild(p);
+        
+        //On l'ajoute au DOM
+        document.querySelector("#actions>div:first-child").appendChild(this.eltDOM);
     }
     //définition des méthodes de la classe mère
-    preaction() {}
-    faireAction() {}
+    cacher(investigateur) {
+        this.eltDOM.classList = "action action--cache";
+        this.eltDOM.removeEventListener("click", this.preaction(investigateur));
+    }
 }
+
+//
 
 class Marcher extends Action {
     //constructeur de la classe fille - Marcher
     constructor () {
-        this.nom = "Marcher";
+        super("assets/images/actions/marcher.png", "Marcher");
     }
     
     afficher(investigateur) {
-        //on affiche l'icone marcher si l'investigateur a assez d'action
-        if (investigateur.nbAction>0) {
-            var iconeMarcher = document.getElementById("marcher");
-            iconeMarcher.css("display","block");
-            iconeMarcher.addEventListener("click", preaction(investigateur));
+        if(investigateur.nbAction > 0) {
+            this.eltDOM.classList = "action";
+            this.eltDOM.addEventListener("click", function() {
+                this.preaction(investigateur);
+            }.bind(this));
         } else {
-            var iconeMarcher = document.getElementById("marcher");
-            iconeMarcher.css("display","none");
-            iconeMarcher.removeEventListener("click", preaction(investigateur));
+            this.cacher(investigateur);
         }
-    }
-    
-    cacher() {
-        $(".action").css("display", "none");
     }
 
     //redéfinition des méthodes
     preaction(investigateur) {
+        //Changer l'icone et possibilité d'annuler l'action
+        this.eltDOM.firstChild.src = "assets/images/quitter.png";
+        
+        //On empêche d'activer à nouveau l'action, on ajoute un écouteur pour annuler
+        this.eltDOM.removeEventListener("click", function() {
+            this.preaction(investigateur)
+        }.bind(this));
+        this.eltDOM.addEventListener("click", function() {
+            this.annuler(lieuxVoisins)
+        }.bind(this));
+        
+        //On ajoute un écouteur sur la div actions :
+        //Si on clique sur autre chose que sur la croix, on empêche la propagation
+        document.getElementById("actions").addEventListener("click", function(event) {
+            if(event.target != this.eltDOM)     //Si on clique sur autre chose que la croix
+                event.stopPropagation();
+        });
+        
         //on prend les lieux connectés à l'emplacement de l'investigateur
-        var liens = this.investigateur.lieu.lieuxConnectes;
-        for (var unLieu of liens) {
-            // pour chaque lieu, on les met en exergue (pour l'utilisateur) et on lui met un écouteur
+        let lieuxVoisins = investigateur.lieu.lieuxConnectes;
+        
+        //Préparer l'action
+        for (var unLieu of lieuxVoisins) {
+            // pour chaque lieu, on les met en exergue (pour l'utilisateur)
             unLieu.surbrillance();
-            unLieu.addEventListener("click", faireAction(investigateur));
+            //Ajouter un écouteur de clic sur le mesh du lieu
+            unLieu.ecouterClic(function() {
+                investigateur.deplacer(unLieu);
+            });
         }
+        //Si on annule
+
+    }
+    
+    annuler(lieuxVoisins) {
+            for (var unLieu of lieuxVoisins) {
+                //Supprimer la surbrillance des lieux
+                unLieu.stopSurbrillance();
+                //Retirer l'écouteur de click
+                unLieu.mesh.actionManager.unregisterAction(BABYLON.ActionManager.OnPickTrigger);
+            }
+            this.cacher();
+            this.afficher();
     }
     
     faireAction(investigateur) {
@@ -54,6 +107,8 @@ class Marcher extends Action {
     }
 }
 
+//
+/*
 class VaincreCultiste extends Action {
     constructor () {
         this.nom = "Vaincre un cultiste";
@@ -266,3 +321,4 @@ class ScellerPortail extends Action {
         }
     }
 }
+*/

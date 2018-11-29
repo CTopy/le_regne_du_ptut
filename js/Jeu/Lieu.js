@@ -54,6 +54,9 @@ class Lieu {
         }, scene);
         this.mesh.position = this.origine;
         this.mesh.visibility = false;
+        
+        //Créer l'action manager du mesh
+        this.mesh.actionManager = new BABYLON.ActionManager(scene);
     }
     
     /**Définir tous les attributs non définis dans le constructeur
@@ -85,11 +88,32 @@ class Lieu {
         }
     }
     
+    //Placer un écouteur de clic sur le mesh du Lieu
+    ecouterClic(callback) {
+        this.mesh.actionManager.registerAction(
+            new ExecuteCodeAction (
+                BABYLON.ActionManager.OnPickTrigger,
+                function(evt) {
+                    callback(evt);
+                    unLieu.mesh.actionManager.unregisterAction(BABYLON.ActionManager.OnPickTrigger);
+                }));
+    }
+    
     /** 
     /* Mettre en surbrillance le lieu
     **/
     surbrillance() {
+        let xyz = this.origine.asArray();      //Variable temporaire, origine sous forme de tableau
+        let x = xyz[0];
+        let y = xyz[1];
+        let z = xyz[2];
         //Ajouter une lumière
+        this.lumiere = new BABYLON.SpotLight(this.nom+"_light", new BABYLON.Vector3(x, y+0.5, z), this.origine, 1, 0, this.scene);
+        
+    }
+    
+    stopSurbrillance() {
+        this.lumiere = null;
     }
 };
 

@@ -48,7 +48,7 @@ class Vue {
     }
     
     //Fonction pour test
-        creerCylindre(lieu) {
+    creerCylindre(lieu) {
             this.cylindres++;
             //Récupérer l'index de l'entité dans son lieu
             let mesh = BABYLON.MeshBuilder.CreateCylinder("cylindre"+this.cylindres, {}, this.scene);
@@ -58,14 +58,6 @@ class Vue {
             mesh.visibility = true;
     }
 }
-$(document).ready(async function() {
-    let topy = new Detective("topy");
-    await topy.afficherMesh();
-    topy.ajusterMesh();
-    $('[src="assets/images/actions/marcher.png"]').click(function() {
-        topy.deplacer(lieux[Math.floor(Math.random()*lieux.length)]);
-    });
-});
 
 /*
 Permet d'afficher un cylindre sur tous les lieux

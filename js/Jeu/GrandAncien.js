@@ -17,7 +17,7 @@ class GrandAncien{
         //Créer les éléments du DOM
             //Définition de la div
             this.div = document.createElement("div");
-            this.div.addClass("ancien ancien--cache");
+            this.div.classList.add("ancien ancien--cache");
             
             //Définition de l'image
             let imgGdAncien = document.createElement("img");
