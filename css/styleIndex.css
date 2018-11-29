@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+@font-face {
+  font-family: "Built";
+  src: url(../assets/fonts/built.ttf);
+    font-feature-settings: "liga" 0;
+}
+
+@font-face {
+  font-family: "Built light";
+  src: url(../assets/fonts/built_light.ttf);
+}
+
+
+
+/**************************************************************
+************************* INTERFACE ***************************/
+
+html{
+    background-color: aqua;
+}
+
+
+/***** GENERAL *****/
+
+a{
+    text-decoration: none;
+    color: black;
+    font-family: 'Built';
+    font-size: 50px;
+    padding: 5px 25px 1px 25px;
+    background-color: white;
+    border-radius: 5px;
+    
+}
+
+li{
+    list-style-type: none;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#jouer{
+    font-size: 90px;
+    
+}
+
+ul{
+    position: fixed;
+    right: 20px;
+    top: 25%;
+    height: 25%;
+
+}

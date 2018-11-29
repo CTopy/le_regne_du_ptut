@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+@font-face {
+    font-family: "Built";
+    src: url(../assets/fonts/built.ttf);
+    font-feature-settings: "liga"0;
+}
+
+@font-face {
+    font-family: "Built light";
+    src: url(../assets/fonts/built_light.ttf);
+}
+
+
+
+/**************************************************************
+************************* INTERFACE ***************************/
+
+
+body {
+    position: relative;
+    background-color: #151515;
+    height: 100vh;
+    width: 100vw;
+    
+}
+
+/***** GENERAL *****/
+
+#bouttonQuitter {
+    width: 90px;
+    position: absolute;
+    top: -11vh;
+    right: 0vh;
+
+}
+
+.container {
+    margin: 100px 100px 25px 100px;
+    font-family: 'Built';
+    padding-left: 50px;
+    padding-right: 50px;
+    background-image: url(../assets/images/regles/papier.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    color: black;
+}
+
+
+h1 {
+    font-size: 90px;
+    text-align: center;
+    padding-top: 60px;
+    text-decoration: double overline underline;
+    
+}
+
+h2 {
+    font-size: 50px;
+    margin-top: 20px;
+}
+
+h3 {
+    margin-top: 15px;
+    font-size: 30px;
+}
+
+.deroulement {
+    font-size: 13px;
+    margin: 0 30px 0 30px;
+    margin-top: -8px;
+}
+
+p {
+    font-family: 'Oswald';
+    text-align: justify;
+}
+
+
+
+h4 {
+    font-family: 'built light';
+    letter-spacing: 1.2px;
+    font-size: 25px;
+
+}
+
+div img {
+    width: 10%;
+    float: right
+}
