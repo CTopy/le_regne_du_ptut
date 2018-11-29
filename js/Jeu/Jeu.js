@@ -1,22 +1,14 @@
+/*
+$(document).ready(async function() {
+
+});
+*/
+
+
 
 $("document").ready(function(){
-        //Initialisation du jeu, chargement dynamique des scripts
-
-        
-
-        //Chargement des éléments du Jeu
-        chargerScript("js/Jeu/Lieu.js");
-            //Chargement de l'affichage
-            chargerScript("js/Vue.js");
-        chargerScript("js/Jeu/Action.js");
-        chargerScript("js/Jeu/Deck.js");
-        chargerScript("js/Jeu/Carte.js");
-        chargerScript("js/Jeu/Cultiste.js");
-        chargerScript("js/Jeu/Shoggoth.js");
-        chargerScript("js/Jeu/Investigateur.js");
-        chargerScript("js/Jeu/GrandAncien.js");
-
-        debutPartie();
+    var jeu = new Jeu();
+    jeu.mettreEnPlaceJeu();
     });
 
 class Jeu {
@@ -25,9 +17,10 @@ class Jeu {
         //Déclaration des données membres
         this.actions = new Array(new Marcher(), new VaincreCultiste(), new VaincreShoggoth(), new ScellerPortail());
         this.joueurs;
-        this.nbjoueur = 4;
+        this.nbJoueur = 4;
+        this.persoJoueur;
+        this.investigateurs = new Array(new Detective());
         this.grandsAnciens = new Array(new Azathoth(), new Yig(), Dagon());
-        this.cthulhu = new Cthulhu();
         this.paquetIndice = new Deck();
         this.paquetRelique = new Deck();
         this.defausseIndice = new Deck();
@@ -64,47 +57,69 @@ class Jeu {
             return array;
         }
         
-        //Mise en place des Grands Anciens
+        //********** MISE EN PLACE DES GRANDS ANCIENS **********//
+        //Mélanger les grands anciens
         melanger(this.grandsAnciens);
         
-        let divGlobale;
-        let imgGdAncien;
-        let paraNom;
-        let paraEffet;
-        for (var i=0; i<6; i++) {
-            divGlobale = document.createElement("div");
-            divGlobale.addClass("ancien ancien--cache");
-            imgGdAncien = document.createElement("img");
-            imgGdAncien.src = this.grandsAnciens[i].img;
-            paraNom = document.createElement("p");
-            paraNom.innerHTML = this.grandsAnciens[i].nom;
-            paraEffet = document.createElement("p");
-            paraEffet.innerHTML = this.grandsAnciens[i].effet;
-            divGlobale.append(imgGdAncien, paraNom, paraEffet);
-            $("#gdAnciens").append(divGlobale);
+        //Si on a plus de 6 Grands Anciens, on en garde que 6
+        if (this.grandsAnciens.length > 6)
+            this.grandsAnciens.splice(0,5);
+        
+        //On affiche chaque Grand Ancien
+        let num = 0;
+        for (var unAncien of this.grandsAnciens) {
+            num++;
+            unAncien.afficherDOM();
+            unAncien.div.dataset.num = num;
         }
         
-        //Mise en place de Cthulhu
-        divGlobale = document.createElement("div");
-        divGlobale.addClass("ancien ancien--cache");
-        imgGdAncien = document.createElement("img");
-        imgGdAncien.src = this.cthulhu.img;
-        paraNom = document.createElement("p");
-        paraNom.innerHTML = this.cthulhu.nom;
-        paraEffet = document.createElement("p");
-        paraEffet.innerHTML = this.cthulhu.effet;
-        divGlobale.append(imgGdAncien, paraNom, paraEffet);
-        $("#gdAnciens").append(divGlobale);
+        //On ajoute Cthulhu à la fin
+        this.grandsAnciens.push(new Cthulhu());
+        let cthulhu = this.grandsAnciens[this.grandsAnciens.length-1];
+        cthulhu.afficherDOM();
+        cthulhu.div.dataset.num = "cthulhu";
         
-        //Invocation des cultistes
-        this.phaseInvocation(2,3, new Cultiste());
-        this.phaseInvocation(2,2, new Cultiste());
-        this.phaseInvocation(2,1, new Cultiste());
+        //********** INVOCATION **********//
+        //Invoquer 2 fois, 3 cultistes, puis 2 cultistes, puis 1 cultiste
+        for (i=3; i>=0; i--) {
+            this.invoquer(2,i, CULTISTE);
+        }
         //Invocation du Shoggoth
-        this.phaseInvocation(1,1, new Shoggoth());
+        this.invoquer(1,1, SHOGGOTH);
         
-        //On donne un personnage à chaque joueur
+        //********* SELECTION DES PERSONNAGES **********//
+        melanger(this.investigateurs);
         
+        for(var i=0; i<this.nbJoueur ; i++) {
+            
+            //prendre les 2 premiers investigateurs
+            let investigateur1 = this.investigateurs[0];
+            let investigateur2 = this.investigateurs[1];
+            //Les affiche
+            let baseHTML = "<div id=\"dark\"></div>";
+            let canvas = $("#renderCanvas");
+        
+            //Ajouter le fond noir
+            this.canvas.after(this.baseHTML);
+
+            //Générer le code HTML de la carte
+            let codeHTML = "<img id=\"imgInvestigateur1\" src=\""+investigateur1.URLimage+"\" /><img src=\""+investigateur2.URLimage+"\" id=\"imgImvestigateur2\" />";
+
+            //Ajouter l'overlay noir à la page
+            $("#dark").append(codeHTML);
+            
+            while(//Le joueur n'a pas choisi d'investigateur
+            persoJoueur===null)
+            //On attend click (écouteur)
+                $("#imgInvestigateur1").click(function() {
+                    persoJoueur=investigateur1;
+                });
+            $("#imgInvestigateur2").click(function() {
+                    persoJoueur=investigateur2;
+                });
+                //On lui donne le personnage
+                //On remet le personnage restant au dessus du paquet
+        }
         
     }
 
@@ -136,7 +151,7 @@ class Jeu {
     passerTour() {
         this.phasePioche();
         this.checkFin();
-        this.phaseInvocation();
+        this.invoquer();
         this.checkFin();
         this.joueurActif.unwatch(nbAction);
         this.joueurActif.nbAction = joueurActif.nbActionMax;
@@ -151,16 +166,20 @@ class Jeu {
         this.joueurActif.main.piocher(paquetIndice);
     }
     
-    phaseInvocation(nbCarteDefaussee, nbEntiteAInvoc, typeEntiteAInvoc) {
-        for(var j=0 ; j<nbCarteDefaussee ; j++) {
+    invoquer(nbInvocations, nbEntiteAInvoc, onInvoqueUnShoggoth) {
+        
+        for(var j=0 ; j<nbInvocations ; j++) {
             this.defausseInvocation.piocher(this.paquetInvocation);
             let lieuInvoc = this.defausseInvocation[(this.defausseInvocation.length)-1].lieu;
-            if (typeof typeEntiteAInvoc = typeof new Cultiste()) {
+            
+            if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
                     lieuInvoc.ajouterEntite(new Cultiste());
                     this.nbCultistes++;
                 }
-            } else if (typeof typeEntiteAInvoc = typeof new Shoggoth()) {
+            }
+            
+            if (onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
                     lieuInvoc.ajouterEntite(new Shoggoth());
                     this.nbShoggoth++;
@@ -173,7 +192,7 @@ class Jeu {
         //On vérifie si tous les portails sont scellés
         let tousPortailsScelles = true;
         for(var unLieu of lieuxPortail){
-            if (unLieu.portail = OUI)
+            if (unLieu.portail === OUI)
                 tousPortailsScelles = false;
         }
         

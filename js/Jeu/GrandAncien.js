@@ -5,13 +5,37 @@ class GrandAncien{
         this.nom = nom;
         this.effet = effet;
         this.estReveille = false; //boolean
-        this.div;
         this.img = img;
     }
     
     reveil(){
         //lancer la video?
         this.estReveille = true;
+    }
+    
+    afficherDOM() {
+        //Créer les éléments du DOM
+            //Définition de la div
+            this.div = document.createElement("div");
+            this.div.addClass("ancien ancien--cache");
+            
+            //Définition de l'image
+            let imgGdAncien = document.createElement("img");
+            imgGdAncien.src = this.img;
+            
+            //Définition du nom
+            let pNom = document.createElement("p");
+            pNom.innerHTML = this.nom;
+            
+            //Définition de l'effet
+            let pEffet = document.createElement("p");
+            pEffet.innerHTML = this.effet;
+            
+            //Ajouter les éléments à la div de l'ancien
+            this.div.append(imgGdAncien, pNom, pEffet);
+            
+            //Ajouter la div à la liste de tous les anciens
+            $("#gdAnciens").append(this.div);
     }
 }
 
