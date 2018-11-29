@@ -595,3 +595,11 @@ button {
     height: 150px;
     width: 150px;
 }
+
+/*********ANIMATIONS CSS**********/
+
+
+@keyframes TOURNE{
+    0%{transform : rotate(0deg);}
+    100%{transform : rotate(-360deg);}
+}
