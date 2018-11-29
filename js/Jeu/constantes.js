@@ -10,3 +10,5 @@ const OUI = 1;
 const SCELLE = 2;
 const SIGNE_ANCIENS = 3;
 const EASTER_EGG = true;        //SI jamais on décide d'implémenter un easter egg
+const CULTISTE = false;
+const SHOGGOTH = true;

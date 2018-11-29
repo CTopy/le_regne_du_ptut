@@ -1,75 +1,84 @@
 "use strict";
 
 class GrandAncien{
-    constructor(){
-        this.nom;
-        this.effet;
-        this.reveille; //boolean
-        this.invocation; //video d'invocation?
+    constructor(nom, effet, img){
+        this.nom = nom;
+        this.effet = effet;
+        this.estReveille = false; //boolean
+        this.img = img;
     }
     
     reveil(){
         //lancer la video?
-        this.reveille = true;
+        this.estReveille = true;
+    }
+    
+    afficherDOM() {
+        //Créer les éléments du DOM
+            //Définition de la div
+            this.div = document.createElement("div");
+            this.div.addClass("ancien ancien--cache");
+            
+            //Définition de l'image
+            let imgGdAncien = document.createElement("img");
+            imgGdAncien.src = this.img;
+            
+            //Définition du nom
+            let pNom = document.createElement("p");
+            pNom.innerHTML = this.nom;
+            
+            //Définition de l'effet
+            let pEffet = document.createElement("p");
+            pEffet.innerHTML = this.effet;
+            
+            //Ajouter les éléments à la div de l'ancien
+            this.div.append(imgGdAncien, pNom, pEffet);
+            
+            //Ajouter la div à la liste de tous les anciens
+            $("#gdAnciens").append(this.div);
     }
 }
 
 class Azathoth extends GrandAncien{
     constructor(){
-        this.nom = "Azathoth"
-        this.effet="Retirez de la parie 3 cultistes de la réserve."
-        this.reveille=false;
-        this.invocation="";
+        super("Azathoth", "Retirez de la parie 3 cultistes de la réserve.", "assets/images/grandsAnciens/azatoth.jpg")
     }
     reveil(){
         //lancer la video?
-        this.reveille = true;
+        this.estReveille = true;
         //jeu.reserveCultiste-3;
     }
 }
 
 class Yig extends GrandAncien{
     constructor(){
-        this.nom = "Yig"
-        this.effet="Sceller un portail nécessite une carte indice supplémentaire d'une ville reliée."
-        this.reveille=false;
-        this.invocation="";
+        super("Yig", "Sceller un portail nécessite une carte indice supplémentaire d'une ville reliée.", "assets/images/grandsAnciens/yig.jpg")
     }
     reveil(){
         //lancer la video?
-        this.reveille = true;
-        //jeu.reserveCultiste--;
+        this.estReveille = true;
+        //jeu.reserveCultiste-3;
     }
 }
 
 class Dagon extends GrandAncien{
     constructor(){
-        this.nom = "Dagon"
-        this.effet="Placez un cultiste sur chaque portail qu'il soit ouvert ou fermé."
-        this.reveille=false;
-        this.invocation="";
+        super("Dagon", "Placez un cultiste sur chaque portail qu'il soit ouvert ou fermé.", "assets/images/grandsAnciens/dagon.jpg")
     }
     reveil(){
         //lancer la video?
-        this.reveille = true;
-        for(var unLieu of lieux){
-            if(unLieux.portail){
-                unLieu.ajouterEntite(new Cultiste());
-            }
-        }
+        this.estReveille = true;
+        //jeu.reserveCultiste-3;
     }
 }
 
 class Cthulhu extends GrandAncien{
     constructor(){
-        this.nom = "Cthulhu"
-        this.effet="Le monde est plongé dans la folie, le chaos et la destruction. Vous avez perdu la partie."
-        this.reveille=false;
-        this.invocation="";
+        super("Cthulhu", "Le monde est plongé dans la folie, le chaos et la destruction. Vous avez perdu la partie.", "assets/images/grandsAnciens/cthulhu.jpg")
     }
     reveil(){
         //lancer la video?
-        this.reveille = true;
-        //jeu.perdu!;
+        this.estReveille = true;
+        //jeu.reserveCultiste-3;
     }
 }

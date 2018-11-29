@@ -1,8 +1,7 @@
 class Action {
     //constructeur de la classe mère
-    constructor (investigateur) {
+    constructor () {
         this.nom;
-        this.investigateur = investigateur;
     }
     //définition des méthodes de la classe mère
     preaction() {}
@@ -11,9 +10,8 @@ class Action {
 
 class Marcher extends Action {
     //constructeur de la classe fille - Marcher
-    constructor (investigateur) {
+    constructor () {
         this.nom = "Marcher";
-        super(investigateur);
     }
     
     afficher(investigateur) {
@@ -21,26 +19,30 @@ class Marcher extends Action {
         if (investigateur.nbAction>0) {
             var iconeMarcher = document.getElementById("marcher");
             iconeMarcher.css("display","block");
-            iconeMarcher.addEventListener("click", preaction());
+            iconeMarcher.addEventListener("click", preaction(investigateur));
         } else {
             var iconeMarcher = document.getElementById("marcher");
             iconeMarcher.css("display","none");
-            iconeMarcher.removeEventListener("click", preaction());
+            iconeMarcher.removeEventListener("click", preaction(investigateur));
         }
+    }
+    
+    cacher() {
+        $(".action").css("display", "none");
     }
 
     //redéfinition des méthodes
-    preaction() {
+    preaction(investigateur) {
         //on prend les lieux connectés à l'emplacement de l'investigateur
         var liens = this.investigateur.lieu.lieuxConnectes;
         for (var unLieu of liens) {
             // pour chaque lieu, on les met en exergue (pour l'utilisateur) et on lui met un écouteur
             unLieu.surbrillance();
-            unLieu.addEventListener("click", faireAction());
+            unLieu.addEventListener("click", faireAction(investigateur));
         }
     }
     
-    faireAction() {
+    faireAction(investigateur) {
         //on redéfinit le lieu par le lieu cliqué, on décrémente le nombre d'actions
         investigateur.lieu = this;
         investigateur.nbAction = (investigateur.nbAction)-1;
@@ -53,10 +55,8 @@ class Marcher extends Action {
 }
 
 class VaincreCultiste extends Action {
-    constructor (investigateur) {
+    constructor () {
         this.nom = "Vaincre un cultiste";
-        super(investigateur);
-        this.entites = investigateur.lieu.entite;
     }
     
     afficher(investigateur) {
@@ -70,15 +70,19 @@ class VaincreCultiste extends Action {
         if (investigateur.nbAction>0 && cultistes>0) {
             var iconeVaincCult = document.getElementById("vaincreCult");
             iconeVaincCult.css("display","block");
-            iconeVaincCult.addEventListener("click", preaction());
+            iconeVaincCult.addEventListener("click", preaction(investigateur));
         } else {
             var iconeVaincCult = document.getElementById("vaincreCult");
             iconeVaincCult.css("display","none");
-            iconeVaincCult.removeEventListener("click", preaction());
+            iconeVaincCult.removeEventListener("click", preaction(investigateur));
         }
     }
+    
+    cacher() {
+        $(".action").css("display", "none");
+    }
 
-    preaction() {
+    preaction(investigateur) {
         //on créer une div pour le slider
         var newDiv = document.createElement("div");
         //on y ajoute des boutons cliquables pour sélectionner le nombre de cultistes à vaincre
@@ -104,12 +108,12 @@ class VaincreCultiste extends Action {
         btn2.className = "btnVaincCult";
         btn3.className = "btnVaincCult";
         //on y met les écouteurs pour tuer les cultistes
-        btn1.addEventListener("click", faireAction(1));
-        btn2.addEventListener("click", faireAction(2));
-        btn3.addEventListener("click", faireAction(3));
+        btn1.addEventListener("click", faireAction(1, investigateur));
+        btn2.addEventListener("click", faireAction(2, investigateur));
+        btn3.addEventListener("click", faireAction(3, investigateur));
     }
     
-    faireAction(nbCultAVaincre) {
+    faireAction(nbCultAVaincre, investigateur) {
         var newDiv = document.getElementById("divVaincCult");
         document.body.removeChild(newDiv);
         if(investigateur.nbAction<nbCultAVaincre) {
@@ -131,10 +135,8 @@ class VaincreCultiste extends Action {
 }
 
 class VaincreShoggoth extends Action {
-    constructor (investigateur) {
+    constructor () {
         this.nom = "Vaincre un Shoggoth";
-        super(investigateur);
-        this.entites = investigateur.lieu.entité;
     }
     
     afficher(investigateur) {
@@ -148,16 +150,20 @@ class VaincreShoggoth extends Action {
         if (investigateur.nbAction>2 && shoggoths>0) {
             var iconeVaincShog = document.getElementById("vaincreShog");
             iconeVaincCult.css("display","block");
-            iconeVaincCult.addEventListener("click", preaction());
+            iconeVaincCult.addEventListener("click", preaction(investigateur));
         } else {
             var iconeVaincShog = document.getElementById("vaincreShog");
             iconeVaincCult.css("display","none");
-            iconeVaincCult.removeEventListener("click", preaction());
+            iconeVaincCult.removeEventListener("click", preaction(investigateur));
         }
     }
     
+    cacher() {
+        $(".action").css("display", "none");
+    }
     
-    preaction() {
+    
+    preaction(investigateur) {
         //on créer une div pour le slider
         var newDiv = document.createElement("div");
         //on y ajoute des boutons cliquables pour sélectionner le nombre de shoggoths à vaincre
@@ -183,12 +189,12 @@ class VaincreShoggoth extends Action {
         btn2.className = "btnVaincShog";
         btn3.className = "btnVaincShog";
         //on y met les écouteurs pour tuer les shoggoths
-        btn1.addEventListener("click", faireAction(1));
-        btn2.addEventListener("click", faireAction(2));
-        btn3.addEventListener("click", faireAction(3));
+        btn1.addEventListener("click", faireAction(1, investigateur));
+        btn2.addEventListener("click", faireAction(2, investigateur));
+        btn3.addEventListener("click", faireAction(3, investigateur));
     }
     
-    faireAction(nbShogAVaincre) {
+    faireAction(nbShogAVaincre, investigateur) {
         var newDiv = document.getElementById("divVaincShog");
         document.body.removeChild(newDiv);
         if(investigateur.nbActions<nbShogAVaincre) {
@@ -210,25 +216,27 @@ class VaincreShoggoth extends Action {
 }
 
 class ScellerPortail extends Action {
-    constructor (investigateur) {
+    constructor () {
         this.nom = "Sceller un Portail";
-        super(investigateur);
-        var cartes = investigateur.main;
     }
     
     afficher(investigateur) {
             if (investigateur.nbAction>0) {
             var iconeScelPort = document.getElementById("scellerPort");
             iconeScelPort.css("display","block");
-            iconeScelPort.addEventListener("click", preaction());
+            iconeScelPort.addEventListener("click", preaction(investigateur));
         } else {
             var iconeScelPort = document.getElementById("scellerPort");
             iconeScelPort.css("display","none");
-            iconeScelPort.removeEventListener("click", preaction());
+            iconeScelPort.removeEventListener("click", preaction(investigateur));
         }
     }
     
-    preaction() {
+    cacher() {
+        $(".action").css("display", "none");
+    }
+    
+    preaction(investigateur) {
         var compteur = 0;
         for (var i=0; i<6; i++) {
             for (var uneCarte of cartes) {
@@ -240,13 +248,13 @@ class ScellerPortail extends Action {
             }
         }
         if(compteur===5) {
-            faireAction();
+            faireAction(investigateur);
         } else {
             alert("Vous n'avez pas assez de cartes "+investigateur.lieu);
         }
     }
                         
-    faireAction() {
+    faireAction(investigateur) {
         for (var i=0; i<6; i++) {
             for (var uneCarte of cartes) {
                 if (typeof uneCarte === typeof new Indice()) {
