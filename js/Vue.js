@@ -60,8 +60,11 @@ class Vue {
 }
 $(document).ready(async function() {
     let topy = new Detective("topy");
-await topy.afficherMesh();
-topy.ajusterMesh();
+    await topy.afficherMesh();
+    topy.ajusterMesh();
+    $('[src="assets/images/actions/marcher.png"]').click(function() {
+        topy.deplacer(lieux[Math.floor(Math.random()*lieux.length)]);
+    });
 });
 
 /*

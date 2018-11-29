@@ -1,4 +1,5 @@
 // Lorsque le DOM est chargé
+const DEBUG_MODE = false;
 document.addEventListener("DOMContentLoaded", function () {
     // Passer à "true" pour activer le mode débug
     

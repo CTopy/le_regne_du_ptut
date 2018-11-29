@@ -78,7 +78,11 @@ class Lieu {
     
     retirerEntite(entite){
         this.nbEntites--;
-        this.entites.remove(entite);
+        for( var i = 0; i < this.entites.length-1; i++){ 
+           if (this.entites[i] === entite) {
+             this.entites.splice(i, 1); 
+           }
+        }
     }
     
     /** 

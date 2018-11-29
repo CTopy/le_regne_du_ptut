@@ -30,14 +30,41 @@ class Entite {
         this.mesh.visibility = true;
     }
     
-    deplacer(nvLieu) {
+    async deplacer(nvLieu) {
+        //Trouver la nouvelle position du joueur sur le lieu en fonction du nombre d'entités déjà présentes
+        let nvPosition = nvLieu.coords[nvLieu.nbEntites];
+        
+        //Transformer la position en tableau pour pouvoir le manipuler
+        let xyz = this.mesh.position.asArray();
+        let x = xyz[0];
+        let y = xyz[1];
+        let z = xyz[2];
+        
+        //Transformer la nouvelle position du joueur en tableau
+        let xyz1 = nvLieu.coords[nvLieu.nbEntites].asArray();
+        let x1 = xyz1[0];
+        let y1 = xyz1[1];
+        let z1 = xyz1[2];
+        
+        //Animation de déplacement
         var deplacement = new BABYLON.Animation("deplacer", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
         deplacement.setKeys(new Array(
             {frame:0,
             value:this.mesh.position},
-            {frame:15,
-            value:nvLieu.coords[nvLieu.nbEntites]}
+            {frame:10,
+            value: new BABYLON.Vector3(x, y+2, z)},
+            {frame:35,
+            value: new BABYLON.Vector3(x1, y+2, z1)},
+            {frame: 40,
+            value: new BABYLON.Vector3(x1, y1, z1)}
         ));
+        
+        this.mesh.animations = new Array(deplacement);
+        this.scene.beginAnimation(this.mesh, 0, 100, true);
+        this.lieu.retirerEntite(this);
+        nvLieu.ajouterEntite(this);
+        this.lieu = nvLieu;
+        console.log(this.lieu.nom);
     }
 }
 
