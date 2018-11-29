@@ -1,9 +1,3 @@
-// Page entièrement chargé, on lance le jeu
-var JEU;
-document.addEventListener("DOMContentLoaded", function () {
-    JEU = new Game('renderCanvas');
-}, false);
-
 // Constructeur de l'objet Game.js
 Game = function(canvasId) {
     
@@ -44,3 +38,6 @@ Game.prototype = {
         return scene;
     }
 };
+
+//Créer le jeu
+var JEU = new Game('renderCanvas');
