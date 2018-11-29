@@ -16,14 +16,13 @@ let cadre = document.createElement("div");
 $(cadre).css({
     "width" : "30vw",
     "height" : "30vh",
-    "background-color" : "#024002",
-    "border-radius" : "100px",
+    "border-radius" : "10px",
     "margin" : "auto",
-    "display" : "flex",
     "position" : "absolute",
     "top" : "20%",
     "align-items": "center",
     "padding" : "5%"
+   /* "src": "./assets/images/rectangle_chargement.png"*/
 });
 fond.append(cadre);
 
@@ -37,11 +36,11 @@ cadre.append(text);
 
 let imageAnime = document.createElement("img");
 $(imageAnime).attr({
-    src : "./assets/images/teteDeChtulhu.png"
+    src : "./assets/images/chargement.png"
 });
 $(imageAnime).css({
     "animation":"1.5s infinite cubic-bezier(.39, .01, .63, .99) TOURNE",
     "margin":"auto",
-    "height":"20%"
+    "height":"50%"
 });
 cadre.append(imageAnime);
