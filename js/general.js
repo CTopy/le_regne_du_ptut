@@ -1,10 +1,31 @@
-// Lorsque le DOM est chargé
+// Variable pour activer/désactiver le mode débug
+const DEBUG_MODE = true;
+
+// Fonctions utilitaires génériques
+function melanger(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return array;
+}
+
+function alea(min , max) {
+    return Math.random() * (max-min) + min;
+} 
+
+
 document.addEventListener("DOMContentLoaded", function () {
-    var vue = new Vue();
-    
-    // Constante permettant de passer en mode débug
-    // ('faut bien pouvoir accéder à l'inspecteur pour voir les erreurs -_-)
-    const DEBUG_MODE = true;
     // Passer à "true" pour activer le mode débug
     
     // Empêcher l'utilisateur d'ouvrir le menu contextuel (clic droit)
@@ -34,10 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     
-    $(".carte").click(function () {
-        vue.afficherCarte($(this));
-    });
-    
-    var detective = new Detective("Ludo");
-    alert(detective.pion);
+    for (let uneCarte of document.querySelectorAll(".carte")) {
+        uneCarte.addEventListener("click", function(e) {
+            vue.afficherCarte(e.target);
+        });
+    }
 });

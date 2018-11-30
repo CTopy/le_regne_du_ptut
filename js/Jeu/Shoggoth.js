@@ -1,20 +1,20 @@
 "use strict";
 
-class Shoggoth{
+class Shoggoth extends Entite{
     
     constructor(lieu){
-        this.lieu = lieu;
-        var coordoneeDestination = lieu.ajouterEntite(this);
-        
-        this.pion = BABYLON.SceneLoader.ImportMesh("", "", "./assets/modeles/shoggoth.babylon", scene, function(newMeshes) {
-            newMeshes.forEach(function(mesh){
-               mesh.position = coordoneeDestination;
-            });
-        });
+        super("shoggoth.babylon", lieu);
     }
     
     mourir(){
         this.destroy();
+    }
+    
+    async afficherMesh() {
+        await Entite.prototype.afficherMesh.call(this);           //A cause du findIndex
+    }
+    
+    async ajusterMesh() {
     }
     
     seDeplacer(){

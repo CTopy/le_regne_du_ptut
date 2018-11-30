@@ -1,19 +1,21 @@
 "use strict";
 
-class Cultiste{
+class Cultiste extends Entite{
     
     constructor(lieu){
-        this.lieu = lieu;
-        var coordoneeDestination = lieu.ajouterEntite(this);
-        
-        this.pion = BABYLON.SceneLoader.ImportMesh("", "", "./assets/modeles/cultiste.babylon", scene, function(newMeshes) {
-            newMeshes.forEach(function(mesh){
-               mesh.position = coordoneeDestination;
-            });
-        });
+        super("cultiste.babylon", lieu);
     }
     
     mourir(){
         this.destroy();
+    }
+    
+    async afficherMesh() {
+        await Entite.prototype.afficherMesh.call(this);           //A cause du findIndex
+    }
+    
+    async ajusterMesh() {
+        let xyz = this.mesh.position.asArray();
+        this.mesh.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2);
     }
 }

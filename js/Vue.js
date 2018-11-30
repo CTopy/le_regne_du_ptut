@@ -1,37 +1,66 @@
 "use strict";
 
-var Vue = function() {
-    this.baseHTML = "<div id=\"dark\"></div>";
-    this.canvas = $("#renderCanvas");
-};
-
-Vue.prototype = {
-    afficherCarte : function (carte) {
+//Utiliser du jQuery
+class Vue {
+    constructor() {
+        //Définition du fond pour les boites de dialogue
+        this.fond = $(document.createElement("div"));
+        this.fond.attr("id", "dark");
+        this.canvas = $("#renderCanvas");
+        this.cylindres = -1;
+        this.scene = JEU.scene;
+    }
+    
+    afficherCarte(carte) {
+        //Ajouter le fond noir au canvas
+        this.canvas.after(this.fond);
         
-        //Ajouter le fond noir
-        this.canvas.after(this.baseHTML);
+        //Clone la carte clickée
+        let clone = carte.clone();
         
-        //Récupérer l'image de la carte cliquée
-        var imageCarte = carte.attr("src");
+        //Création du bouton quitter
+        var quitter = $(document.createElement("img"));
+        quitter.attr("src", "./assets/images/quitter.png");
         
-        //Générer le code HTML de la carte
-        var codeHTML = "<img class=\"carte\" src="+imageCarte+" /><img src=\"assets/images/quitter.png\" id=\"quitter\" />";
+        //Afficher la carte et la croix
+        this.fond.append(clone);
+        this.fond.append(quitter);
         
-        //Ajouter l'overlay noir à la page
-        $("#dark").append(codeHTML);
-        
+        //Ajouter l'écouteur à la croix
+        this.ecouteurQuitter(quitter);
+    }
+    
+    ecouteurQuitter(quitter) {
         //Ajouter un écouteur à la croix pour qu'elle change au survol
-        $("#quitter").hover(function (e){
+        quitter.hover(function (e){
             $(this).attr("src", "assets/images/quitter_survol.png");
         }, function(e) {
             $(this).attr("src", "assets/images/quitter.png");
         });
         
-        //Ajouter un écouteur à la croix pour qu'elle referme la carte
-        $("#quitter").click(this.effacerDialogue);
-        
-},
-    effacerDialogue : function () {
-    $("#dark").remove();
+        //Ajouter un écouteur à la croix pour qu'elle quitte la carte
+        quitter.click(this.effacerDialogue.bind(this));
+    }
+    
+    effacerDialogue() {
+        this.fond.empty();
+        this.fond.remove();
+    }
+    
+    //Fonction pour test
+    creerCylindre(lieu) {
+            this.cylindres++;
+            //Récupérer l'index de l'entité dans son lieu
+            let mesh = BABYLON.MeshBuilder.CreateCylinder("cylindre"+this.cylindres, {}, this.scene);
+            mesh.visibility = false;
+            mesh.position = lieu.coords[this.cylindres%10];
+            mesh.visibility = true;
+    }
 }
-}
+
+/*
+Permet d'afficher un cylindre sur tous les lieux
+for (var unLieu of lieux)
+    for (var i=0; i<10; i++) 
+        vue.creerCylindre(unLieu);
+*/

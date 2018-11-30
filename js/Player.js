@@ -22,23 +22,25 @@ Player.prototype = {
         this.camera.inputs.detachControl;
         
         // Paramétrer la caméra
-        this.camera.upperBetaLimit = 1.3;       //Rester au dessus du plateau
+        this.camera.panningSensibility = 1000;
         this.camera.lowerRadiusLimit = 13;      //Ne pas trop zoomer
+        this.camera.upperBetaLimit = 1.3;       //Rester au dessus du plateau
         this.camera.upperRadiusLimit = 75;      //Ne pas trop dezoomer
         this.camera.panningDistanceLimit = 30;  //Ne pas trop s'éloigner
-        this.camera.panningSensibility = 200;  //La caméra se déplace plus vite que par défaut
+
         
         // Cette partie du code sera à retirer dans le programme final, elle permet de mettre en place un viseur qui donne
         // les coordonnées à laquelle la caméra regarde. Ca sera utile notamment pour créer les lieux
-            var self = this;
+        var self = this;
 
-            var id = window.setInterval(function () {
+        var id = window.setInterval(function () {
+            if(false)
                 console.log(self.camera.target);
-            },2000);
+        },2000);
 
-            $("[src=\"assets/images/folie.jpg\"]").click(function() {
-                window.clearInterval(id);
-            });
+        $("[src=\"assets/images/folie.jpg\"]").click(function() {
+            window.clearInterval(id);
+        });
         //***********************************************************
     },
 };
