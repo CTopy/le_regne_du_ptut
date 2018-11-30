@@ -22,12 +22,8 @@ Player.prototype = {
         this.camera.inputs.detachControl;
         
         // Paramétrer la caméra
-        if (!DEBUG_MODE) {
-            this.camera.panningSensibility = 200;  //La caméra se déplace plus vite que par défaut
-            this.camera.lowerRadiusLimit = 13;      //Ne pas trop zoomer
-        } else {
-            this.camera.panningSensibility = 1000;
-        }
+        this.camera.panningSensibility = 1000;
+        this.camera.lowerRadiusLimit = 13;      //Ne pas trop zoomer
         this.camera.upperBetaLimit = 1.3;       //Rester au dessus du plateau
         this.camera.upperRadiusLimit = 75;      //Ne pas trop dezoomer
         this.camera.panningDistanceLimit = 30;  //Ne pas trop s'éloigner

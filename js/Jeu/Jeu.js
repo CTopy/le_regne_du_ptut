@@ -89,6 +89,15 @@ class Jeu {
         //Désigner un personnage au hasard pour être le premier à jouer
         melanger(this.investigateurs);
         this.joueurActif = this.investigateurs[0];
+        this.joueurActif.setActif();
+        this.joueurActif.afficherDOM();
+        
+        let joueursPassifs = this.investigateurs.splice(1,this.investigateurs.length-1);
+        for (let unInv of joueursPassifs) {
+            unInv.setPassif(2);
+            unInv.afficherDOM();
+        }
+
         //********* AFFICHER TOUS LES MODELES 3D **********//
         
     }
@@ -97,7 +106,8 @@ class Jeu {
         
         //Au début de chaque tour, on affiche toutes les actions
         for(var uneAction of this.actions) {
-            uneAction.afficher(this.joueurActif);
+            uneAction.setJoueurActif(this.joueurActif);
+            uneAction.afficher();
         }
         /*
         //A chaque fois que le joueur joue on réévalue les actions
@@ -152,7 +162,6 @@ class Jeu {
         let nbAlea = null, lieuInvoc = null;
         nbAlea = Math.floor(alea(0,5));
         lieuInvoc = lieux[nbAlea];
-        console.log(lieuInvoc.nom);
             
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {

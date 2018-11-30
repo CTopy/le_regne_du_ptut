@@ -16,7 +16,6 @@ class Cultiste extends Entite{
     
     async ajusterMesh() {
         let xyz = this.mesh.position.asArray();
-        this.mesh.position = new BABYLON.Vector3(xyz[0], xyz[1]+1, xyz[2]);
-        this.mesh.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
+        this.mesh.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2);
     }
 }

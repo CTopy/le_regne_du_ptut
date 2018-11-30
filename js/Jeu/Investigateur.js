@@ -27,10 +27,10 @@ class Entite {
         this.mesh.visibility = false;
         this.mesh.position = this.lieu.coords[index];
         this.mesh.visibility = true;
-        console.log(this.nomModele+" = "+this.lieu.coords[index]);
     }
     
     async deplacer(nvLieu) {
+
         //Trouver la nouvelle position du joueur sur le lieu en fonction du nombre d'entités déjà présentes
         let nvPosition = nvLieu.coords[nvLieu.nbEntites];
         
@@ -64,22 +64,62 @@ class Entite {
         this.lieu.retirerEntite(this);
         nvLieu.ajouterEntite(this);
         this.lieu = nvLieu;
-        console.log(this.lieu.nom);
     }
 }
 
 class Investigateur extends Entite{
-    constructor(nomJoueur, nbAction, effet, URLimage, nomModele, cartesMax, nomPersonnage){
+    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage){
         super(nomModele, GARE);
         this.nomJoueur=nomJoueur;
         this.nbAction = nbAction;
         this.nbActionMax = nbAction;
         this.effet=effet;
-        this.URLimage=URLimage;
+        this.image=image;
         this.cartesMax = cartesMax;
         this.santeMentale = 4;
 //        this.main = new Main();
         this.nomPersonnage = nomPersonnage;
+        //Création de l'élément du DOM
+        this.eltDOM = document.createElement("div");
+        this.eltDOM.dataset.joueur = this.nomJoueur;
+        this.eltDOM.classList.add("interface");
+        
+        //Création de la div investigateur
+        let divInvestigateur = document.createElement("div");
+        divInvestigateur.classList.add("investigateur");
+        
+        this.imageDOM = document.createElement("img");
+        this.imageDOM.src = this.image;
+        
+        this.effetDOM = document.createElement("p");
+        this.effetDOM.innerHTML = this.effet;
+        
+        divInvestigateur.appendChild(this.imageDOM);
+        divInvestigateur.lastChild.insertAdjacentHTML('beforeend',"<p>"+this.nomJoueur+"</p>"+
+                                    "<p>"+this.nomPersonnage+"</p>");
+        divInvestigateur.appendChild(this.effetDOM);
+        
+        //Création de la div actions
+        this.actionsDOM = document.createElement("div");
+        this.actionsDOM.classList.add("nbActions");
+        this.actionsDOM.innerHTML = "<p>"+this.nbAction+"</p>";
+        
+        //Création de la div santé mentale
+        this.santeMentaleDOM = document.createElement("div");
+        this.santeMentaleDOM.classList.add("santeMentale");
+        this.santeMentaleDOM.innerHTML = "<div><p>"+this.santeMentale+"</p></div>";
+        for (let i = 1; i <= this.santeMentale; i++)
+            this.santeMentaleDOM.lastChild.insertAdjacentHTML('beforeend',"<img src=\"assets/images/backgrounds/folie.jpg\" />");
+        
+        //Création de la div main
+        this.mainDOM = document.createElement("div");
+        this.mainDOM.classList.add("main");
+        
+        this.eltDOM.appendChild(divInvestigateur);
+        this.eltDOM.appendChild(this.actionsDOM);
+        this.eltDOM.appendChild(this.santeMentaleDOM);
+        this.eltDOM.appendChild(this.mainDOM);
+        
     }
     
     devenirFou() {
@@ -88,6 +128,24 @@ class Investigateur extends Entite{
     seRetablirDeFolie(){
         this.estFou=false;
     }
+    
+    setActif() {
+        this.eltDOM.className = "interface joueurActif";
+    }
+    
+    setPassif(rang){
+        this.eltDOM.className = "interface joueurPassif j"+rang;
+    }
+    
+    afficherDOM() {
+        document.getElementById("joueurs").appendChild(this.eltDOM);
+    }
+    
+    ajouterActions(nb) {
+        this.nbAction = this.nbAction + nb;
+        this.actionsDOM.children.length = 0;
+        this.actionsDOM.innerHTML = "<p>"+this.nbAction+"</p>";
+    }
 }
 
 class Detective extends Investigateur{
@@ -95,7 +153,7 @@ class Detective extends Investigateur{
         super(nomJoueur, 
               4, 
               "Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail.", 
-              "./images/detective.jpg", 
+              "./assets/images/investigateurs/detective.jpg", 
               "detective.babylon", 
               7,
              "Détective");

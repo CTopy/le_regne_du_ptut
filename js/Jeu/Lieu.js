@@ -95,7 +95,6 @@ class Lieu {
                 BABYLON.ActionManager.OnPickTrigger,
                 function(evt) {
                     callback(evt);
-                    this.mesh.actionManager.unregisterAction(BABYLON.ActionManager.OnPickTrigger);
                 }.bind(this)));
     }
     

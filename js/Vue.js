@@ -54,7 +54,6 @@ class Vue {
             let mesh = BABYLON.MeshBuilder.CreateCylinder("cylindre"+this.cylindres, {}, this.scene);
             mesh.visibility = false;
             mesh.position = lieu.coords[this.cylindres%10];
-            console.log(this.cylindres%10);
             mesh.visibility = true;
     }
 }
