@@ -1,0 +1,41 @@
+@font-face {
+  font-family: "Built light";
+  src: url(../assets/fonts/built_light.ttf);
+}
+
+main{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+}
+
+section{
+    height: 100%;
+    width: 50%;
+    padding: 5% 0;
+    margin-left: 50%;
+}
+
+section>div{
+    height: auto;
+    margin: 2vh 0 2vh 0;
+    width: 50%;
+    margin-left: 40%;
+    text-align: center;
+    background-color: rgb(42, 43, 46);
+    transition: transform 0.2s linear;
+}
+
+section>div:hover{
+    transform: scale(1.2);
+    transition: transform 0.3s cubic-bezier(.87, -0.01, .51, 1.01);
+}
+
+p {
+    font-family: 'Built light';
+    color : whitesmoke;
+    letter-spacing: 1px;
+    line-height: 1.2em;
+    font-size: 4vw;
+    padding: 2%;
+}
