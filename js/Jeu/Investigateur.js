@@ -6,7 +6,6 @@ class Entite {
         this.nomModele = nomModele;
         this.lieu = lieu;
         this.lieu.ajouterEntite(this);
-        console.log(this.lieu.entites);
     }
     
     //Pour des raisons de synchronicité, pour afficher une entité il faut
@@ -21,13 +20,14 @@ class Entite {
             this.mesh = result['meshes'][0];
         }
         //Récupérer l'index de l'entité dans son lieu
-        let index = this.lieu.entites.findIndex(() => {
-           return this; 
-        });
+        let index = this.lieu.entites.findIndex(function(object) {
+           return object === this; 
+        }.bind(this));
         
         this.mesh.visibility = false;
         this.mesh.position = this.lieu.coords[index];
         this.mesh.visibility = true;
+        console.log(this.nomModele+" = "+this.lieu.coords[index]);
     }
     
     async deplacer(nvLieu) {
@@ -88,12 +88,6 @@ class Investigateur extends Entite{
     seRetablirDeFolie(){
         this.estFou=false;
     }
-    
-    seDeplacer(lieu){
-        var coordoneeDestination = destination.ajouterEntite(this);
-        this.lieu.retirerEntite(this);
-        this.lieu=coordoneeDestination;
-    }
 }
 
 class Detective extends Investigateur{
@@ -105,6 +99,10 @@ class Detective extends Investigateur{
               "detective.babylon", 
               7,
              "Détective");
+    }
+    
+    afficherMesh() {
+        Entite.prototype.afficherMesh.call(this);       //A cause du findIndex
     }
     
     devenirFou(){

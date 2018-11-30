@@ -18,7 +18,7 @@ class Deck{
     
     piocher(deckEmetteur){
         var derniereCarteEmetteur = deckEmetteur.length-1
-        this.contenu.add(derniereCarteEmetteur);
+        this.contenu.push(derniereCarteEmetteur);
         deckEmetteur[derniereCarteEmetteur].remove();
     }
     

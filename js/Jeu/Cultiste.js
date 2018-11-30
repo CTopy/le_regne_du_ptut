@@ -2,15 +2,18 @@
 
 class Cultiste extends Entite{
     
-    constructor(lieu, modele){
-        super(modele, lieu);
+    constructor(lieu){
+        super("cultiste.babylon", lieu);
     }
     
     mourir(){
         this.destroy();
     }
     
+    afficherMesh() {
+        Entite.prototype.afficherMesh.call(this);           //A cause du findIndex
+    }
+    
     ajusterMesh() {
-        this.mesh.scaling = new BABYLON.Vector3(0.0005, 0.0005, 0.0005);
     }
 }

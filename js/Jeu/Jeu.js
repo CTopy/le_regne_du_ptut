@@ -5,11 +5,13 @@ $(document).ready(async function() {
 */
 
 
-
+//********** FONCTION PRINCIPALE **********//
 $("document").ready(async function(){
-    var jeu = new Jeu();
-    jeu.mettreEnPlaceJeu()
-}
+    var partie = new Jeu();
+    await partie.mettreEnPlaceJeu();
+    await partie.afficherModeles();
+    partie.grandsAnciens[0].reveil();
+});
 
 class Jeu {
     //Début du jeu
@@ -19,14 +21,14 @@ class Jeu {
         this.joueurs = new Array();
         this.nbJoueur = 4;
         this.persoJoueur;
-        this.investigateurs = new Array(new Detective("Topy"), new Detective("Ludo"));
+        this.investigateurs = new Array();
         this.grandsAnciens = new Array(new Azathoth(), new Yig(), new Dagon());
-        this.paquetIndice = new Deck();
-        this.paquetRelique = new Deck();
-        this.defausseIndice = new Deck();
-        this.defausseRelique = new Deck();
-        this.paquetInvocation = new Deck();
-        this.defausseInvocation = new Deck();
+//        this.paquetIndice = new Deck();
+//        this.paquetRelique = new Deck();
+//        this.defausseIndice = new Deck();
+//        this.defausseRelique = new Deck();
+//        this.paquetInvocation = new Deck();
+//        this.defausseInvocation = new Deck();
         this.cultistes = new Array();
         this.shoggoths = new Array();
         
@@ -47,7 +49,9 @@ class Jeu {
         }
     }
     
-    mettreEnPlaceJeu() {
+    async mettreEnPlaceJeu() {
+        this.investigateurs.push(new Detective("Topy"));
+        this.investigateurs.push(new Detective("Ludovic"));
         
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//
         //Mélanger les grands anciens
@@ -59,7 +63,7 @@ class Jeu {
         
         //On affiche chaque Grand Ancien
         let num = 0;
-        for (var unAncien of this.grandsAnciens) {
+        for (let unAncien of this.grandsAnciens) {
             num++;
             unAncien.afficherDOM();
             unAncien.div.dataset.num = num;
@@ -73,11 +77,11 @@ class Jeu {
         
         //********** INVOCATION **********//
         //Invoquer 2 fois, 3 cultistes, puis 2 cultistes, puis 1 cultiste
-        for (i=3; i>=0; i--) {
-            this.invoquer(2,i, CULTISTE);
-        }
+        this.invoquer(2, CULTISTE);
+        this.invoquer(1, CULTISTE);
+        this.invoquer(1, CULTISTE);
         //Invocation du Shoggoth
-        this.invoquer(1,1, SHOGGOTH);
+        this.invoquer(1, SHOGGOTH);
         
         //********* SELECTION DES PERSONNAGES **********//
         //********* AFFICHER TOUS LES MODELES 3D **********//
@@ -131,15 +135,23 @@ class Jeu {
         this.joueurActif.main.piocher(paquetIndice);
     }
     
-    invoquer(nbInvocations, nbEntiteAInvoc, onInvoqueUnShoggoth) {
+    /** invoquer : Permet d'invoquer une ou plusieurs entités
+    * param1 : Nombre d'entités à invoquer 
+    * param2 : Est-ce qu'on invoque un Shoggoth ? (sinon un cultiste)
+    **/
+    invoquer(nbEntiteAInvoc, onInvoqueUnShoggoth) {
         
-        for(var j=0 ; j<nbInvocations ; j++) {
-            this.defausseInvocation.piocher(this.paquetInvocation);
-            let lieuInvoc = this.defausseInvocation[(this.defausseInvocation.length)-1].lieu;
+//            this.defausseInvocation.piocher(this.paquetInvocation);
+//            let lieuInvoc = this.defausseInvocation[(this.defausseInvocation.length)-1].lieu;
+        //TEMPORAIRE : Choisir un lieu aléatoire
+        let nbAlea = null, lieuInvoc = null;
+        nbAlea = Math.floor(alea(0,5));
+        lieuInvoc = lieux[nbAlea];
+        console.log(lieuInvoc.nom);
             
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
-                    let unCultiste = new Cultiste();
+                    let unCultiste = new Cultiste(lieuInvoc);
                     lieuInvoc.ajouterEntite(unCultiste);
                     this.cultistes.push(unCultiste);
                     this.nbCultistes++;
@@ -148,13 +160,12 @@ class Jeu {
             
             if (onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
-                    let shoggoth = new Shoggoth();
+                    let shoggoth = new Shoggoth(lieuInvoc);
                     lieuInvoc.ajouterEntite(shoggoth);
                     this.shoggoths.push(shoggoth);
                     this.nbShoggoth++;
                 }
             }
-        }
     }
 
     checkFin() {

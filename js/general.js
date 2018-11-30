@@ -1,5 +1,7 @@
-// Lorsque le DOM est chargé
+// Variable pour activer/désactiver le mode débug
 const DEBUG_MODE = true;
+
+// Fonctions utilitaires génériques
 function melanger(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -17,6 +19,12 @@ function melanger(array) {
     }
     return array;
 }
+
+function alea(min , max) {
+    return Math.random() * (max-min) + min;
+} 
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // Passer à "true" pour activer le mode débug
     
