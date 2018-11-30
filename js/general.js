@@ -1,6 +1,12 @@
 // Variable pour activer/désactiver le mode débug
 const DEBUG_MODE = true;
 
+function move(array, index1, index2) {
+    let element = array[index1];
+    array.splice(index1, 1);
+    array.splice(index2, 1);
+}
+
 // Fonctions utilitaires génériques
 function melanger(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
