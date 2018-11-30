@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+@font-face {
+    font-family: "Built";
+    src: url(../assets/fonts/built.ttf);
+    font-feature-settings: "liga"0;
+}
+
+@font-face {
+    font-family: "Built light";
+    src: url(../assets/fonts/built_light.ttf);
+}
+
+
+
+/**************************************************************
+************************* INTERFACE ***************************/
+
+
+/***** GENERAL *****/
+
+#bouttonQuitter {
+    width: 130px;
+    position: fixed;
+    right: 23.5vh;
+
+}
+
+.container {
+    margin-top: 100px;
+    margin-bottom: 70px;
+    font-family: 'Built';
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    background-image: url(../assets/images/papier.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    color: black;
+    width: 80vw !important;
+    margin: auto;
+}
+
+
+h1 {
+    font-size: 90px;
+    text-align: center;
+    padding-top: 60px;
+    text-decoration: double overline underline;
+
+}
+
+h2 {
+    font-size: 50px;
+    margin-top: 20px;
+}
+
+h3 {
+    margin-top: 15px;
+    font-size: 30px;
+}
+
+blockquote {
+    font-size: 13px;
+    margin: 0 30px 0 30px;
+    margin-top: -8px;
+    border-left: 5px solid #252525;
+}
+
+p {
+    font-family: 'Oswald';
+    text-align: justify;
+}
+
+h4 {
+    font-family: 'built light';
+    letter-spacing: 1.2px;
+    font-size: 40px;
+    margin-left: -15px;
+    margin-top: 25px;
+
+}
+
+.sectionAction {
+    padding-left: 50px;
+    padding-bottom: 25px;
+}
+
+.sectionInvocation {
+    padding-left: 50px;
+    padding-bottom: 25px;
+}
+
+section:nth-of-type(2) {
+    margin-top: 20px;
+    padding: 0px 50px 50px 50px;
+    border: 10px solid black;
+    border-radius: 10px;
+}
+
+.action2 img {
+    height: 200px;
+     width: 460px;
+}
+
+.action1 img{
+    width: 280px;
+    height:150px;
+}
+
+.separateur{
+    border-top: 5px solid black;
+    margin-top: 30px;
+}
+
+.action3 img{
+    height: 160px;
+     width: 220px;
+    margin-bottom: 5px;
+}
+
+.action4 img{
+    height: 190px;
+     width: 450px;
+    margin-bottom: 5px;
+}
+
+img{
+    padding: 10px;
+}
+

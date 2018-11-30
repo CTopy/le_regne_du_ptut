@@ -5,17 +5,185 @@
         <title>Le Réveil de Cthulhu</title>
         <meta name="description" content="Lorsque le monde est en danger, que les Anciens sont sur le point de se réveiller, et que les cultes impies ont envahit la planète, seuls quelques personnes prêtes à côtoyer l'insanité se dressent pour tenter d'endiguer le Mal." />
         
-        
-        <link rel="stylesheet" type="text/css" href="css/styleIndex.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="./js/menu.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/styleRegles.css" />
+        <link rel="stylesheet" type="text/css" href="./css/styleIndex.css" />
         
     </head>
     <body>
         <main>
-            <section>
-                <div><p>JOUER</p></div>
-                <div><p>Partie Rapide</p></div>
-                <div><p>Règles</p></div>
-                <div><p>Options</p></div>
+            <div id="temporaire">
+                <p >Ceci est un prototype en cours de production, il y a encore beaucoup de travail à effectuer</p>
+                <p>MERCI DE VOTRE COMPREHENSION</p>
+            </div>
+            
+            <section id="menu">
+                <div><a href="./jeu.html">JOUER</a></div>
+                <div><a href="./jeu.html">Partie Rapide</a></div>
+                <div><a id="btnRegle" href="#">Règles</a></div>
+                <div><a href="#">Options</a></div>
+            </section>
+            <section id="regle">
+                <a href="index.html"><img id="bouttonQuitter" src="assets/images/quitter.png" /></a>
+    <div class="container">
+        
+        
+        
+        <!--ENTETE + DEROULEMENT-->
+        
+        
+        
+        <section>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Comment jouer ?</h1>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2> - Règles du jeu -</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Déroulement</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 citation">
+                    <blockquote>Le tour de chaque joueur est divisé en 3 phases. Effectuer 4 actions, piocher 2 cartes joueur et révéler des cartes invocations. Une fois que le joueur actif a révélé les cartes Invocation, le joueurs suivant joue à son tour. Les joueurs peuvent s’échanger des informations librement. Assurez-vous que tous les joueurs puissent contribuer aux discussions et stratégies. Toutefois, le joueur dont c’est le tour a toujours le dernier mot sur les actions qu’il réalisera.Votre main peut comprendre des cartes Indice et Relique. Les cartes Indice sont utilisées lors de différentes actions tandis que les cartes Relique peuvent être jouées sans contrainte.</blockquote>
+                </div>
+            </div>
+        </section>
+        
+        
+        <!--ACTION-->
+        
+        
+        <section>
+            <div class="row sectionAction">
+                <h4>Actions</h4>
+                <div class="col-xs-4 texte">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                </div>
+                <div class="col-xs-4 texte">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                </div>
+                <div class="col-xs-3 action1">
+                    <img src='assets/images/regles.jpg' />
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 action2">
+                        <img src='assets/images/regles.jpg' />
+                    </div>
+                    <div class="col-xs-3 texte">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                    </div>
+                    <div class="col-xs-3 texte">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <!--PIOCHEZ CARTES-->
+            
+            
+            
+            <div class="row sectionPiocherCarte">
+                <div class="separateur">
+                    <h4>Piocher des carte</h4>
+                    <div class="col-md-2 texte">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                    </div>
+                    <div class="col-xs-2 texte">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                    </div>
+
+                    <div class="col-xs-5 texte">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.? Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.? Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                    </div>
+                    <div class="col-xs-3 action3">
+                        <img src='assets/images/regles.jpg' />
+                    </div>
+                    <div class="col-xs-3 action3">
+                        <img src='assets/images/regles.jpg' />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 texte">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                </div>
+                <div class="col-xs-6 action2">
+                    <img src='assets/images/regles.jpg' />
+                </div>
+                <div class="col-xs-3 texte">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                </div>
+            </div>
+            
+            
+            
+         <!--INVOCATION-->
+            
+            
+            
+            <div class="row sectionInvocation">
+                <div class="separateur">
+                    <h4>Invocation</h4>
+                    <div class="col-md-6 texte">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                    </div>
+                    <div class="col-xs-6 texte">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                    </div>      
+                
+            </div>
+            <div class="row">
+                <div class="col-xs-6 action4">
+                    <img src='assets/images/regles.jpg' />
+                </div>
+                <div class="col-xs-6 texte">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.? Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 texte">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                </div>
+                <div class="col-xs-4 texte">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                </div>
+                <div class="col-xs-3 action1">
+                    <img src='assets/images/regles.jpg' />
+                </div>
+            </div>
+            </div>
+            
+        <!--FIN DE LA PARTIE-->
+            
+            
+            
+            <div class="row sectionFinPartie">
+                <div class="separateur">
+                    <h4>Fin de la partie</h4>
+                    <div class="col-md-6 texte">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                    </div>
+                    <div class="col-xs-6 texte">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut mattis nulla, sed ullamcorper neque. Praesent varius turpis turpis, vitae tempor urna feugiat sed. Curabitur quis magna et enim placerat sollicitudin. In dictum lobortis eros vitae finibus. Sed eu egestas augue. Morbi vehicula vehicula magna, eget auctor orci bibendum vitae. Cras efficitur lorem in dapibus pretium.?</p>
+                    </div>      
+                </div>
+            </div>
+        </section>
+    </div>
             </section>
         </main>
     </body>
