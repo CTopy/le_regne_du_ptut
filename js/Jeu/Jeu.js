@@ -44,23 +44,16 @@ class Jeu {
     }
 
     async afficherModeles() {
-        let entites = this.investigateurs.concat(this.cultistes);
-        entites = entites.concat(this.shoggoths);
+        let entites = this.investigateurs.concat(this.cultistes, this.shoggoths);
         for(let uneEntite of entites) {
             await uneEntite.afficherMesh();
-            uneEntite.ajusterMesh();
+            await uneEntite.ajusterMesh();
         }
     }
     
     async mettreEnPlaceJeu() {
-        document.getElementById("passer").addEventListener("click", () => {
-            this.passerTour();
-        });
-        let j1=new Detective("Joueur Test 1");
-        let j2=new Detective("Joueur Test 2");
-        let j3=new Detective("Joueur Test 3");
-        let j4=new Detective("Joueur Test 4");
-        this.investigateurs = [j1,j2,j3,j4];
+        this.investigateurs.push(new Detective("Joueur Test 1"));
+        this.investigateurs.push(new Detective("Joueur Test 2"));
         
         melanger(this.investigateurs);
         this.joueurActif = this.investigateurs[0];
@@ -70,16 +63,10 @@ class Jeu {
         this.investigateurs[0].mainDOM.innerHTML = "<img class=\"carte\" src=\"assets/images/arkham.png\" /><img class=\"carte\" src=\"assets/images/innsmouth.png\" /><img class=\"carte\" src=\"assets/images/kingsport.png\" /><img class=\"carte\" src=\"assets/images/dunwich.png\" />";
         this.investigateurs[1].mainDOM.innerHTML = "<img class=\"carte\" src=\"assets/images/arkham.png\" /><img class=\"carte\" src=\"assets/images/innsmouth.png\" /><img class=\"carte\" src=\"assets/images/kingsport.png\" /><img class=\"carte\" src=\"assets/images/dunwich.png\" />";
         
-        let joueursPassifs = [
-            this.investigateurs[1],
-            this.investigateurs[2],
-            this.investigateurs[3]
-        ]
-        let rang = 2;
+        let joueursPassifs = this.investigateurs.splice(1,this.investigateurs.length-1);
         for (let unInv of joueursPassifs) {
-            unInv.setPassif(rang);
+            unInv.setPassif(2);
             unInv.afficherDOM();
-            rang++;
         }
         
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//
@@ -150,20 +137,16 @@ class Jeu {
     }
     
     passerTour() {
-        /*
-            this.phasePioche();
-            this.checkFin();
-            this.invoquer();
-            this.checkFin();
-        */
-        this.joueurActif.ajouterActions(this.joueurActif.nbActionMax);
-        let ancienActif = this.joueurActif;
-        move(this.joueurs, 0, this.joueurs.length-1);
-        this.joueurActif = this.joueurs[0];
-        this.joueurActif.setActif();
-        ancienActif.setPassif(2);
-        this.joueurs[2].setPassif(3);
-        this.joueurs[1].setPassif(4);
+        this.phasePioche();
+        this.checkFin();
+        this.invoquer();
+        this.checkFin();
+        this.joueurActif.unwatch(nbAction);
+        this.joueurActif.nbAction = joueurActif.nbActionMax;
+        
+        let index = this.joueurActif.indexOf(joueurs);
+        index = index++%4;
+        this.joueurActif = this.joueurs[index];
         this.tourDeJeu();
     }
     

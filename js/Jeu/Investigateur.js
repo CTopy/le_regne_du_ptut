@@ -164,13 +164,7 @@ class Investigateur extends Entite{
     
     ajouterActions(nb) {
         this.nbAction = this.nbAction + nb;
-        this.actionsDOM.innerHTML = "";
-        this.actionsDOM.innerHTML = "<p>"+this.nbAction+"</p>";
-    }
-    
-    setActions(nb) {
-        this.nbAction = nb;
-        this.actionsDOM.innerHTML = "";
+        this.actionsDOM.children.length = 0;
         this.actionsDOM.innerHTML = "<p>"+this.nbAction+"</p>";
     }
 }
