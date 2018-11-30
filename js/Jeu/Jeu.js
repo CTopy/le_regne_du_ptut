@@ -52,8 +52,22 @@ class Jeu {
     }
     
     async mettreEnPlaceJeu() {
-        this.investigateurs.push(new Detective("Topy"));
-        this.investigateurs.push(new Detective("Ludovic"));
+        this.investigateurs.push(new Detective("Joueur Test 1"));
+        this.investigateurs.push(new Detective("Joueur Test 2"));
+        
+        melanger(this.investigateurs);
+        this.joueurActif = this.investigateurs[0];
+        this.joueurActif.setActif();
+        this.joueurActif.afficherDOM();
+        
+        this.investigateurs[0].mainDOM.innerHTML = "<img class=\"carte\" src=\"assets/images/arkham.png\" /><img class=\"carte\" src=\"assets/images/innsmouth.png\" /><img class=\"carte\" src=\"assets/images/kingsport.png\" /><img class=\"carte\" src=\"assets/images/dunwich.png\" />";
+        this.investigateurs[1].mainDOM.innerHTML = "<img class=\"carte\" src=\"assets/images/arkham.png\" /><img class=\"carte\" src=\"assets/images/innsmouth.png\" /><img class=\"carte\" src=\"assets/images/kingsport.png\" /><img class=\"carte\" src=\"assets/images/dunwich.png\" />";
+        
+        let joueursPassifs = this.investigateurs.splice(1,this.investigateurs.length-1);
+        for (let unInv of joueursPassifs) {
+            unInv.setPassif(2);
+            unInv.afficherDOM();
+        }
         
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//
         //Mélanger les grands anciens
@@ -87,16 +101,6 @@ class Jeu {
         
         //********* SELECTION DES PERSONNAGES **********//
         //Désigner un personnage au hasard pour être le premier à jouer
-        melanger(this.investigateurs);
-        this.joueurActif = this.investigateurs[0];
-        this.joueurActif.setActif();
-        this.joueurActif.afficherDOM();
-        
-        let joueursPassifs = this.investigateurs.splice(1,this.investigateurs.length-1);
-        for (let unInv of joueursPassifs) {
-            unInv.setPassif(2);
-            unInv.afficherDOM();
-        }
 
         //********* AFFICHER TOUS LES MODELES 3D **********//
         

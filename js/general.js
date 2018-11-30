@@ -55,7 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     
-    $(".carte").click(function () {
-        vue.afficherCarte($(this));
-    });
+    for (let uneCarte of document.querySelectorAll(".carte")) {
+        uneCarte.addEventListener("click", function(e) {
+            vue.afficherCarte(e.target);
+        });
+    }
 });

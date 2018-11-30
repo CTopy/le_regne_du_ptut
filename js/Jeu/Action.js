@@ -77,7 +77,7 @@ class Marcher extends Action {
     //redéfinition des méthodes
     preaction() {
         //Changer l'icone et possibilité d'annuler l'action
-        this.eltDOM.firstChild.src = "assets/images/quitter.png";
+        this.eltDOM.firstElementChild.src = "assets/images/quitter.png";
         //on prend les lieux connectés à l'emplacement de l'this.joueurActif
         this.lieuxVoisins = this.joueurActif.lieu.lieuxConnectes;
         //Préparer l'action
@@ -100,7 +100,7 @@ class Marcher extends Action {
                 //Retirer l'écouteur de click
                 unLieu.mesh.actionManager.actions.length = 0;
             }
-            this.eltDOM.firstChild.src = this.image;
+            this.eltDOM.firstElementChild.src = this.image;
     }
     
     faireAction(lieu) {

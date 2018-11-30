@@ -12,7 +12,7 @@ class GrandAncien{
         //lancer la video?
         this.estReveille = true;
         this.div.classList = "ancien ancien--decouvert";
-        this.div.firstChild.src = this.img
+        this.div.firstElementChild.src = this.img
     }
     
     afficherDOM() {

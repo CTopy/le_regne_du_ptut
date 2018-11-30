@@ -85,19 +85,23 @@ class Investigateur extends Entite{
         this.eltDOM.classList.add("interface");
         
         //Création de la div investigateur
-        let divInvestigateur = document.createElement("div");
-        divInvestigateur.classList.add("investigateur");
+        this.divInvestigateur = document.createElement("div");
+        this.divInvestigateur.classList.add("investigateur");
         
         this.imageDOM = document.createElement("img");
         this.imageDOM.src = this.image;
         
+        let nomDOM = document.createElement("p");
+        nomDOM.innerHTML = this.nomJoueur;
+        
+        let invDOM = document.createElement("p");
+        invDOM.innerHTML = this.nomPersonnage;
+        
         this.effetDOM = document.createElement("p");
         this.effetDOM.innerHTML = this.effet;
         
-        divInvestigateur.appendChild(this.imageDOM);
-        divInvestigateur.lastChild.insertAdjacentHTML('beforeend',"<p>"+this.nomJoueur+"</p>"+
-                                    "<p>"+this.nomPersonnage+"</p>");
-        divInvestigateur.appendChild(this.effetDOM);
+        this.divInvestigateur.appendChild(this.imageDOM);
+        this.imageDOM.after(this.effet);
         
         //Création de la div actions
         this.actionsDOM = document.createElement("div");
@@ -115,10 +119,14 @@ class Investigateur extends Entite{
         this.mainDOM = document.createElement("div");
         this.mainDOM.classList.add("main");
         
-        this.eltDOM.appendChild(divInvestigateur);
+        this.eltDOM.appendChild(this.divInvestigateur);
         this.eltDOM.appendChild(this.actionsDOM);
         this.eltDOM.appendChild(this.santeMentaleDOM);
         this.eltDOM.appendChild(this.mainDOM);
+        
+        this.identiteDOM = document.createElement("div");
+        this.identiteDOM.innerHTML = "<p>"+this.nomJoueur+"</p>"+
+                                     "<p>"+this.nomPersonnage+"</p>";
         
     }
     
@@ -130,10 +138,23 @@ class Investigateur extends Entite{
     }
     
     setActif() {
+        let nom = document.createElement("p");
+        nom.innerHTML = this.nomJoueur;
+        let inv = document.createElement("p");
+        inv.innerHTML = this.nomPersonnage;
+        this.divInvestigateur.innerHTML = "";
+        this.divInvestigateur.append(this.imageDOM);
+        this.divInvestigateur.append(nom);
+        this.divInvestigateur.append(inv);
+        this.divInvestigateur.append(this.effetDOM);   
         this.eltDOM.className = "interface joueurActif";
     }
     
     setPassif(rang){
+        this.divInvestigateur.innerHTML = "";
+        this.divInvestigateur.append(this.imageDOM);
+        this.divInvestigateur.append(this.identiteDOM);
+        this.divInvestigateur.append(this.effetDOM)
         this.eltDOM.className = "interface joueurPassif j"+rang;
     }
     
