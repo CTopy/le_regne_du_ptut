@@ -10,11 +10,11 @@ class Shoggoth extends Entite{
         this.destroy();
     }
     
-    afficherMesh() {
-        Entite.prototype.afficherMesh.call(this);           //A cause du findIndex
+    async afficherMesh() {
+        await Entite.prototype.afficherMesh.call(this);           //A cause du findIndex
     }
     
-    ajusterMesh() {
+    async ajusterMesh() {
     }
     
     seDeplacer(){

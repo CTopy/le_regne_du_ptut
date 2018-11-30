@@ -91,12 +91,12 @@ class Lieu {
     //Placer un écouteur de clic sur le mesh du Lieu
     ecouterClic(callback) {
         this.mesh.actionManager.registerAction(
-            new ExecuteCodeAction (
+            new BABYLON.ExecuteCodeAction (
                 BABYLON.ActionManager.OnPickTrigger,
                 function(evt) {
                     callback(evt);
-                    unLieu.mesh.actionManager.unregisterAction(BABYLON.ActionManager.OnPickTrigger);
-                }));
+                    this.mesh.actionManager.unregisterAction(BABYLON.ActionManager.OnPickTrigger);
+                }.bind(this)));
     }
     
     /** 
@@ -108,12 +108,13 @@ class Lieu {
         let y = xyz[1];
         let z = xyz[2];
         //Ajouter une lumière
-        this.lumiere = new BABYLON.SpotLight(this.nom+"_light", new BABYLON.Vector3(x, y+0.5, z), this.origine, 1, 0, this.scene);
+        this.mesh.visibility = true;
+//        this.lumiere = new BABYLON.SpotLight(this.nom+"_light", new BABYLON.Vector3(x, y+0.5, z), this.origine, 1, 0, this.scene);
         
     }
     
     stopSurbrillance() {
-        this.lumiere = null;
+        this.mesh.visibility = false;
     }
 };
 

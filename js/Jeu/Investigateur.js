@@ -101,10 +101,6 @@ class Detective extends Investigateur{
              "Détective");
     }
     
-    afficherMesh() {
-        Entite.prototype.afficherMesh.call(this);       //A cause du findIndex
-    }
-    
     devenirFou(){
         this.estFou=true;
         this.nbAction = 3;

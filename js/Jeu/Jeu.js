@@ -11,6 +11,8 @@ $("document").ready(async function(){
     await partie.mettreEnPlaceJeu();
     await partie.afficherModeles();
     partie.grandsAnciens[0].reveil();
+    await partie.tourDeJeu();
+    
 });
 
 class Jeu {
@@ -84,11 +86,14 @@ class Jeu {
         this.invoquer(1, SHOGGOTH);
         
         //********* SELECTION DES PERSONNAGES **********//
+        //Désigner un personnage au hasard pour être le premier à jouer
+        melanger(this.investigateurs);
+        this.joueurActif = this.investigateurs[0];
         //********* AFFICHER TOUS LES MODELES 3D **********//
         
     }
 
-    tourDeJeu() {
+    async tourDeJeu() {
         
         //Au début de chaque tour, on affiche toutes les actions
         for(var uneAction of this.actions) {

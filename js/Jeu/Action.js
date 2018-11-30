@@ -25,7 +25,9 @@ class Action {
     //définition des méthodes de la classe mère
     cacher(investigateur) {
         this.eltDOM.classList = "action action--cache";
-        this.eltDOM.removeEventListener("click", this.preaction(investigateur));
+        this.eltDOM.removeEventListener("click", function() {
+                this.preaction(investigateur);
+            }.bind(this));
     }
 }
 
@@ -52,6 +54,8 @@ class Marcher extends Action {
     preaction(investigateur) {
         //Changer l'icone et possibilité d'annuler l'action
         this.eltDOM.firstChild.src = "assets/images/quitter.png";
+        //on prend les lieux connectés à l'emplacement de l'investigateur
+        let lieuxVoisins = investigateur.lieu.lieuxConnectes;
         
         //On empêche d'activer à nouveau l'action, on ajoute un écouteur pour annuler
         this.eltDOM.removeEventListener("click", function() {
@@ -67,9 +71,6 @@ class Marcher extends Action {
             if(event.target != this.eltDOM)     //Si on clique sur autre chose que la croix
                 event.stopPropagation();
         });
-        
-        //on prend les lieux connectés à l'emplacement de l'investigateur
-        let lieuxVoisins = investigateur.lieu.lieuxConnectes;
         
         //Préparer l'action
         for (var unLieu of lieuxVoisins) {
