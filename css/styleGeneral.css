@@ -82,7 +82,7 @@ p {
     background-size: contain;
     background-repeat: no-repeat;
     
-    bottom: -16vh;
+    bottom: -17vh;
     left: calc((100vw - var(--largTabJoueur)) / 2);
     
     transition : bottom 0.5s;
@@ -131,7 +131,7 @@ p {
     font-size: 1.5vw;
     text-shadow: -2px 2px 0 black;
     color: #BCCA9B;
-    margin-top: -7px;
+    margin-top: -9px;
 }
 
 .joueurActif .investigateur p:last-child {
@@ -171,14 +171,14 @@ p {
 
 .joueurActif .main {
     max-width: 80%;
-    left: 31%;
-    top: 37%;
+    left: 26%;
+    top: 38%;
     padding-left: 4%;
 }
 
 .joueurActif .main img {
     position: relative;
-    margin-left: -11%;
+    margin-left: -9%;
     transition : transform 0.5s;
     height : 11vw;
 }
@@ -433,8 +433,7 @@ p {
     position : relative;
 }
 
-/* Croix */
-#dark img+img {
+#dark .carte + img {
     position : absolute;
     top: 11%;
     right: 35%;
@@ -451,7 +450,7 @@ button {
  /* GRANDS ANCIENS */
 
 #gdAnciens {
-    top: -10px;
+    top: -9px;
     left: 0;
     position: absolute;
     width: 100vw;
@@ -461,8 +460,8 @@ button {
 }
 
 #gdAnciens img {
-    height: 5vw;
-    width: 5vw;
+    height: 5.3vw;
+    width: 5.3vw;
     object-fit: cover;
     margin: 0 15px;
     border-radius: 5000px;
@@ -473,22 +472,22 @@ button {
 .ancien--cache{
     background-image: url(../assets/images/grandsAnciens/tableau_grand_ancien_resume_cacher.png);
     background-repeat: no-repeat;
-    background-size: 120px;
+    background-size: 140px;
     background-position: center;
     height: 40px;
-    top: -75px;
+    top: -79px;
    
 
 }
 
 .ancien--decouvert{
     cursor: pointer;
-    top: -75px;
+    top: -79px;
     background-image: url(../assets/images/grandsAnciens/tableau_grand_ancien_resume_decouvert.png);
     background-repeat: no-repeat;
     background-size: cover;
     height: 50px;
-    background-size: 120px;
+    background-size: 140px;
     background-position: center;
     transition : top 0.5s;
 }
@@ -516,12 +515,12 @@ button {
 .ancien p:nth-of-type(2) {
     position: absolute;
     max-width: 7vw;
-    font-size: 9px;
+    font-size: 9.5px;
     top: 14.3vh;
     width: 80%;
-    text-align: center;
     font-family: 'Oswald';
     text-shadow: 2px 2px 1px black;
+
 
 }
 
@@ -594,12 +593,20 @@ button {
 #actions>div:last-child img {
     height: 150px;
     width: 150px;
-}
+    }
+    
+/**************************************************************
+************************* INTERFACE 2-3 ***************************/
 
-/*********ANIMATIONS CSS**********/
 
+@media screen and (max-width: 1400px){
 
-@keyframes TOURNE{
-    0%{transform : rotate(0deg);}
-    100%{transform : rotate(-360deg);}
+    /***** JOUEUR ACTIF *****/
+
+/* TABLEAU DE JOUEUR */
+    .joueurActif {
+    --largTabJoueur: 81vw;
+    bottom: -14.5vh;
+    left: 22vh;
+    z-index: 1;
 }
