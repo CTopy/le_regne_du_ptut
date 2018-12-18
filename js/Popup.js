@@ -1,7 +1,7 @@
 "use strict";
 
 //Utiliser du jQuery
-class Vue {
+class Popup {
     constructor() {
         //Définition du fond pour les boites de dialogue
         this.fond = $(document.createElement("div"));
@@ -46,21 +46,4 @@ class Vue {
         this.fond.empty();
         this.fond.remove();
     }
-    
-    //Fonction pour test
-    creerCylindre(lieu) {
-            this.cylindres++;
-            //Récupérer l'index de l'entité dans son lieu
-            let mesh = BABYLON.MeshBuilder.CreateCylinder("cylindre"+this.cylindres, {}, this.scene);
-            mesh.visibility = false;
-            mesh.position = lieu.coords[this.cylindres%10];
-            mesh.visibility = true;
-    }
 }
-
-/*
-Permet d'afficher un cylindre sur tous les lieux
-for (var unLieu of lieux)
-    for (var i=0; i<10; i++) 
-        vue.creerCylindre(unLieu);
-*/

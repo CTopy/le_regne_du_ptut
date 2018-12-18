@@ -9,11 +9,12 @@
  * 	});
  * });
  */
-var chgt= afficherChargement();
+const chgt= afficherChargement();
 $(document).ready(function() {
     console.log("Chargement en cours...");
-    sssl(['js/Jeu/constantes.js', 'js/Arena.js', 'js/Player.js', 'js/Game.js', 'js/Jeu/Lieu.js', 'js/Jeu/Carte.js', 'js/Jeu/Deck.js', 'js/Jeu/Investigateur.js', 'js/Jeu/Cultiste.js', "js/Jeu/Shoggoth.js", "js/Jeu/GrandAncien.js", 'js/Jeu/Action.js', 'js/Vue.js', 'js/Jeu/Jeu.js'], function() {
+    sssl(['js/Jeu/constantes.js', 'js/Arena.js', 'js/Player.js', 'js/Game.js', 'js/Jeu/Lieu.js', 'js/Jeu/Carte.js', 'js/Jeu/Deck.js', 'js/Jeu/Investigateur.js', 'js/Jeu/Cultiste.js', "js/Jeu/Shoggoth.js", "js/Jeu/GrandAncien.js", 'js/Jeu/Action.js', 'js/Popup.js', 'js/Jeu/Jeu.js'], function() {
         console.log("Fin du chargement !");
+    }).then(() => {
         effacerChargement(chgt);
     });
 });

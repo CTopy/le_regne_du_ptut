@@ -81,52 +81,33 @@ class Investigateur extends Entite{
         this.nomPersonnage = nomPersonnage;
         //Création de l'élément du DOM
         this.eltDOM = document.createElement("div");
-        this.eltDOM.dataset.joueur = this.nomJoueur;
         this.eltDOM.classList.add("interface");
+        this.eltDOM.id = this.nomJoueur.toLowerCase();
         
-        //Création de la div investigateur
-        this.divInvestigateur = document.createElement("div");
-        this.divInvestigateur.classList.add("investigateur");
-        
-        this.imageDOM = document.createElement("img");
-        this.imageDOM.src = this.image;
-        
-        let nomDOM = document.createElement("p");
-        nomDOM.innerHTML = this.nomJoueur;
-        
-        let invDOM = document.createElement("p");
-        invDOM.innerHTML = this.nomPersonnage;
-        
-        this.effetDOM = document.createElement("p");
-        this.effetDOM.innerHTML = this.effet;
-        
-        this.divInvestigateur.appendChild(this.imageDOM);
-        this.imageDOM.after(this.effet);
-        
-        //Création de la div actions
-        this.actionsDOM = document.createElement("div");
-        this.actionsDOM.classList.add("nbActions");
-        this.actionsDOM.innerHTML = "<p>"+this.nbAction+"</p>";
-        
-        //Création de la div santé mentale
-        this.santeMentaleDOM = document.createElement("div");
-        this.santeMentaleDOM.classList.add("santeMentale");
-        this.santeMentaleDOM.innerHTML = "<div><p>"+this.santeMentale+"</p></div>";
-        for (let i = 1; i <= this.santeMentale; i++)
-            this.santeMentaleDOM.lastChild.insertAdjacentHTML('beforeend',"<img src=\"assets/images/backgrounds/folie.jpg\" />");
-        
-        //Création de la div main
-        this.mainDOM = document.createElement("div");
-        this.mainDOM.classList.add("main");
-        
-        this.eltDOM.appendChild(this.divInvestigateur);
-        this.eltDOM.appendChild(this.actionsDOM);
-        this.eltDOM.appendChild(this.santeMentaleDOM);
-        this.eltDOM.appendChild(this.mainDOM);
-        
-        this.identiteDOM = document.createElement("div");
-        this.identiteDOM.innerHTML = "<p>"+this.nomJoueur+"</p>"+
-                                     "<p>"+this.nomPersonnage+"</p>";
+        //Remplissage de l'élément du DOM
+        this.eltDOM.innerHTML = 
+            "<div class=\"investigateur\">"+
+                "<img class=\"portrait\" src=\"assets/images/investigateurs/docteur.jpg\" />"+
+                    "<div>"+
+                        "<p>{{nom}}</p>"+
+                        "<p>{{investigateur}}</p>"+
+                    "</div>"+
+                    "<p>{{effet}}</p>"+
+            "</div>"+
+            "<div class=\"nbActions\">"+
+                "<p>5</p>"+
+            "</div>"+
+            "<div class=\"santeMentale\">"+
+                "<div>"+
+                    "<p>4</p>"+
+                "</div>"+
+                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
+                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
+                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
+                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
+            "</div>"+
+            "<div class=\"main\">"+
+            "</div>";
         
     }
     
