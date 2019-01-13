@@ -77,14 +77,14 @@ p {
     --largTabJoueur: 60vw;
     max-height: calc(var(--largTabJoueur) * 0.32);
     max-width: var(--largTabJoueur);
-    
+
     background-image: url(../assets/images/backgrounds/tableau_joueur.png);
     background-size: contain;
     background-repeat: no-repeat;
-    
+
     bottom: -17vh;
     left: calc((100vw - var(--largTabJoueur)) / 2);
-    
+
     transition : bottom 0.5s;
 }
 
@@ -95,7 +95,7 @@ p {
 .joueurActif>img {
     height: 100%;
     width: 100%;
-    
+
 }
 
 /* DIV INVESTIGATEUR */
@@ -103,13 +103,13 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
     /* Marges */
     left : 2%;
     top : 6%;
     max-width : 20%;
     max-height: 100%;
-    
+
     padding : 5px;
     box-sizing: border-box;
 }
@@ -144,10 +144,10 @@ p {
     background-image: url(../assets/images/backgrounds/description_joueur.png);
     background-size: cover;
     background-repeat: no-repeat;
-    
-    
-    
-    
+
+
+
+
 }
 
 .joueurActif .investigateur div{
@@ -156,7 +156,7 @@ p {
     background-repeat: no-repeat;
     background-position: bottom;
     padding-left: 25px;
-    
+
 }
 
 .joueurActif .investigateur img {
@@ -195,7 +195,7 @@ p {
     top: 0;
     left: 0;
     max-width: 35%;
-    
+
     top : 8%;
     left : 25%;
 }
@@ -211,7 +211,7 @@ p {
     display : none;
 }
 
-/* NB ACTIONS */
+/* NOMBRE ACTIONS */
 
 .nbActions {
     display : flex;
@@ -223,7 +223,7 @@ p {
     background-size: cover;
     width : 7vh;
     height : 7vh;
-    
+
     left : 82%;
     top : 3%;
     box-sizing: border-box;
@@ -233,10 +233,10 @@ p {
     font-size: 30pt;
     font-weight: bold;
     margin : 0;
-    
-    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6), 
-        -1px 1px 10px rgba(0, 0, 0, 0.6), 
-        -1px -1px 10px rgba(0, 0, 0, 0.6), 
+
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6),
+        -1px 1px 10px rgba(0, 0, 0, 0.6),
+        -1px -1px 10px rgba(0, 0, 0, 0.6),
         1px -1px 10px rgba(0, 0, 0, 0.6);
 }
 
@@ -247,20 +247,20 @@ p {
     --largeur : 33vw;
     max-width : var(--largeur);
     max-height : calc(var(--largeur) * 0.39);
-    
+
     background-image: url(../assets/images/backgrounds/tableau_joueur_resume.png);
     background-size: contain;
     background-repeat: no-repeat;
-    
+
     left: -22.5vw;
     transition : left 0.5s;
     overflow: visible;
-    
+
 }
 
 .joueurPassif:hover {
     left: 0;
-    
+
 }
 
 /* INVESTIGATEUR */
@@ -268,7 +268,7 @@ p {
 .joueurPassif .investigateur {
     top : 10%;
     left : 65%;
-    
+
     display : flex;
     flex-direction: column;
     align-items: center;
@@ -280,7 +280,7 @@ p {
     margin : 0;
     margin-bottom: 2%;
     margin-top: -2%;
-    
+
     max-width : 35%;
     z-index : 2;
     border: 8px solid black;
@@ -292,7 +292,7 @@ p {
 }
 
 .joueurPassif .investigateur p:first-of-type {
-    margin : -3% 0 3% 0; 
+    margin : -3% 0 3% 0;
     font-size : 0.7vw;
 }
 
@@ -310,7 +310,7 @@ p {
         margin-top: -8px;
         font-family: 'Built';
         color: #BCCA9B;
-        text-shadow: 2px 3px 0px rgba(0,0,0,1);   
+        text-shadow: 2px 3px 0px rgba(0,0,0,1);
 }
 
 .joueurPassif .investigateur div:nth-child(2) {
@@ -321,8 +321,8 @@ p {
     background-repeat: no-repeat;
     background-size: 78%;
     background-position: center;
-    
-    
+
+
 }
 
 .joueurPassif .investigateur p:nth-child(3) {
@@ -334,11 +334,11 @@ p {
     text-align: justify;
     transition: all 0.25s linear;
     font-family: 'Oswald';
-    
-   
+
+
     margin-top: -40%;
     text-shadow: 1px 2px 0 rgba(0,0,0,1);
-    
+
     display: none;
 }
 
@@ -419,7 +419,7 @@ p {
     position : absolute;
     top : 0;
     left : 0;
-    
+
     background-color: rgba(0, 0, 0, 0.7);
     display : flex;
     justify-content: space-around;
@@ -446,7 +446,7 @@ button {
     top : 0;
     left : 0;
 }
-        
+
  /* GRANDS ANCIENS */
 
 #gdAnciens {
@@ -466,7 +466,7 @@ button {
     margin: 0 15px;
     border-radius: 5000px;
     border: 5px solid #0E0E0E;
-   
+
 }
 
 .ancien--cache{
@@ -476,7 +476,7 @@ button {
     background-position: center;
     height: 40px;
     top: -79px;
-   
+
 
 }
 
@@ -505,11 +505,11 @@ button {
 }
 
 .ancien p {
-    
+
     font-family: 'Built';
     text-shadow: 2px 2px 3px black;
     margin-top: -96%;
-    
+
 }
 
 .ancien p:nth-of-type(2) {
@@ -594,7 +594,7 @@ button {
     height: 150px;
     width: 150px;
     }
-    
+
 /**************************************************************
 ************************* INTERFACE 2-3 ***************************/
 

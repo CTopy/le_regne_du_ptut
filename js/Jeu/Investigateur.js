@@ -79,74 +79,49 @@ class Investigateur extends Entite{
         this.santeMentale = 4;
 //      this.main = new Main();
         this.nomPersonnage = nomPersonnage;
-        this.actif = false;
         //Création de l'élément du DOM
         this.div = document.createElement("div");
-        this.div.className = "interface joueurPassif";
+        this.div.className = "interface";
         this.div.id = nomJoueur.toLowerCase().replace(/("|'| |<!--)/g, ""); //Retirer les caractères illégaux ' " <!-- et espace
 
 //      http://pojo.sodhanalibrary.com/ConvertToVariable
-        this.div.innerHTML = '<div class="investigateur">'+
-        '                    <template v-if="santeMentale != 0">'+
-        '                        <img class="portrait" src="{{image}}" />'+
-        '                    </template>'+
-        '                    <template v-else>'+
-        '                        <img class="portrait" src="{{imageFou}}" />'+
-        '                    </template>'+
-        '                    <p>{{nom}}</p>'+
-        '                    <p>{{role}}</p>'+
+        this.div.innerHTML =
+        '               <div class="investigateur">'+
+    '                        <img v-if="santeMentale != 0" class="portrait" :src="image" />'+
+    '                        <img v-else class="portrait" :src="imageFou" />'+
+        '                    <div v-if="!actif">'+
+        '                       <p>{{nom}}</p>'+
+        '                       <p>{{role}}</p>'+           //FIXME Afficher correctement cette partie pour un investigateur actif
+        '                    </div>'+
+        '                    <p v-if="actif">{{nom}}</p>'+
+        '                    <p v-if="actif">{{role}}</p>'+
         '                    <p>{{effet}}</p>'+
         '                </div>'+
         '                <div class="nbActions">'+
         '                    <p>{{nbActions}}</p>'+
         '                </div>'+
         '                <div class="santeMentale">'+
-        '                    <div v-show="actif">'+
-        '                        <template v-for="n in santeMentale">'+
+        '                    <div v-if="actif">'+
+        '                        <div v-for="n in santeMentale">'+
         '                            <img src="assets/images/backgrounds/folie.jpg" />'+
-        '                        </template>'+
+        '                        </div>'+
         '                    </div>'+
         '                    <div v-else>'+
         '                        <p>{{santeMentale}}</p>'+
-        '                        <div class="main">'+
-        '                            <img class="carte" src="assets/images/arkham.jpg" />'+
-        '                            <img class="carte" src="assets/images/innsmouth.jpg" />'+
-        '                            <img class="carte" src="assets/images/arkham.jpg" />'+
-        '                            <img class="carte" src="assets/images/kingsport.jpg" />'+
-        '                            <img class="carte" src="assets/images/innsmouth.jpg" />'+
-        '                            <img class="carte" src="assets/images/innsmouth.jpg" />'+
-        '                            <img class="carte" src="assets/images/oeil_mi_go.jpg" />'+
-        '                            <img class="carte" src="assets/images/arkham.jpg" />'+
-        '                        </div>'+
         '                    </div>'+
-        '                </div>';
-    }
-
-    setActif() {
-        if(this.div.className.includes("joueurPassif")) {
-            this.actif = !this.actif;
-            this.div.classList.remove("joueurPassif");
-            this.div.classList.add("joueurActif");
-            this.div.className.replace(/( j\d)|(j\d )|(j\d)/, ""); //Retirer le rang du joueur
-        } else console.log("Erreur : Le Joueur est déjà actif");
-    }
-
-    setPassif(rang){
-        if(rang<5 && rang>1)
-            if(this.div.className.includes("joueurActif")) {
-                this.actif = !this.actif;
-                this.div.classList.remove("joueurActif");
-                this.div.classList.add("joueurPassif");
-                this.div.classList.add("j"+rang)
-            } else console.log("Erreur : Le Joueur est déjà passif");
-        else console.log("Le rang doit être compris entre 1 et 3");
-    }
-
-    afficherDOM() {
-        document.getElementById("joueurs").append(this.eltDOM);
-        const id = "#"+this.div.id;
+        '                </div>'+
+'                        <div class="main">'+
+'                            <img class="carte" src="assets/images/arkham.png" />'+
+'                            <img class="carte" src="assets/images/innsmouth.png" />'+
+'                            <img class="carte" src="assets/images/arkham.png" />'+
+'                            <img class="carte" src="assets/images/kingsport.png" />'+
+'                            <img class="carte" src="assets/images/innsmouth.png" />'+
+'                            <img class="carte" src="assets/images/innsmouth.png" />'+
+'                            <img class="carte" src="assets/images/oeil_mi_go.jpg" />'+
+'                            <img class="carte" src="assets/images/arkham.png" />'+
+'                        </div>';
+        document.getElementById("joueurs").appendChild(this.div);
         this.vue = new Vue({
-            el: id,
             data: {
                 nom: this.nomJoueur,
                 role: this.nomPersonnage,
@@ -158,6 +133,30 @@ class Investigateur extends Entite{
                 actif: this.actif
             }
         });
+    }
+
+    setActif() {
+        if(this.div.className.includes("joueurPassif") || !this.div.className.includes("joueurActif")) {
+            this.actif = true;
+            this.div.classList.remove("joueurPassif");
+            this.div.classList.add("joueurActif");
+            this.div.className.replace(/( j\d)|(j\d )|(j\d)/, ""); //Retirer le rang du joueur
+        } else console.log("Erreur : Le Joueur est déjà actif");
+    }
+
+    setPassif(rang){
+        if(rang<5 && rang>1)
+            if(this.div.className.includes("joueurActif") || !this.div.className.includes("joueurPassif")) {
+                this.actif = false;
+                this.div.classList.remove("joueurActif");
+                this.div.classList.add("joueurPassif");
+                this.div.classList.add("j"+rang)
+            } else console.log("Erreur : Le Joueur est déjà passif");
+        else console.log("Le rang doit être compris entre 1 et 3");
+    }
+
+    afficherDOM() {
+        this.vue.$mount("#"+this.div.id);
     }
 }
 

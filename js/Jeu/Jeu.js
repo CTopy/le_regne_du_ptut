@@ -20,7 +20,7 @@ class Jeu {
         //Déclaration des données membres
         this.actions = [new Marcher()];
         this.nbJoueur = 4;
-        this.grandsAnciens = new Array(new Azathoth(), new Yig(), new Dagon());
+        this.grandsAnciens = [new Azathoth(), new Yig(), new Dagon()];
 //        this.paquetIndice = new Deck();
 //        this.paquetRelique = new Deck();
 //        this.defausseIndice = new Deck();
@@ -58,11 +58,11 @@ class Jeu {
             this.investigateurs[1],
             this.investigateurs[2],
             this.investigateurs[3]
-        ]
+        ];
         let rang = 2;
-        for (let unInv of joueursPassifs) {
-            unInv.setPassif(rang);
-            unInv.afficherDOM();
+        for (let j of joueursPassifs) {
+            j.setPassif(rang);
+            j.afficherDOM();
             rang++;
         }
 
