@@ -1,7 +1,7 @@
 /*
  * Queued script loading (not so fast as yepnope/labJS, but ordered execution):
  * sssl([source1, source2, source3], complete);
- * 
+ *
  * Example:
  * sssl(['jquery.js', 'jquery.ui.js'], function(){
  * 	$(function(){
@@ -24,9 +24,9 @@ $(document).ready(function() {
 	var scriptHead = firstScript.parentNode;
 	var re = /ded|co/;
 	var onload = 'onload';
-	var onreadystatechange = 'onreadystatechange'; 
+	var onreadystatechange = 'onreadystatechange';
 	var readyState = 'readyState';
-	
+
 	var load = function(src, fn){
 		var script = document.createElement('script');
 		script[onload] = script[onreadystatechange] = function(){
@@ -110,7 +110,7 @@ function afficherChargement(){
 }
 
 function effacerChargement(fond){
-    
+
     $(fond).animate({
         "opacity" : "0"
     }, 2000, function() {

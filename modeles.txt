@@ -1,0 +1,82 @@
+            <!-- MODELES GRANDS ANCIENS
+            <div class="ancien ancien--cache" data-num="6">
+                <img src="./assets/images/grandsAnciens/grand_anciens_cacher.jpg" />
+                <p class="nomAncien">Atlach-Nacha</p>
+                <p class="effetAncien">Chaque investigateur choisis entre perdre 1 point de santé mentale, où invoquer un cultiste sur son lieu. Un investigateur fou n'a pas le choix...</p>
+            </div>
+            <div class="ancien ancien--cache" data-num="cthulhu">
+                <img src="./assets/images/grandsAnciens/grand_anciens_cacher_cthulhu.jpg" />
+                <p class="nomAncien">Cthulhu</p>
+                <p class="effetAncien">Chaque investigateur choisis entre perdre 1 point de santé mentale, où invoquer un cultiste sur son lieu. Un investigateur fou n'a pas le choix...</p>
+            </div>
+            -->
+
+            <!-- MODELE ACTIF INVESTIGATEURS
+            <div id="topy" class="joueurActif interface">
+                <div class="investigateur">
+                    <img class="portrait" src="assets/images/investigateurs/detective.jpg" />
+                    <p>TOPY TOPIGNACKQ</p>
+                    <p>Détective</p>
+                    <p>Lorsque vous <em>Prenez le bus</em>, défaussez la carte <em>Indice</em> de votre choix pour vous rendre dans un lieu de n'importe quelle ville. Pour une action, déplacez-vous gratuitement d'une gare routière à une autre gare routière.</p>
+                </div>
+
+                <div class="nbActions">
+                    <p>4</p>
+                </div>
+
+                <div class="santeMentale">
+                    <div>
+                        <p>4</p>
+                    </div>
+                    <img src="assets/images/backgrounds/folie.jpg" />
+                    <img src="assets/images/backgrounds/folie.jpg" />
+                    <img src="assets/images/backgrounds/folie.jpg" />
+                    <img src="assets/images/backgrounds/folie.jpg" />
+                </div>
+
+                <div class="main">
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                    <img class="carte" src="assets/images/kingsport.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                    <img class="carte" src="assets/images/oeil_mi_go.jpg" />
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                </div>
+            </div>
+            -->
+            <!-- MODELE PASSIF
+            <div class="j4 joueurPassif interface">
+                <div class="investigateur">
+                    <img class="portrait" src="assets/images/investigateurs/docteur.jpg" />
+                    <div>
+                    <p>ANNNNE-SOPHIIIE</p>
+                    <p>Docteur</p>
+                    </div>
+                    <p>Lors de votre tour, effectuez 5 actions au lieu de 4.</p>
+                </div>
+
+                <div class="nbActions">
+                    <p>5</p>
+                </div>
+
+                <div class="santeMentale">
+                    <div>
+                        <p>4</p>
+                    </div>
+                    <img src="assets/images/backgrounds/folie.jpg" />
+                    <img src="assets/images/backgrounds/folie.jpg" />
+                    <img src="assets/images/backgrounds/folie.jpg" />
+                    <img src="assets/images/backgrounds/folie.jpg" />
+                </div>
+
+                <div class="main">
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                    <img class="carte" src="assets/images/arkham.jpg" />
+                    <img class="carte" src="assets/images/kingsport.jpg" />
+                    <img class="carte" src="assets/images/innsmouth.jpg" />
+                </div>
+            </div>
+-->
+
