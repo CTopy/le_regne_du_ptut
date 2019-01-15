@@ -11,7 +11,7 @@ $("document").ready(async function(){
     await partie.afficherModeles();
     partie.grandsAnciens[0].reveil();
     await partie.tourDeJeu();
-
+    console.log(partie);
 });
 
 class Jeu {
@@ -43,28 +43,58 @@ class Jeu {
     }
 
     async mettreEnPlaceJeu() {
-        let j1=new Detective("Anne-Sophie");
-        let j2=new Detective("Clément Topy");
-        let j3=new Detective("Romain Namor");
-        let j4=new Detective("Ludo BroZ");
-        this.investigateurs = [j1,j2,j3,j4];
+        //Créer les investigateurs
+        this.investigateurs = [
+            new Detective("Ludovic BroZ"),
+            new Detective("Namor Ester"),
+            new Detective("Han Solo"),
+            new Detective("Topy Clément")
+        ];
 
         //Choisir un joueur qui commence
         melanger(this.investigateurs);
         this.joueurActif = this.investigateurs[0];
-        this.joueurActif.afficherDOM();
-
-        let joueursPassifs = [
+        this.joueurActif.setActif();
+        const joueursPassifs = [
             this.investigateurs[1],
             this.investigateurs[2],
             this.investigateurs[3]
         ];
+        //Donner un rang à chaque joueur passif
         let rang = 2;
         for (let j of joueursPassifs) {
             j.setPassif(rang);
-            j.afficherDOM();
             rang++;
         }
+
+        //Créer leurs vues
+        this.vues = [];
+        for(let inv of this.investigateurs) {
+            this.vues[inv.div.id] =
+            new Vue({
+                el: "#"+inv.div.id,
+                data: {
+                    nom: inv.nomJoueur,
+                    role: inv.nomPersonnage,
+                    effet: inv.effet,
+                    image: inv.image,
+                    imageFou: inv.imageFou,
+                    nbActions: inv.nbAction,
+                    santeMentale: inv.santeMentale,
+                    actif: inv.actif
+                }
+            });
+        }
+
+        console.log("Début");
+        window.setTimeout(() => {
+            this.investigateurs[0].nomJoueur = "changed";
+            console.log(this.investigateurs[0].nomJoueur);
+            this.investigateurs[1].nomJoueur = "changed";
+            this.investigateurs[2].nomJoueur = "changed";
+            this.investigateurs[3].nomJoueur = "changed";
+            console.log("Fin");
+        }, 1000);
 
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//
         //Mélanger les grands anciens

@@ -121,19 +121,7 @@ class Investigateur extends Entite{
 '                            <img class="carte" src="assets/images/arkham.png" />'+
 '                        </div>';
         document.getElementById("joueurs").appendChild(this.div);
-        this.setActif();
-        this.vue = new Vue({
-            data: {
-                nom: this.nomJoueur,
-                role: this.nomPersonnage,
-                effet: this.effet,
-                image: this.image,
-                imageFou: this.imageFou,
-                nbActions: this.nbAction,
-                santeMentale: this.santeMentale,
-                actif: this.actif
-            }
-        });
+        this.setPassif();
     }
 
     setActif() {
@@ -165,10 +153,6 @@ class Investigateur extends Entite{
             }
             else console.log("Erreur : Le joueur "+this.nom+" n'a pas été mis passif");
         else console.log("Le rang doit être compris entre 1 et 3");
-    }
-
-    afficherDOM() {
-        this.vue.$mount("#"+this.div.id);
     }
 }
 
