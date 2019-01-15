@@ -33,7 +33,7 @@ class Deck{
 class Main extends Deck {
     constructor(n, nomJoueur) {
         super(n);
-        this.proprietaire;
+        this.proprietaire = nomJoueur;
     }
     
     afficher(numJoueur) {
@@ -48,5 +48,13 @@ class Main extends Deck {
             case 4:
                 break;
         }
+    }
+}
+
+class PaquetIndice extends Deck {
+    constructor(n) {
+        super(n);
+        /*pour l'instant, pour le test, je crée une carte de chaque ville dans le paquet*/
+        this.contenu = new Array(new Indice("carte1","Kingsport"), new Indice("carte2","Dunwich"), new Indice("carte3","Innsmouth"), new Indice("carte1","Arkham"));
     }
 }

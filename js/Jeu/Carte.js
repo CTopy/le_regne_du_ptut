@@ -3,20 +3,35 @@
 
 class Carte{
     
-    constructor(nom,image, deckOrigine){
+    constructor(nom,image){
         this.nom=nom;
         this.image=image; //src de l'image
-        var html = createElement("img");
+        var html = document.createElement("img");
         html.src = "";
-        html.addClass("carte");
+        //html.className("carte");
     }
 }
 
 class Indice extends Carte{
     
-    constructor(nom, ville, image){  
-        super(nom, image);
+    constructor(nom, ville){  
+        super(nom);
         this.ville = ville;
+        /*Selon la ville, on prend l'image qui correspond*/
+        switch (ville) {
+            case "Kingsport":
+                this.image="../../assets/images/kingsport.png";
+                break;
+            case "Innsmouth":
+                this.image="../../assets/images/innsmouth.png";
+                break;
+            case "Dunwich":
+                this.image="../../assets/images/dunwich.png";
+                break;
+            case "Arkham":
+                this.image="../../assets/images/arkham.png";
+                break;
+        }
     }
 }
 
