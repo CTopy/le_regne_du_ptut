@@ -43,58 +43,41 @@ class Jeu {
     }
 
     async mettreEnPlaceJeu() {
+        //Données récupérées par la page de création de partie
+        const input = [
+            {
+                nom : "Ludo BroZ",
+                role: 0,    //Détective
+            },
+            {
+                nom : "Namor Ester",
+                role: 0
+            }
+        ];
+
         //Créer les investigateurs
-        this.investigateurs = [
-            new Detective("Ludovic BroZ"),
-            new Detective("Namor Ester"),
-            new Detective("Han Solo"),
-            new Detective("Topy Clément")
-        ];
-
-        //Choisir un joueur qui commence
-        melanger(this.investigateurs);
-        this.joueurActif = this.investigateurs[0];
-        this.joueurActif.setActif();
-        const joueursPassifs = [
-            this.investigateurs[1],
-            this.investigateurs[2],
-            this.investigateurs[3]
-        ];
-        //Donner un rang à chaque joueur passif
-        let rang = 2;
-        for (let j of joueursPassifs) {
-            j.setPassif(rang);
-            rang++;
-        }
-
-        //Créer leurs vues
-        this.vues = [];
-        for(let inv of this.investigateurs) {
-            this.vues[inv.div.id] =
-            new Vue({
-                el: "#"+inv.div.id,
-                data: {
-                    nom: inv.nomJoueur,
-                    role: inv.nomPersonnage,
-                    effet: inv.effet,
-                    image: inv.image,
-                    imageFou: inv.imageFou,
-                    nbActions: inv.nbAction,
-                    santeMentale: inv.santeMentale,
-                    actif: inv.actif
+        this.vue =
+        new Vue({
+            el: "#joueurs",
+            computed: {
+                investigateurs: function() {
+                    let arr = [];
+                    for (let i = 0; i<input.length; i++) {
+                        switch(input[i].role) {
+                            case 0: arr[i] = new Detective(input[i].nom);
+                            break;
+                        }
+                    }
                 }
-            });
-        }
-
-        console.log("Début");
-        window.setTimeout(() => {
-            this.investigateurs[0].nomJoueur = "changed";
-            console.log(this.investigateurs[0].nomJoueur);
-            this.investigateurs[1].nomJoueur = "changed";
-            this.investigateurs[2].nomJoueur = "changed";
-            this.investigateurs[3].nomJoueur = "changed";
-            console.log("Fin");
-        }, 1000);
+            },
+            watch: {
+                'obj.value': function(newVal) {
+                    console.log('Changed', newVal)
+                }
+            }
+        });
+        //Choisir un joueur qui commence
+        //Donner un rang à chaque joueur passif
 
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//
         //Mélanger les grands anciens
