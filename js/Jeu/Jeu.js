@@ -49,6 +49,10 @@ class Jeu {
         let j3=new Detective("Romain Namor");
         let j4=new Detective("Ludo BroZ");
         this.investigateurs = [j1,j2,j3,j4];
+        /*pour chaque investigateur, je crée une main*/
+        for(let unInvestigateur of this.investigateurs) {
+            unInvestigateur.main = new Main("main",unInvestigateur.nomJoueur)
+        }
 
         //Choisir un joueur qui commence
         melanger(this.investigateurs);
@@ -100,7 +104,10 @@ class Jeu {
         //********* SELECTION DES PERSONNAGES **********//
 
         //********* AFFICHER TOUS LES MODELES 3D **********//
-
+        
+        
+        //********* MISE EN PLACE DES DECKS ***************//
+        
     }
 
     async tourDeJeu() {
@@ -127,32 +134,34 @@ class Jeu {
                 uneAction.afficher(this.joueurActif, this.actions);
             }
         });
+        */
         //Si on clique sur le bouton de passer son tour, on passe son tour
         var passerTour = document.getElementById("passerTour");
-        passerTour.addEventListener("click", this.passerTour().bind(this));
-        */
+        passerTour.addEventListener("click", this.passerTour.bind(this));
+        
     }
 
     passerTour() {
+        
+        this.phasePioche();
         /*
-            this.phasePioche();
             this.checkFin();
             this.invoquer();
             this.checkFin();
         */
         this.joueurActif.ajouterActions(this.joueurActif.nbActionMax);
         let ancienActif = this.joueurActif;
-        move(this.joueurs, 0, this.joueurs.length-1);
-        this.joueurActif = this.joueurs[0];
+        //move(this.joueurs, 0, this.investigateurs.length-1);
+        this.joueurActif = this.investigateurs[0];
         this.joueurActif.setActif();
         ancienActif.setPassif(2);
-        this.joueurs[2].setPassif(3);
-        this.joueurs[1].setPassif(4);
+        this.investigateurs[2].setPassif(3);
+        this.investigateurs[1].setPassif(4);
         this.tourDeJeu();
     }
 
     phasePioche() {
-        this.joueurActif.main.piocher(paquetIndice);
+        this.joueurActif.main.piocher(this.paquetIndice);
     }
 
     /** invoquer : Permet d'invoquer une ou plusieurs entités

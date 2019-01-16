@@ -170,6 +170,10 @@ class Investigateur extends Entite{
     afficherDOM() {
         this.vue.$mount("#"+this.div.id);
     }
+    
+    ajouterActions(actionsAAjouter) {
+        this.nbAction = actionsAAjouter;
+    }
 }
 
 class Detective extends Investigateur{
