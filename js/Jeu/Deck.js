@@ -93,10 +93,17 @@ class Main extends Deck {
 
     render(container) {
         container.innerHTML = "";
-        this.contenu.forEach((carte, index) => {
+        console.log(this.contenu);
+        let index = 1;
+        for(let carte of this.contenu) {
             carte.dom.dataset.index = index;
             container.appendChild(carte.dom);
-        });
+            index++;
+        };
+        /*this.contenu.forEach((carte, index) => {
+            carte.dom.dataset.index = index;
+            container.appendChild(carte.dom);
+        });*/
     }
 
     demanderDefausse(nb=1) {

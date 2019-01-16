@@ -21,8 +21,7 @@ class Jeu {
         this.actions = [new Marcher()];
         this.nbJoueur = 4;
         this.grandsAnciens = [new Azathoth(), new Yig(), new Dagon()];
-        this.paquetIndice = new Deck([
-        ]);
+        this.paquetIndice = new PaquetIndice();
         this.defausseIndice = new Deck();
 //        this.paquetRelique = new Deck();
 //        this.defausseRelique = new Deck();
@@ -32,6 +31,8 @@ class Jeu {
         this.shoggoths = [];
         this.nbCultistes = 0;
         this.nbShoggoth = 0;
+        // n'y touchez pas, ça me sert à passer d'un joueur à l'autre dans la fonction passerTour()
+        this.compteurJoueur = 0;
     }
 
     async afficherModeles() {
@@ -147,15 +148,18 @@ class Jeu {
         this.invoquer(2, CULTISTE);
         //phase changement joueur
         this.joueurActif.ajouterActions(this.joueurActif.nbActionMax);
-        let ancienActif = this.joueurActif;
+        
+        
+        this.compteurJoueur = this.compteurJoueur+1;
         //move(this.joueurs, 0, this.investigateurs.length-1);
         /*Je passe le joueur juste avant en actif et je fais avancer les autres d'une place dans le rang*/
-        this.joueurActif = this.investigateurs[(ancienActif.numero+3)%4];
-        this.joueurActif.setActif();
-        ancienActif.setPassif(2);
-        this.investigateurs[(ancienActif.numero+1)%4].setPassif(3);
-        this.investigateurs[(ancienActif.numero+2)%4].setPassif(4);
+        this.joueurActif = this.investigateurs[(this.compteurJoueur)%4];
+        this.joueurActif.toggleActif(1);
+        this.investigateurs[(this.compteurJoueur+1)%4].toggleActif(2);
+        this.investigateurs[(this.compteurJoueur+2)%4].toggleActif(3);
+        this.investigateurs[(this.compteurJoueur+3)%4].toggleActif(4);
         //je passe au tour suivant
+        
         this.tourDeJeu();
     }
 

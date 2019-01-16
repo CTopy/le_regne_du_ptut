@@ -157,13 +157,15 @@ class Investigateur extends Entite{
     * Passer le joueur d'actif à passif et inversement
     * @param rang (optionel) : Le rang à accorder. 0 si il est passif
     */
-    toggleActif(rang=0) {
-        if (this.actif && rang>=2 && rang<=4) {
+    toggleActif(rang) {
+        if (rang>=2 && rang<=4) {
             this.rang = rang;
             this.dom.root.className = "interface joueurPassif j"+this.rang;
-        } else if (!this.actif) {
+            this.actif = false;
+        } else if (rang==1) {
             this.rang = 0;
             this.dom.root.className = "interface joueurActif";
+            this.actif = true;
         }
     }
 
