@@ -137,6 +137,7 @@ class Investigateur extends Entite{
     }
 
     setActif() {
+        console.log(this);
         if(this.actif == null) {
             this.div.classList.add("joueurActif");
             this.actif = true;

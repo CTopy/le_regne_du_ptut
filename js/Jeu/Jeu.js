@@ -149,6 +149,8 @@ class Jeu {
             this.invoquer();
             this.checkFin();
         */
+        //phase d'invocation
+        this.invoquer(2, CULTISTE);
         this.joueurActif.ajouterActions(this.joueurActif.nbActionMax);
         let ancienActif = this.joueurActif;
         //move(this.joueurs, 0, this.investigateurs.length-1);
