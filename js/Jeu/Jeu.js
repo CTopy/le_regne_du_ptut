@@ -43,14 +43,14 @@ class Jeu {
     }
 
     async mettreEnPlaceJeu() {
-        let j1=new Detective("Anne-Sophie", "j1");
-        let j2=new Detective("Clément Topy", "j2");
-        let j3=new Detective("Romain Namor", "j3");
-        let j4=new Detective("Ludo BroZ", "j4");
+        let j1=new Detective("Anne-Sophie", 0);
+        let j2=new Detective("Clément Topy", 1);
+        let j3=new Detective("Romain Namor", 2);
+        let j4=new Detective("Ludo BroZ", 3);
         this.investigateurs = [j1,j2,j3,j4];
 
         //Choisir un joueur qui commence
-        melanger(this.investigateurs);
+        //melanger(this.investigateurs);
         this.joueurActif = this.investigateurs[0];
         this.joueurActif.afficherDOM();
 
@@ -137,7 +137,6 @@ class Jeu {
     }
 
     passerTour() {
-        
         this.phasePioche();
         /*
             this.checkFin();
@@ -146,20 +145,24 @@ class Jeu {
         */
         //phase d'invocation
         this.invoquer(2, CULTISTE);
+        //phase changement joueur
         this.joueurActif.ajouterActions(this.joueurActif.nbActionMax);
         let ancienActif = this.joueurActif;
+        console.log(ancienActif.numero);
         //move(this.joueurs, 0, this.investigateurs.length-1);
-        this.joueurActif = this.investigateurs[0];
+        /*Je passe le joueur juste avant en actif et je fais avancer les autres d'une place dans le rang*/
+        this.joueurActif = this.investigateurs[(ancienActif.numero+3)%4];
+        console.log(this.joueurActif);
         this.joueurActif.setActif();
         ancienActif.setPassif(2);
-        this.investigateurs[2].setPassif(3);
-        this.investigateurs[1].setPassif(4);
+        this.investigateurs[(ancienActif.numero+1)%4].setPassif(3);
+        this.investigateurs[(ancienActif.numero+2)%4].setPassif(4);
+        //je passe au tour suivant
         this.tourDeJeu();
     }
 
     phasePioche() {
         //Le joueur actif pioche deux fois
-        this.joueurActif.main.piocher(this.paquetIndice);
         this.joueurActif.main.piocher(this.paquetIndice);
         //ensuite, on affiche sa main
         let main = "";

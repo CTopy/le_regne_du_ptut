@@ -138,33 +138,41 @@ class Investigateur extends Entite{
     }
 
     setActif() {
+        let div = document.getElementById(this.nomJoueur.toLowerCase().replace(/("|'| |<!--)/g, ""));
         if(this.actif == null) {
-            this.div.classList.add("joueurActif");
+            div.classList.add("joueurActif");
             this.actif = true;
         }
         else if(!this.actif) {
-            this.div.classList.add("joueurActif");
-            this.div.classList.remove("joueurPassif");
-            this.div.className.replace(/( j\d)|(j\d )|(j\d)/, ""); //Retirer le rang du joueur
+            div.className = '';
+            div.classList.add("interface");
+            div.classList.add("joueurActif");
             this.actif = true;
         }
-        else console.log("Erreur : Le Joueur "+this.nom+" est déjà actif");
+        else console.log("Erreur : Le Joueur "+this.nomJoueur+" est déjà actif");
     }
     //FIXME setPassif et setActif
     setPassif(rang){
+        let div = document.getElementById(this.nomJoueur.toLowerCase().replace(/("|'| |<!--)/g, ""));
         if(rang<5 && rang>1)
             if (this.actif  == null) {
-                this.div.classList.add("joueurPassif");
-                this.div.classList.add("j"+rang);
+                div.classList.add("joueurPassif");
+                div.classList.add("j"+rang);
                 this.actif = false;
             }
             else if (this.actif || !this.div.className.match(/( j\d)|(j\d )|(j\d)/)) {
-                this.div.classList.add("joueurPassif");
-                this.div.classList.remove("joueurActif");
-                this.div.classList.add("j"+rang);
+                div.classList.add("joueurPassif");
+                div.classList.remove("joueurActif");
+                div.classList.add("j"+rang);
                 this.actif = false;
             }
-            else console.log("Erreur : Le joueur "+this.nom+" n'a pas été mis passif");
+            else if (!this.actif || !this.div.className.match(/( j\d)|(j\d )|(j\d)/)) {
+                div.classList.add("joueurPassif");
+                div.classList.remove("joueurActif");
+                div.classList.add("j"+rang);
+                this.actif = false;
+            }
+            else console.log("Erreur : Le joueur "+this.nomJoueur+" n'a pas été mis passif");
         else console.log("Le rang doit être compris entre 1 et 3");
     }
 
