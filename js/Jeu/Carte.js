@@ -20,16 +20,16 @@ class Indice extends Carte{
         /*Selon la ville, on prend l'image qui correspond*/
         switch (ville) {
             case "Kingsport":
-                this.image="../../assets/images/kingsport.png";
+                this.image="assets/images/kingsport.png";
                 break;
             case "Innsmouth":
-                this.image="../../assets/images/innsmouth.png";
+                this.image="assets/images/innsmouth.png";
                 break;
             case "Dunwich":
-                this.image="../../assets/images/dunwich.png";
+                this.image="assets/images/dunwich.png";
                 break;
             case "Arkham":
-                this.image="../../assets/images/arkham.png";
+                this.image="assets/images/arkham.png";
                 break;
         }
     }

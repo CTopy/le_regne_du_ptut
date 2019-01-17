@@ -22,7 +22,6 @@ class Jeu {
         this.nbJoueur = 4;
         this.grandsAnciens = [new Azathoth(), new Yig(), new Dagon()];
         this.paquetIndice = new PaquetIndice("paquetIndice");
-        console.log(this.paquetIndice);
 //        this.paquetRelique = new Deck();
 //        this.defausseIndice = new Deck();
 //        this.defausseRelique = new Deck();
@@ -44,15 +43,11 @@ class Jeu {
     }
 
     async mettreEnPlaceJeu() {
-        let j1=new Detective("Anne-Sophie");
-        let j2=new Detective("Clément Topy");
-        let j3=new Detective("Romain Namor");
-        let j4=new Detective("Ludo BroZ");
+        let j1=new Detective("Anne-Sophie", "j1");
+        let j2=new Detective("Clément Topy", "j2");
+        let j3=new Detective("Romain Namor", "j3");
+        let j4=new Detective("Ludo BroZ", "j4");
         this.investigateurs = [j1,j2,j3,j4];
-        /*pour chaque investigateur, je crée une main*/
-        for(let unInvestigateur of this.investigateurs) {
-            unInvestigateur.main = new Main("main",unInvestigateur.nomJoueur)
-        }
 
         //Choisir un joueur qui commence
         melanger(this.investigateurs);
@@ -163,7 +158,15 @@ class Jeu {
     }
 
     phasePioche() {
+        //Le joueur actif pioche deux fois
         this.joueurActif.main.piocher(this.paquetIndice);
+        this.joueurActif.main.piocher(this.paquetIndice);
+        //ensuite, on affiche sa main
+        let main = "";
+        for(let carte of this.joueurActif.main.contenu) {
+            main = main+'<img class="carte" src="'+carte.image+'" />'
+        }
+        $("#"+this.joueurActif.numero).append(main) ;
     }
 
     /** invoquer : Permet d'invoquer une ou plusieurs entités

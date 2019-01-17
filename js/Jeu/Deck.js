@@ -17,7 +17,7 @@ class Deck{
     }
     
     piocher(deckEmetteur){
-        this.contenu = deckEmetteur.contenu.pop();
+        this.contenu.push(deckEmetteur.contenu.pop());
     }
     
     afficher(div) {

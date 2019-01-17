@@ -68,7 +68,7 @@ class Entite {
 }
 
 class Investigateur extends Entite{
-    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage){
+    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage, numero){
         super(nomModele, GARE);
         this.nomJoueur=nomJoueur;
         this.nbAction = nbAction;
@@ -77,8 +77,9 @@ class Investigateur extends Entite{
         this.image=image;
         this.cartesMax = cartesMax;
         this.santeMentale = 4;
-//      this.main = new Main();
+        this.main = new Main(this.numero, this.nomJoueur);
         this.nomPersonnage = nomPersonnage;
+        this.numero = numero;
         //Création de l'élément du DOM
         this.div = document.createElement("div");
         this.div.className = "interface";
@@ -110,15 +111,15 @@ class Investigateur extends Entite{
         '                        <p>{{santeMentale}}</p>'+
         '                    </div>'+
         '                </div>'+
-'                        <div class="main">'+
-'                            <img class="carte" src="assets/images/arkham.png" />'+
+'                        <div class="main" id="'+numero+'">'+
+/*'                            <img class="carte" src="assets/images/arkham.png" />'+
 '                            <img class="carte" src="assets/images/innsmouth.png" />'+
 '                            <img class="carte" src="assets/images/arkham.png" />'+
 '                            <img class="carte" src="assets/images/kingsport.png" />'+
 '                            <img class="carte" src="assets/images/innsmouth.png" />'+
 '                            <img class="carte" src="assets/images/innsmouth.png" />'+
 '                            <img class="carte" src="assets/images/oeil_mi_go.jpg" />'+
-'                            <img class="carte" src="assets/images/arkham.png" />'+
+'                            <img class="carte" src="assets/images/arkham.png" />'+*/
 '                        </div>';
         document.getElementById("joueurs").appendChild(this.div);
         this.setActif();
@@ -137,7 +138,6 @@ class Investigateur extends Entite{
     }
 
     setActif() {
-        console.log(this);
         if(this.actif == null) {
             this.div.classList.add("joueurActif");
             this.actif = true;
@@ -178,14 +178,14 @@ class Investigateur extends Entite{
 }
 
 class Detective extends Investigateur{
-    constructor(nomJoueur){
+    constructor(nomJoueur, numero){
         super(nomJoueur,
               4,
               "Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail.",
               "./assets/images/investigateurs/detective.jpg",
               "detective.babylon",
               7,
-             "Détective");
+             "Détective", numero);
     }
 
     devenirFou(){
