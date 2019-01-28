@@ -148,11 +148,9 @@ class Jeu {
         //phase changement joueur
         this.joueurActif.ajouterActions(this.joueurActif.nbActionMax);
         let ancienActif = this.joueurActif;
-        console.log(ancienActif.numero);
         //move(this.joueurs, 0, this.investigateurs.length-1);
         /*Je passe le joueur juste avant en actif et je fais avancer les autres d'une place dans le rang*/
         this.joueurActif = this.investigateurs[(ancienActif.numero+3)%4];
-        console.log(this.joueurActif);
         this.joueurActif.setActif();
         ancienActif.setPassif(2);
         this.investigateurs[(ancienActif.numero+1)%4].setPassif(3);
@@ -182,47 +180,50 @@ class Jeu {
 //            let lieuInvoc = this.defausseInvocation[(this.defausseInvocation.length)-1].lieu;
         //TEMPORAIRE : Choisir un lieu aléatoire
         let nbAlea = null, lieuInvoc = null;
-
+        nbAlea = Math.floor(alea(0,5));
+        lieuInvoc = lieux[nbAlea];
+        
+            //On invoque le nombre de shoggoths ou de cultistes demandé
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
-                    nbAlea = Math.floor(alea(0,5));
-                    lieuInvoc = lieux[nbAlea];
                     let unCultiste = new Cultiste(lieuInvoc);
                     lieuInvoc.ajouterEntite(unCultiste);
                     this.cultistes.push(unCultiste);
-                    console.log(unCultiste);
                     this.nbCultistes++;
                 }
             }
 
             if (onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
-                    nbAlea = Math.floor(alea(0,5));
-                    lieuInvoc = lieux[nbAlea];
                     let shoggoth = new Shoggoth(lieuInvoc);
                     lieuInvoc.ajouterEntite(shoggoth);
                     this.shoggoths.push(shoggoth);
                     this.nbShoggoth++;
                 }
             }
+        //On crée une popup pour indiquer à l'utilisateur ce qui a été invoqué et sur quel lieu
+        /*let popup = new Popup();
+        popup.afficherCultiste(nbEntiteAInvoc, lieuInvoc.nom);*/
+        //on affiche les modèles 3D sur le plateau de jeu
         await this.afficherModeles();
+        this.checkFin();
     }
 
     checkFin() {
         //On vérifie si tous les portails sont scellés
         let tousPortailsScelles = true;
-        for(var unLieu of lieuxPortail){
+        for(let unLieu of lieuxPortail){
             if (unLieu.portail === OUI)
                 tousPortailsScelles = false;
         }
 
         let tousJoueursSontFous = true;
-        for (var unJoueur of this.joueurs) {
+        for (let unJoueur of this.investigateurs) {
             if (!unJoueur.estFou)
                 tousJoueursSontFous = false;
         }
 
-        let cthulhuEstReveille = this.gdAnciens[this.gdAnciens.length-1].estReveille;
+        let cthulhuEstReveille = this.grandsAnciens[this.grandsAnciens.length-1].estReveille;
 
         let tropDeCultistes = false;
         if (this.nbCultistes > 26)

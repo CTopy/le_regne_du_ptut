@@ -30,6 +30,24 @@ class Popup {
         this.ecouteurQuitter(quitter);
     }
     
+    afficherCultiste(nbCultistes, lieuCultistes) {
+        //Ajouter le fond noir au canvas
+        this.canvas.after(this.fond);
+        
+        //Création de l'image du cultiste
+        let cultiste = $(document.createElement("img"));
+        cultiste.attr("src", "./assets/images/cultiste.jpg");
+        
+        //Afficher l'image du cultistes, son nombre et son lieu puis effacement
+        this.fond.append(cultiste);
+        this.fond.append("<p>"+nbCultistes+" ont été invoqués à "+lieuCultistes+"</p>");
+        console.log(this.fond);
+        setTimeout(function(){ 
+            this.fond.empty();
+            this.fond.remove();
+        }, 5000);
+    }
+    
     ecouteurQuitter(quitter) {
         //Ajouter un écouteur à la croix pour qu'elle change au survol
         quitter.hover(function (e){
