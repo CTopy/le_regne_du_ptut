@@ -1,34 +1,33 @@
 "use strict";
 
-
 class Carte{
-    
-    constructor(nom,image, deckOrigine){
+
+    constructor(nom, image, deckOrigine){
         this.nom=nom;
         this.image=image; //src de l'image
-        var html = createElement("img");
+        const html = createElement("img");
         html.src = "";
         html.addClass("carte");
     }
 }
 
 class Indice extends Carte{
-    
-    constructor(nom, ville, image){  
+
+    constructor(nom, ville, image){
         super(nom, image);
         this.ville = ville;
     }
 }
 
 class Relique extends Carte{
-    constructor(nom, effet, image){  
+    constructor(nom, effet, image, effetFunc){
         super(nom, image);
         this.effet = effet;
     }
 }
 
 class Invocation extends Carte{
-    constructor(nom, lieu, image){  
+    constructor(nom, lieu, image){
         super(nom, image);
         this.ville = lieu;
     }
