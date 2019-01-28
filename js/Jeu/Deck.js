@@ -1,9 +1,8 @@
 "use strict";
 
-
-/*Pour simplifier le gros bordel,
-*je propose que la carte numéro 1
-*est en fait la derniere carte du paquet dans le tableaux du deck.
+/*
+0 = bas du Deck
+n = haut du deck
 */
 
 class Deck{
@@ -29,17 +28,17 @@ class Deck{
       }
     }
 
-    piocher(deckEmetteur){
-        var derniereCarteEmetteur = deckEmetteur.length-1
-        this.contenu.push(derniereCarteEmetteur);
-        deckEmetteur[derniereCarteEmetteur].remove();
-    }
-
-    afficher(div) {
-
-    }
-
-    prendreCarte(){
+    /** Piocher une carte d'un paquet vers un autre
+    * @param deck : Le deck dans lequel piocher
+    * @param nbCartes : Défaut = 1, le nombre de cartes à piocher
+    * @param anim : Doit-on afficher les cartes avec un son lorsqu'on pioche ?
+    **/
+    piocher(deck, nbCartes = 1, anim = false){
+        for(let i=0; i<nbCartes; i++) {
+            let index = deck.contenu.length-nbCartes;   //Index de la carte à piocher
+            this.contenu[] = deck.contenu[index];       //Piocher la carte, la mettre au dessus
+            deck.contenu = deck.contenu.splice(index, 1);   //Retirer la carte piochée
+        }
     }
 }
 
@@ -47,19 +46,5 @@ class Main extends Deck {
     constructor(n, nomJoueur) {
         super(n);
         this.proprietaire;
-    }
-
-    afficher(numJoueur) {
-        var conteneur;
-        switch(numJoueur) {
-            case 1: document.getElementsByClassName("j1");
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-        }
     }
 }
