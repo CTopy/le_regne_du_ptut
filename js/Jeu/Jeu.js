@@ -8,7 +8,7 @@ $(document).ready(async function() {
 $("document").ready(async function(){
     var partie = new Jeu();
     await partie.mettreEnPlaceJeu();
-    await partie.afficherModeles();
+    //await partie.afficherModeles();
     partie.grandsAnciens[0].reveil();
     await partie.tourDeJeu();
 
@@ -176,32 +176,36 @@ class Jeu {
     * param1 : Nombre d'entités à invoquer
     * param2 : Est-ce qu'on invoque un Shoggoth ? (sinon un cultiste)
     **/
-    invoquer(nbEntiteAInvoc, onInvoqueUnShoggoth) {
+    async invoquer(nbEntiteAInvoc, onInvoqueUnShoggoth) {
 
 //            this.defausseInvocation.piocher(this.paquetInvocation);
 //            let lieuInvoc = this.defausseInvocation[(this.defausseInvocation.length)-1].lieu;
         //TEMPORAIRE : Choisir un lieu aléatoire
         let nbAlea = null, lieuInvoc = null;
-        nbAlea = Math.floor(alea(0,5));
-        lieuInvoc = lieux[nbAlea];
 
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
+                    nbAlea = Math.floor(alea(0,5));
+                    lieuInvoc = lieux[nbAlea];
                     let unCultiste = new Cultiste(lieuInvoc);
                     lieuInvoc.ajouterEntite(unCultiste);
                     this.cultistes.push(unCultiste);
+                    console.log(unCultiste);
                     this.nbCultistes++;
                 }
             }
 
             if (onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
+                    nbAlea = Math.floor(alea(0,5));
+                    lieuInvoc = lieux[nbAlea];
                     let shoggoth = new Shoggoth(lieuInvoc);
                     lieuInvoc.ajouterEntite(shoggoth);
                     this.shoggoths.push(shoggoth);
                     this.nbShoggoth++;
                 }
             }
+        await this.afficherModeles();
     }
 
     checkFin() {
