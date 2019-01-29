@@ -4,12 +4,11 @@ $(document).ready(async function() {
 });
 */
 
-
 //********** FONCTION PRINCIPALE **********//
 $("document").ready(async function(){
     var partie = new Jeu();
     await partie.mettreEnPlaceJeu();
-    await partie.afficherModeles();
+    //await partie.afficherModeles();
     partie.grandsAnciens[0].reveil();
     await partie.tourDeJeu();
 
@@ -19,13 +18,10 @@ class Jeu {
     //Début du jeu
     constructor() {
         //Déclaration des données membres
-        this.actions = new Array(new Marcher());
-        this.joueurs = new Array();
+        this.actions = [new Marcher()];
         this.nbJoueur = 4;
-        this.persoJoueur;
-        this.investigateurs = new Array();
-        this.grandsAnciens = new Array(new Azathoth(), new Yig(), new Dagon());
-//        this.paquetIndice = new Deck();
+        this.grandsAnciens = [new Azathoth(), new Yig(), new Dagon()];
+        this.paquetIndice = new PaquetIndice("paquetIndice");
 //        this.paquetRelique = new Deck();
 //        this.defausseIndice = new Deck();
 //        this.defausseRelique = new Deck();
@@ -33,14 +29,8 @@ class Jeu {
 //        this.defausseInvocation = new Deck();
         this.cultistes = new Array();
         this.shoggoths = new Array();
-
-
-        //Le joueur qui commence est aléatoire
-        this.joueurActif = this.joueurs[Math.floor(Math.random() * Math.floor(joueurs.length))];
         this.nbCultistes = 0;
         this.nbShoggoth = 0;
-
-        this.joueurActif = this.joueurs[0];
     }
 
     async afficherModeles() {
@@ -53,33 +43,26 @@ class Jeu {
     }
 
     async mettreEnPlaceJeu() {
-        document.getElementById("passer").addEventListener("click", () => {
-            this.passerTour();
-        });
-        let j1=new Detective("Joueur Test 1");
-        let j2=new Detective("Joueur Test 2");
-        let j3=new Detective("Joueur Test 3");
-        let j4=new Detective("Joueur Test 4");
+        let j1=new Detective("Anne-Sophie", 0);
+        let j2=new Detective("Clément Topy", 1);
+        let j3=new Detective("Romain Namor", 2);
+        let j4=new Detective("Ludo BroZ", 3);
         this.investigateurs = [j1,j2,j3,j4];
 
-        melanger(this.investigateurs);
+        //Choisir un joueur qui commence
+        //melanger(this.investigateurs);
         this.joueurActif = this.investigateurs[0];
-        this.joueurActif.setActif();
         this.joueurActif.afficherDOM();
-
-        //FIXME : Sur le long terme, ces lignes devront être enlevées
-        this.investigateurs[0].mainDOM.innerHTML = "<img class=\"carte\" src=\"assets/images/arkham.png\" /><img class=\"carte\" src=\"assets/images/innsmouth.png\" /><img class=\"carte\" src=\"assets/images/kingsport.png\" /><img class=\"carte\" src=\"assets/images/dunwich.png\" />";
-        this.investigateurs[1].mainDOM.innerHTML = "<img class=\"carte\" src=\"assets/images/arkham.png\" /><img class=\"carte\" src=\"assets/images/innsmouth.png\" /><img class=\"carte\" src=\"assets/images/kingsport.png\" /><img class=\"carte\" src=\"assets/images/dunwich.png\" />";
 
         let joueursPassifs = [
             this.investigateurs[1],
             this.investigateurs[2],
             this.investigateurs[3]
-        ]
+        ];
         let rang = 2;
-        for (let unInv of joueursPassifs) {
-            unInv.setPassif(rang);
-            unInv.afficherDOM();
+        for (let j of joueursPassifs) {
+            j.setPassif(rang);
+            j.afficherDOM();
             rang++;
         }
 
@@ -114,9 +97,11 @@ class Jeu {
         this.invoquer(1, SHOGGOTH);
 
         //********* SELECTION DES PERSONNAGES **********//
-        //Désigner un personnage au hasard pour être le premier à jouer
 
         //********* AFFICHER TOUS LES MODELES 3D **********//
+
+
+        //********* MISE EN PLACE DES DECKS ***************//
 
     }
 
@@ -144,64 +129,83 @@ class Jeu {
                 uneAction.afficher(this.joueurActif, this.actions);
             }
         });
+        */
         //Si on clique sur le bouton de passer son tour, on passe son tour
         var passerTour = document.getElementById("passerTour");
-        passerTour.addEventListener("click", this.passerTour().bind(this));
-        */
+        passerTour.addEventListener("click", this.passerTour.bind(this));
+
     }
 
     passerTour() {
+        this.phasePioche();
         /*
-            this.phasePioche();
             this.checkFin();
             this.invoquer();
             this.checkFin();
         */
+        //phase d'invocation
+        this.invoquer(2, CULTISTE);
+        //phase changement joueur
         this.joueurActif.ajouterActions(this.joueurActif.nbActionMax);
         let ancienActif = this.joueurActif;
-        move(this.joueurs, 0, this.joueurs.length-1);
-        this.joueurActif = this.joueurs[0];
+        console.log(ancienActif.numero);
+        //move(this.joueurs, 0, this.investigateurs.length-1);
+        /*Je passe le joueur juste avant en actif et je fais avancer les autres d'une place dans le rang*/
+        this.joueurActif = this.investigateurs[(ancienActif.numero+3)%4];
+        console.log(this.joueurActif);
         this.joueurActif.setActif();
         ancienActif.setPassif(2);
-        this.joueurs[2].setPassif(3);
-        this.joueurs[1].setPassif(4);
+        this.investigateurs[(ancienActif.numero+1)%4].setPassif(3);
+        this.investigateurs[(ancienActif.numero+2)%4].setPassif(4);
+        //je passe au tour suivant
         this.tourDeJeu();
     }
 
     phasePioche() {
-        this.joueurActif.main.piocher(paquetIndice);
+        //Le joueur actif pioche deux fois
+        this.joueurActif.main.piocher(this.paquetIndice);
+        //ensuite, on affiche sa main
+        let main = "";
+        for(let carte of this.joueurActif.main.contenu) {
+            main = main+'<img class="carte" src="'+carte.image+'" />'
+        }
+        $("#"+this.joueurActif.numero).append(main) ;
     }
 
     /** invoquer : Permet d'invoquer une ou plusieurs entités
     * param1 : Nombre d'entités à invoquer
     * param2 : Est-ce qu'on invoque un Shoggoth ? (sinon un cultiste)
     **/
-    invoquer(nbEntiteAInvoc, onInvoqueUnShoggoth) {
+    async invoquer(nbEntiteAInvoc, onInvoqueUnShoggoth) {
 
 //            this.defausseInvocation.piocher(this.paquetInvocation);
 //            let lieuInvoc = this.defausseInvocation[(this.defausseInvocation.length)-1].lieu;
         //TEMPORAIRE : Choisir un lieu aléatoire
         let nbAlea = null, lieuInvoc = null;
-        nbAlea = Math.floor(alea(0,5));
-        lieuInvoc = lieux[nbAlea];
 
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
+                    nbAlea = Math.floor(alea(0,5));
+                    lieuInvoc = lieux[nbAlea];
                     let unCultiste = new Cultiste(lieuInvoc);
                     lieuInvoc.ajouterEntite(unCultiste);
                     this.cultistes.push(unCultiste);
+                    console.log(unCultiste);
                     this.nbCultistes++;
                 }
             }
 
             if (onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
+                    nbAlea = Math.floor(alea(0,5));
+                    lieuInvoc = lieux[nbAlea];
                     let shoggoth = new Shoggoth(lieuInvoc);
                     lieuInvoc.ajouterEntite(shoggoth);
                     this.shoggoths.push(shoggoth);
                     this.nbShoggoth++;
                 }
             }
+        await this.afficherModeles();
     }
 
     checkFin() {
