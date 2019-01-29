@@ -81,6 +81,7 @@ class Investigateur extends Entite{
 //        this.main = new Main();
         this.nomPersonnage = nomPersonnage;
 
+<<<<<<< HEAD
         //Création du DOM
         //Un objet JSON qui contient les différents éléments qui seront amenés à être modifiés
         this.dom = {
@@ -144,6 +145,79 @@ class Investigateur extends Entite{
         let divContent = document.getElementById(this.dom.root.id).innerHTML;
         divContent = "";
         divContent = this.dom.root.innerHTML;
+=======
+        //Création de l'élément du DOM
+        const root = document.createElement("div");
+        root.classList.add("interface");
+        root.id = this.nomJoueur.toLowerCase();
+
+        const effet = document.createElement("p");
+        nom.textContent = this.nomJoueur;
+
+        const img = document.createElement("img");
+        img.addClass("portrait");
+        img.src=this.image;
+
+        const actions = document.createElement("p");
+        actions.textContent = "this.nbAction";
+
+        const sm = document.createElement("div");
+        sm.append(document.createElement("p"));
+        sm.querySelector("p").textContent = this.santeMentale;
+
+        this.dom = {
+            "root": root;
+        }
+
+        //Remplissage de l'élément du DOM
+        this.eltDOM.innerHTML =
+        `<div class="investigateur"
+          <div>
+            <p>`+this.nomJoueur+`</p>
+            <p>`+this.nomPersonnage+`</p>
+          </div>
+        `
+        ;
+            "<div class=\"investigateur\">"+
+                "<img class=\"portrait\" src=\"assets/images/investigateurs/docteur.jpg\" />"+
+                    "<div>"+
+                        "<p>{{nom}}</p>"+
+                        "<p>{{investigateur}}</p>"+
+                    "</div>"+
+                    "<p>{{effet}}</p>"+
+            "</div>"+
+            "<div class=\"nbActions\">"+
+                "<p>5</p>"+
+            "</div>"+
+            "<div class=\"santeMentale\">"+
+                "<div>"+
+                    "<p>4</p>"+
+                "</div>"+
+                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
+                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
+                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
+                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
+            "</div>"+
+            "<div class=\"main\">"+
+            "</div>";
+
+    }
+
+    devenirFou() {
+        this.estFou=true;
+        this.echangerImages();
+    }
+    seRetablirDeFolie(){
+        this.estFou=false;
+        this.echangerImages();
+    }
+
+    private echangerImages(anim=true) {
+
+        let i = this.image;
+        this.image = this.imageFou
+        this.imageFou = i;
+>>>>>>> classe
     }
 
     setActif() {
@@ -170,6 +244,7 @@ class Investigateur extends Entite{
     afficherDOM() {
         document.getElementById("joueurs").appendChild(this.dom.root);
     }
+<<<<<<< HEAD
     
     ajouterSanteMentale(nb) {
         if((nb>0 && nb <=4) && this.santeMentale-nb > 0) {
@@ -186,6 +261,8 @@ class Investigateur extends Entite{
             this.updateDom();
         } else console.log('Erreur : santeMentale ne peut pas être à 0');
     }
+=======
+>>>>>>> classe
 
     ajouterActions(nb) {
         this.nbAction = this.nbAction + nb;

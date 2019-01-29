@@ -30,6 +30,7 @@ class Popup {
         this.container.append(quitter);
         this.ecouteurQuitter(quitter);
 
+<<<<<<< HEAD
         if(carte) {
             const arr = [carte];
         }
@@ -37,6 +38,13 @@ class Popup {
         if(anim) {
             this.container.addClass("anim");
         }
+=======
+        if(carte)
+            const arr = [carte];
+
+        if(anim)
+            this.container.addClass("anim");
+>>>>>>> classe
 
         for(let elt of arr) {
             this.container.append(elt.html);
