@@ -23,29 +23,39 @@ class Popup {
     * @param carte : Une carte à afficher ou
     * @param arr : Un tableau de cartes à afficher
     **/
-    afficherCarte(carte = false, arr = false, anim = AUCUNE) {
+    afficherCarte(carte = false, arr = false, anim = false) {
         //Création du bouton quitter
-        var quitter = $(document.createElement("img"));
+        const quitter = $(document.createElement("img"));
         quitter.attr("src", "./assets/images/quitter.png");
-
-        //Afficher la carte et la croix
-        this.fond.append(clone);
-        this.fond.append(quitter);
-
-        //Ajouter l'écouteur à la croix
+        this.container.append(quitter);
         this.ecouteurQuitter(quitter);
+
+        if(carte) {
+            const arr = [carte];
+        }
+
+        if(anim) {
+            this.container.addClass("anim");
+        }
+
+        for(let elt of arr) {
+            this.container.append(elt.html);
+        }
     }
 
     ecouteurQuitter(quitter) {
         //Ajouter un écouteur à la croix pour qu'elle change au survol
-        quitter.hover(function (e){
+        quitter.hover((e) => {
             $(this).attr("src", "assets/images/quitter_survol.png");
-        }, function(e) {
+        }, (e) => {
             $(this).attr("src", "assets/images/quitter.png");
         });
 
         //Ajouter un écouteur à la croix pour qu'elle quitte la carte
-        quitter.click(this.effacerDialogue.bind(this));
+        quitter.click(() => {
+            this.fond.empty();
+            this.fond.remove();
+        });
     }
 
     effacerDialogue() {

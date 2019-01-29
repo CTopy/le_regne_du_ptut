@@ -36,15 +36,19 @@ class Deck{
     piocher(deck, nbCartes = 1, anim = false){
         for(let i=0; i<nbCartes; i++) {
             let index = deck.contenu.length-nbCartes;   //Index de la carte à piocher
-            this.contenu[] = deck.contenu[index];       //Piocher la carte, la mettre au dessus
+            this.contenu.push(deck.contenu[index]);       //Piocher la carte, la mettre au dessus
             deck.contenu = deck.contenu.splice(index, 1);   //Retirer la carte piochée
         }
     }
 }
 
 class Main extends Deck {
-    constructor(n, nomJoueur) {
+    constructor(n, investigateur) {
         super(n);
         this.proprietaire;
+    }
+
+    afficher() {
+        
     }
 }
