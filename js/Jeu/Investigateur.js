@@ -80,155 +80,98 @@ class Investigateur extends Entite{
         this.santeMentale = 4;
 //        this.main = new Main();
         this.nomPersonnage = nomPersonnage;
-
-        //Création du DOM
-        //Un objet JSON qui contient les différents éléments qui seront amenés à être modifiés
+        this.actif = true;
+        this.rang = 0;
 
         //Remplissage de l'élément du DOM
-        this.dom.root.innerHTML =
-        `<div class="investigateur">
-            <div>
+        let id = this.nomJoueur.toLowerCase().replace(/("|'|<!--| |//|+)/,"");
+        let html =
+        `<div id="`+id+`" class="joueurActif interface">
+            <div class="investigateur">
+                <img class="portrait" src="`+this.image+`" />
                 <p>`+this.nomJoueur+`</p>
                 <p>`+this.nomPersonnage+`</p>
+                <p>`+this.effet+`</p>
             </div>
-        <p>`+this.effet+`</p>
+            <div class="nbActions">
+                <p>`+this.nbAction+`</p>
+            </div>
+            <div class="santeMentale">
+                <div>
+                    <p>4</p>
+                </div>
+                <img src="assets/images/backgrounds/folie.jpg" />
+                <img src="assets/images/backgrounds/folie.jpg" />
+                <img src="assets/images/backgrounds/folie.jpg" />
+                <img src="assets/images/backgrounds/folie.jpg" />
+            </div>
+            <div class="main">
+            </div>
         </div>
-        <div class="nbActions">
-            `+/*Insérer nb actions*/`
-        </div>
-        <div class="santeMentale">
-    	   `+/*Insérer santé mentale*/`
-        </div>
-        `/*Insérer main*/;
-        this.dom.root.querySelector(".investigateur").appendChild(this.dom.effet);
-        this.dom.root.querySelector(".nbActions").appendChild(this.dom.actions);
-        this.dom.root.querySelector(".santeMentale").appendChild(this.dom.smpassive.div);
-        this.dom.root.appendChild(this.dom.main);
-    }
+        `;
+        document.getElementById("joueurs").append(html);
 
-    updateDom() {
-        let divContent = document.getElementById(this.dom.root.id).innerHTML;
-        divContent = "";
-        divContent = this.dom.root.innerHTML;
-
-        //Création de l'élément du DOM
-        const root = document.createElement("div");
-        root.classList.add("interface");
-        root.id = this.nomJoueur.toLowerCase();
-
-        const effet = document.createElement("p");
-        nom.textContent = this.nomJoueur;
-
-        const img = document.createElement("img");
-        img.addClass("portrait");
-        img.src=this.image;
-
-        const actions = document.createElement("p");
-        actions.textContent = "this.nbAction";
-
-        const sm = document.createElement("div");
-        sm.append(document.createElement("p"));
-        sm.querySelector("p").textContent = this.santeMentale;
-
+        //Objet JSON contenant des pointeurs vers les éléments du DOM devant être modifiés
         this.dom = {
-            "root": root
+            html: html,
+            root: document.querySelector("#id");
+            portrait: document.querySelector("#"+id+" .portrait"),
+            effet: document.querySelector("#"+id+" .investigateur p:last-child"),
+            actions: document.querySelector("#"+id+" .nbActions p"),
+            smDiv: document.querySelector("#"+id+" .santeMentale"),
+            main: document.querySelector('#'+id+" .main");
         }
 
-        //Remplissage de l'élément du DOM
-        this.eltDOM.innerHTML =
-        `<div class="investigateur"
-          <div>
-            <p>`+this.nomJoueur+`</p>
-            <p>`+this.nomPersonnage+`</p>
-          </div>
-        `
-        ;
-            "<div class=\"investigateur\">"+
-                "<img class=\"portrait\" src=\"assets/images/investigateurs/docteur.jpg\" />"+
-                    "<div>"+
-                        "<p>{{nom}}</p>"+
-                        "<p>{{investigateur}}</p>"+
-                    "</div>"+
-                    "<p>{{effet}}</p>"+
-            "</div>"+
-            "<div class=\"nbActions\">"+
-                "<p>5</p>"+
-            "</div>"+
-            "<div class=\"santeMentale\">"+
-                "<div>"+
-                    "<p>4</p>"+
-                "</div>"+
-                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
-                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
-                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
-                "<img src=\"assets/images/backgrounds/folie.jpg\" />"+
-            "</div>"+
-            "<div class=\"main\">"+
-            "</div>";
 
     }
 
-    devenirFou() {
-        this.estFou=true;
-        this.echangerImages();
-    }
-    seRetablirDeFolie(){
-        this.estFou=false;
-        this.echangerImages();
-    }
+    /*
+    * Permet de passer l'investigateur de sain à fou, et inversement
+    */
+    toggleFolie(nvNbA, nvEffet) {
+        this.estFou = !this.estFou;
+        if(this.estFou)
+            this.dom.portrait.src= this.imageFou;
+        else this.dom.portrait.src=this.image;
 
-    echangerImages(anim=true) {
-
-        let i = this.image;
-        this.image = this.imageFou
-        this.imageFou = i;
+        this.nbActionMax = nvNbA;
+        this.effet = nvEffet;
     }
 
-    setActif() {
-        let nom = document.createElement("p");
-        nom.innerHTML = this.nomJoueur;
-        let inv = document.createElement("p");
-        inv.innerHTML = this.nomPersonnage;
-        this.divInvestigateur.innerHTML = "";
-        this.divInvestigateur.append(this.imageDOM);
-        this.divInvestigateur.append(nom);
-        this.divInvestigateur.append(inv);
-        this.divInvestigateur.append(this.effetDOM);
-        this.eltDOM.className = "interface joueurActif";
-    }
-
-    setPassif(rang){
-        this.divInvestigateur.innerHTML = "";
-        this.divInvestigateur.append(this.imageDOM);
-        this.divInvestigateur.append(this.identiteDOM);
-        this.divInvestigateur.append(this.effetDOM)
-        this.eltDOM.className = "interface joueurPassif j"+rang;
-    }
-
-    afficherDOM() {
-        document.getElementById("joueurs").appendChild(this.dom.root);
+    /*
+    * Passer le joueur d'actif à passif et inversement
+    * @param rang (optionel) : Le rang à accorder. 0 si il est passif
+    */
+    toggleActif(rang=0) {
+        if(this.actif && (rang >1 && rang<3) {
+            this.dom.root.removeClass("joueurActif");
+            this.dom.root.addClass("joueurPassif");
+            this.dom.root.addClass("j"+rang);
+            this.rang = rang;
+        } else if (!this.actif && rang = 0) {
+            this.dom.root.removeClass("joueurPassif");
+            this.dom.root.removeClass("j"+this.rang);
+            this.dom.root.addClass("joueurActif");
+        }
     }
 
     ajouterSanteMentale(nb) {
-        if((nb>0 && nb <=4) && this.santeMentale-nb > 0) {
+        if((nb>0 && nb <=4) || (nb>=-4 && nb<0) &&
+        (nb+this.santeMentale<=4 || nb+this.santeMentale >0)) {
             this.santeMentale -= nb;
-
-            this.dom.smactive = [];
-            for (let i = 0; i<this.santeMentale; i++) {
+            this.dom.smDiv.innerHTML =
+            `<p>`+this.santeMentale+`</p>`;
+            for(let i=0; i<this.santeMentale; i++) {
                 let img = document.createElement("img");
-                img.src = "./assets/images/backgrounds/folie.jpg";
-                this.dom.smactive.push(img);
+                img.src = "assets/images/backgrounds/folie.jpg";
+                this.dom.smDiv.appendChild(img);
             }
-            this.dom.smpassive.text.textContent = this.santeMentale;
-
-            this.updateDom();
-        } else console.log('Erreur : santeMentale ne peut pas être à 0');
+        } else console.log('Erreur : mauvaises valeurs');
     }
 
     ajouterActions(nb) {
         this.nbAction = this.nbAction + nb;
-        this.actionsDOM.children.length = 0;
-        this.actionsDOM.innerHTML = "<p>"+this.nbAction+"</p>";
+        this.dom.actions.textContent = this.nbAction;
     }
 }
 
@@ -241,20 +184,6 @@ class Detective extends Investigateur{
               "detective.babylon",
               7,
              "Détective");
-    }
-
-    devenirFou(){
-        this.estFou=true;
-        this.nbAction = 3;
-        this.nbActionMax = 3;
-        this.effet = "Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail. De plus, si vous participez à l'action prendre ou donner une carte indice, cela coute 2 actions au joueur actif";
-        this.image = "./images/detectiveFou.jpg";
-    }
-    seRetablirDeFolie(){
-        this.estFou=false;
-        this.nbAction = 4;
-        this.effet="Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail."
-        this.image="./images/detective.jpg";
     }
 
     ajusterMesh() {
