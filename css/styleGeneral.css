@@ -312,13 +312,6 @@ p {
   color: #BCCA9B;
 }
 
-.joueurPassif .investigateur p:nth-child(3)::afer {
-  content: "";
-  background-image: url(assets/images/backgrounds/description_joueur.png);
-  height: 10%;
-  width: 30%;
-}
-
 .joueurPassif .investigateur p:last-child {
   display: none;
 }
