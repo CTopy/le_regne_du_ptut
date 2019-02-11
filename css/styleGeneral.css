@@ -85,7 +85,8 @@ p {
     bottom: -17vh;
     left: calc((100vw - var(--largTabJoueur)) / 2);
 
-    transition : bottom 0.5s;
+    transition : bottom 0.3s cubic-bezier(0.68,-0.01,0.44,1);
+    overflow: visible;
 }
 
 .joueurActif:hover {
@@ -144,10 +145,15 @@ p {
     background-image: url(../assets/images/backgrounds/description_joueur.png);
     background-size: cover;
     background-repeat: no-repeat;
+    transition: all 1s;
+    z-index: 100;
+    cursor: pointer;
+}
 
-
-
-
+.joueurActif .investigateur p:last-child:hover {
+  transform-origin: bottom;
+  transform: scale(2);
+  transition: all 0.5s;
 }
 
 .joueurActif .investigateur div{
@@ -291,55 +297,30 @@ p {
     margin : 0;
 }
 
-.joueurPassif .investigateur p:first-of-type {
-    margin : -3% 0 3% 0;
-    font-size : 0.7vw;
+.joueurPassif .investigateur p:nth-child(2),
+.joueurPassif .investigateur p:nth-child(3) {
+  font-size: 1.7em;
+  font-family: 'Built';
 }
 
-.joueurPassif .investigateur p:first-child{
-        font-family: 'Built';
-        font-size: 20px;
-        text-align: center;
-        margin-top: 24px;
-        text-shadow: 2px 3px 6px rgba(0,0,0,1);
-}
-
-.joueurPassif .investigateur p:nth-child(2){
-        font-size: 20px;
-        text-align: center;
-        margin-top: -8px;
-        font-family: 'Built';
-        color: #BCCA9B;
-        text-shadow: 2px 3px 0px rgba(0,0,0,1);
-}
-
-.joueurPassif .investigateur div:nth-child(2) {
-    /*display: none;*/
-    width: 200px;
-    height: 90px;
-    background-image: url(../assets/images/backgrounds/description_joueur.png);
-    background-repeat: no-repeat;
-    background-size: 78%;
-    background-position: center;
-
-
+.joueurPassif .investigateur p:nth-child(2) {
+    margin-top: 5%;
 }
 
 .joueurPassif .investigateur p:nth-child(3) {
-    position : relative;
-    font-size : 0.6vw;
-    text-align: center;
-    width : 69%;
-    border-radius : 5px;
-    text-align: justify;
-    transition: all 0.25s linear;
-    font-family: 'Oswald';
+  text-shadow: -2px 2px 0 black;
+  color: #BCCA9B;
+}
 
+.joueurPassif .investigateur p:nth-child(3)::afer {
+  content: "";
+  background-image: url(assets/images/backgrounds/description_joueur.png);
+  height: 10%;
+  width: 30%;
+}
 
-    margin-top: -40%;
-    text-shadow: 1px 2px 0 rgba(0,0,0,1);
-
-    display: none;
+.joueurPassif .investigateur p:last-child {
+  display: none;
 }
 
 /* MAIN */

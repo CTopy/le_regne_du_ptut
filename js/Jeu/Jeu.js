@@ -43,10 +43,10 @@ class Jeu {
     }
 
     async mettreEnPlaceJeu() {
-        let j1=new Detective("Anne-Sophie", 0);
-        let j2=new Detective("Clément Topy", 1);
-        let j3=new Detective("Romain Namor", 2);
-        let j4=new Detective("Ludo BroZ", 3);
+        //let j1=new Detective("Anne-Sophie", 0);
+        //let j2=new Detective("Clément Topy", 1);
+        //let j3=new Detective("Romain Namor", 2);
+        //let j4=new Detective("Ludo BroZ", 3);
         this.investigateurs = [j1,j2,j3,j4];
 
         //Choisir un joueur qui commence
@@ -99,10 +99,10 @@ class Jeu {
         //********* SELECTION DES PERSONNAGES **********//
 
         //********* AFFICHER TOUS LES MODELES 3D **********//
-        
-        
+
+
         //********* MISE EN PLACE DES DECKS ***************//
-        
+
     }
 
     async tourDeJeu() {
@@ -133,7 +133,7 @@ class Jeu {
         //Si on clique sur le bouton de passer son tour, on passe son tour
         var passerTour = document.getElementById("passerTour");
         passerTour.addEventListener("click", this.passerTour.bind(this));
-        
+
     }
 
     passerTour() {
@@ -182,7 +182,7 @@ class Jeu {
         let nbAlea = null, lieuInvoc = null;
         nbAlea = Math.floor(alea(0,5));
         lieuInvoc = lieux[nbAlea];
-        
+
             //On invoque le nombre de shoggoths ou de cultistes demandé
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
