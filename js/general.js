@@ -23,7 +23,7 @@ function melanger(array) {
 function alea(min , max) {
     return Math.random() * (max-min) + min;
 }
-    
+
 // Empêcher l'utilisateur d'ouvrir le menu contextuel (clic droit)
 // pour des raisons d'ergonomie
 document.addEventListener('contextmenu', function(e) {
@@ -49,10 +49,4 @@ if (!DEBUG_MODE) {
          return false;
       }
     }
-}
-
-for (let uneCarte of document.querySelectorAll(".carte")) {
-    uneCarte.addEventListener("click", function(e) {
-        vue.afficherCarte(e.target);
-    });
 }
