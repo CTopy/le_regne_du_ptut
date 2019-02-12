@@ -31,7 +31,7 @@ class Jeu {
         this.shoggoths = new Array();
         this.nbCultistes = 0;
         this.nbShoggoth = 0;
-        new Popup();
+        const popup = new Popup(true);
     }
 
     async afficherModeles() {

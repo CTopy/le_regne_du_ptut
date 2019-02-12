@@ -7,45 +7,37 @@
 */
 
 class Deck{
-    constructor(nom){
-        this.nom=nom;
-        this.contenu = new Array();
+    constructor(contenu=false){
+        this.contenu = contenu ? contenu : new Array();
     }
-    
+
     melanger(){
-        
+
     }
-    
+
     piocher(deckEmetteur){
         this.contenu.push(deckEmetteur.contenu.pop());
     }
-    
+
     afficher(div) {
-        
+
     }
-    
+
     prendreCarte(){
     }
 }
 
 class Main extends Deck {
-    constructor(n, nomJoueur) {
-        super(n);
-        this.proprietaire = nomJoueur;
+    constructor(contenu=false, investigateur) {
+        super(contenu);
+        this.proprietaire = investigateur;
+        this.render(this.proprietaire.dom.main);
     }
-    
-    afficher(numJoueur) {
-        var conteneur;
-        switch(numJoueur) {
-            case 1: document.getElementsByClassName("j1");
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-        }
+
+    render(container) {
+        this.contenu.forEach((carte) => {
+            container.appendChild(carte.dom);
+        });
     }
 }
 

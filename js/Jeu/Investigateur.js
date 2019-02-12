@@ -78,13 +78,12 @@ class Investigateur extends Entite{
         this.imageFou = imageFou;
         this.cartesMax = cartesMax;
         this.santeMentale = 4;
-//        this.main = new Main();
         this.nomPersonnage = nomPersonnage;
         this.actif = true;
         this.rang = 0;
 
         //Remplissage de l'élément du DOM
-        let id = this.nomJoueur.toLowerCase().replace(/('|"|<!--|\/\*| |\/\/|\+)*/,"");
+        let id = this.nomJoueur.toLowerCase().replace(/('|"|<!--|\/\*| |\/\/|\+)*/g,"");
         let html =
         `<div class="investigateur">
                 <img class="portrait" src="`+this.image+`" />
@@ -107,14 +106,14 @@ class Investigateur extends Entite{
             <div class="main">
         </div>
         `;
-        const joueurDOM = document.createElement("div");
+        let joueurDOM = document.createElement("div");
         joueurDOM.id = id;
         joueurDOM.className = "joueurActif interface";
         joueurDOM.innerHTML = html;
         document.getElementById("joueurs").appendChild(joueurDOM);
 
         //Objet JSON contenant des pointeurs vers les éléments du DOM devant être modifiés
-        this.dom = {  //FIXME
+        this.dom = {
             root: document.getElementById(id),
             portrait: document.querySelector("#"+id+" .portrait"),
             effet: document.querySelector("#"+id+" .investigateur p:last-child"),
@@ -122,6 +121,14 @@ class Investigateur extends Entite{
             smDiv: document.querySelector("#"+id+" .santeMentale"),
             main: document.querySelector('#'+id+" .main")
         };
+        const carte = new Indice(ARKHAM);
+        this.main = new Main([
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(KINGSPORT),
+            new Indice(INNSMOUTH),
+            new Indice(DUNWICH)
+        ], this);
         console.log(this.dom);
     }
 

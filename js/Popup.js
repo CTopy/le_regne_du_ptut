@@ -1,18 +1,18 @@
 "use strict";
 
 class Popup {
-    constructor() {
+    constructor(bool=false) {
         //Définition du fond pour les boites de dialogue
         this.fond = document.createElement("div");
         this.fond.id="dark";
         this.canvas = document.getElementById("renderCanvas");
         this.scene = JEU.scene;
+    }
 
-        document.querySelectorAll(".affichable").forEach((elt) => {
-            elt.addEventListener("click", (evt) => {
-                this.afficher(evt.target);
-            }, true);
-        });
+    ecouteur(elt) {
+        elt.addEventListener("click", (e) => {
+            this.afficher(elt);
+        }, true);
     }
 
     afficher(element) {

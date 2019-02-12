@@ -2,48 +2,51 @@
 
 
 class Carte{
-    
+
     constructor(nom,image){
+        this.popup = new Popup();
         this.nom=nom;
         this.image=image; //src de l'image
-        var html = document.createElement("img");
-        html.src = "";
-        //html.className("carte");
+        this.dom = document.createElement("img");
+        this.dom.src=image;
+        this.dom.className="carte affichable";
+        this.popup.ecouteur(this.dom);
     }
 }
 
 class Indice extends Carte{
-    
-    constructor(nom, ville){  
-        super(nom);
-        this.ville = ville;
+
+    constructor(ville){
         /*Selon la ville, on prend l'image qui correspond*/
         switch (ville) {
-            case "Kingsport":
-                this.image="assets/images/kingsport.png";
+            case KINGSPORT:
+                super("Kingsport", "assets/images/kingsport.png");
                 break;
-            case "Innsmouth":
-                this.image="assets/images/innsmouth.png";
+            case INNSMOUTH:
+                super("Innsmouth", "assets/images/innsmouth.png");
                 break;
-            case "Dunwich":
-                this.image="assets/images/dunwich.png";
+            case DUNWICH:
+                super("Dunwich", "assets/images/dunwich.png");
                 break;
-            case "Arkham":
-                this.image="assets/images/arkham.png";
+            case ARKHAM:
+                super("Arkham", "assets/images/arkham.png");
                 break;
+            default: super("ERREUR", "assets/images/dos_indice.jpg");
+            break;
         }
+        this.ville = ville;
     }
 }
 
 class Relique extends Carte{
-    constructor(nom, effet, image){  
+    constructor(nom, effet, image){
         super(nom, image);
         this.effet = effet;
     }
 }
 
 class Invocation extends Carte{
-    constructor(nom, lieu, image){  
+    constructor(nom, lieu, image){
         super(nom, image);
         this.ville = lieu;
     }
