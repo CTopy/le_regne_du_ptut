@@ -86,15 +86,14 @@ class Investigateur extends Entite{
         //Remplissage de l'élément du DOM
         let id = this.nomJoueur.toLowerCase().replace(/('|"|<!--|\/\*| |\/\/|\+)*/,"");
         let html =
-        `<div id="`+id+`" class="joueurActif interface">
-            <div class="investigateur">
+        `<div class="investigateur">
                 <img class="portrait" src="`+this.image+`" />
-                <p>`+this.nomJoueur+`</p>
-                <p>`+this.nomPersonnage+`</p>
-                <p>`+this.effet+`</p>
+                <p>${this.nomJoueur}</p>
+                <p>${this.nomPersonnage}</p>
+                <p>${this.effet}</p>
             </div>
             <div class="nbActions">
-                <p>`+this.nbAction+`</p>
+                <p>${this.nbAction}</p>
             </div>
             <div class="santeMentale">
                 <div>
@@ -106,10 +105,13 @@ class Investigateur extends Entite{
                 <img src="assets/images/backgrounds/folie.jpg" />
             </div>
             <div class="main">
-            </div>
         </div>
         `;
-        document.getElementById("joueurs").append(html);
+        const joueurDOM = document.createElement("div");
+        joueurDOM.id = id;
+        joueurDOM.className = "joueurActif interface";
+        joueurDOM.innerHTML = html;
+        document.getElementById("joueurs").appendChild(joueurDOM);
 
         //Objet JSON contenant des pointeurs vers les éléments du DOM devant être modifiés
         this.dom = {  //FIXME
@@ -141,15 +143,12 @@ class Investigateur extends Entite{
     * @param rang (optionel) : Le rang à accorder. 0 si il est passif
     */
     toggleActif(rang=0) {
-        if(this.actif && (rang >1 && rang<3)) {
-            this.dom.root.classList.add("joueurActif");
-            this.dom.root.classList.add("joueurPassif");
-            this.dom.root.classList.add("j"+rang);
+        if (this.actif && rang>=2 && rang<=4) {
             this.rang = rang;
-        } else if (!this.actif && rang === 0) {
-            this.dom.root.classList.add("joueurPassif");
-            this.dom.root.classList.add("j"+this.rang);
-            this.dom.root.classList.remove("joueurActif");
+            this.dom.root.className = "interface joueurPassif j"+this.rang;
+        } else if (!this.actif) {
+            this.rang = 0;
+            this.dom.root.className = "interface joueurActif";
         }
     }
 
