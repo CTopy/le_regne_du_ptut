@@ -146,7 +146,7 @@ p {
     background-size: cover;
     background-repeat: no-repeat;
     transition: all 1s;
-    z-index: 100;
+    z-index: 3;
     cursor: pointer;
 }
 
@@ -393,33 +393,23 @@ p {
     position : absolute;
     top : 0;
     left : 0;
-
     background-color: rgba(0, 0, 0, 0.7);
-    display : flex;
-    justify-content: space-around;
-    align-items: center;
     z-index: 5;
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#dark .carte {
-    height : 70vh;
-    width : auto;
-    position : relative;
+#dark .quitter {
+  position: absolute;
+  z-index: 7;
+  height: 100px;
+  width: 100px;
 }
 
-#dark .carte + img {
-    position : absolute;
-    top: 11%;
-    right: 35%;
-    height: 100px;
-    width: 100px;
-}
-
-button {
-    position : absolute;
-    top : 0;
-    left : 0;
-}
 
  /* GRANDS ANCIENS */
 

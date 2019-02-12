@@ -84,7 +84,7 @@ class Investigateur extends Entite{
         this.rang = 0;
 
         //Remplissage de l'élément du DOM
-        let id = this.nomJoueur.toLowerCase().replace(/("|'|<!--| |//|+)/,"");
+        let id = this.nomJoueur.toLowerCase().replace(/('|"|<!--|\/\*| |\/\/|\+)*/,"");
         let html =
         `<div id="`+id+`" class="joueurActif interface">
             <div class="investigateur">
@@ -112,17 +112,15 @@ class Investigateur extends Entite{
         document.getElementById("joueurs").append(html);
 
         //Objet JSON contenant des pointeurs vers les éléments du DOM devant être modifiés
-        this.dom = {
-            html: html,
-            root: document.querySelector("#id");
+        this.dom = {  //FIXME
+            root: document.getElementById(id),
             portrait: document.querySelector("#"+id+" .portrait"),
             effet: document.querySelector("#"+id+" .investigateur p:last-child"),
             actions: document.querySelector("#"+id+" .nbActions p"),
             smDiv: document.querySelector("#"+id+" .santeMentale"),
-            main: document.querySelector('#'+id+" .main");
-        }
-
-
+            main: document.querySelector('#'+id+" .main")
+        };
+        console.log(this.dom);
     }
 
     /*
@@ -143,15 +141,15 @@ class Investigateur extends Entite{
     * @param rang (optionel) : Le rang à accorder. 0 si il est passif
     */
     toggleActif(rang=0) {
-        if(this.actif && (rang >1 && rang<3) {
-            this.dom.root.removeClass("joueurActif");
-            this.dom.root.addClass("joueurPassif");
-            this.dom.root.addClass("j"+rang);
+        if(this.actif && (rang >1 && rang<3)) {
+            this.dom.root.classList.add("joueurActif");
+            this.dom.root.classList.add("joueurPassif");
+            this.dom.root.classList.add("j"+rang);
             this.rang = rang;
-        } else if (!this.actif && rang = 0) {
-            this.dom.root.removeClass("joueurPassif");
-            this.dom.root.removeClass("j"+this.rang);
-            this.dom.root.addClass("joueurActif");
+        } else if (!this.actif && rang === 0) {
+            this.dom.root.classList.add("joueurPassif");
+            this.dom.root.classList.add("j"+this.rang);
+            this.dom.root.classList.remove("joueurActif");
         }
     }
 
