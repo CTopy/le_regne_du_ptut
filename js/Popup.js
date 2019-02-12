@@ -3,8 +3,7 @@
 class Popup {
     constructor(bool=false) {
         //Définition du fond pour les boites de dialogue
-        this.fond = document.createElement("div");
-        this.fond.id="dark";
+        this.fond = document.getElementById("dark");
         this.canvas = document.getElementById("renderCanvas");
         this.scene = JEU.scene;
     }
@@ -17,7 +16,7 @@ class Popup {
 
     afficher(element) {
         //Ajouter le fond noir au canvas
-        this.canvas.parentNode.appendChild(this.fond);
+        this.fond.style.display = "flex";
 
         //Clone l'élément cliqué'
         let clone = element.cloneNode(true);
@@ -86,6 +85,6 @@ class Popup {
 
     effacerDialogue() {
         this.fond.innerHTML = "";
-        this.fond.remove();
+        this.fond.style.display = "none";
     }
 }

@@ -21,14 +21,30 @@ class Jeu {
         this.actions = [new Marcher()];
         this.nbJoueur = 4;
         this.grandsAnciens = [new Azathoth(), new Yig(), new Dagon()];
-        this.paquetIndice = new PaquetIndice("paquetIndice");
+        this.paquetIndice = new Deck([
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(ARKHAM)
+        ]);
 //        this.paquetRelique = new Deck();
 //        this.defausseIndice = new Deck();
 //        this.defausseRelique = new Deck();
 //        this.paquetInvocation = new Deck();
 //        this.defausseInvocation = new Deck();
-        this.cultistes = new Array();
-        this.shoggoths = new Array();
+        this.cultistes = [];
+        this.shoggoths = [];
         this.nbCultistes = 0;
         this.nbShoggoth = 0;
         const popup = new Popup(true);
@@ -64,6 +80,8 @@ class Jeu {
             j.toggleActif(rang);
             rang++;
         }
+        this.paquetIndice.piocher(this.investigateurs[0].main, 3, true);
+
 
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//
         //Mélanger les grands anciens
