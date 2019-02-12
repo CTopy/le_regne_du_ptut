@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 class Entite {
     constructor(nomModele, lieu) {
@@ -68,146 +68,119 @@ class Entite {
 }
 
 class Investigateur extends Entite{
-    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage, numero){
+    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage, imageFou){
         super(nomModele, GARE);
         this.nomJoueur=nomJoueur;
         this.nbAction = nbAction;
         this.nbActionMax = nbAction;
         this.effet=effet;
         this.image=image;
+        this.imageFou = imageFou;
         this.cartesMax = cartesMax;
         this.santeMentale = 4;
-        this.main = new Main(this.numero, this.nomJoueur);
+//        this.main = new Main();
         this.nomPersonnage = nomPersonnage;
-        this.numero = numero;
-        //Création de l'élément du DOM
-        this.div = document.createElement("div");
-        this.div.className = "interface";
-        this.div.id = nomJoueur.toLowerCase().replace(/("|'| |<!--)/g, ""); //Retirer les caractères illégaux ' " <!-- et espace
+        this.actif = true;
+        this.rang = 0;
 
-//      http://pojo.sodhanalibrary.com/ConvertToVariable
-        this.div.innerHTML =
-        '               <div class="investigateur">'+
-    '                        <img v-if="santeMentale != 0" class="portrait" :src="image" />'+
-    '                        <img v-else class="portrait" :src="imageFou" />'+
-        '                    <div v-if="!actif">'+
-        '                       <p>{{nom}}</p>'+
-        '                       <p>{{role}}</p>'+
-        '                    </div>'+
-        '                    <p v-if="actif">{{nom}}</p>'+
-        '                    <p v-if="actif">{{role}}</p>'+
-        '                    <p>{{effet}}</p>'+
-        '                </div>'+
-        '                <div class="nbActions">'+
-        '                    <p>{{nbActions}}</p>'+
-        '                </div>'+
-        '                <div class="santeMentale">'+
-        '                    <div v-if="actif">'+
-        '                        <div v-for="n in santeMentale">'+
-        '                            <img src="assets/images/backgrounds/folie.jpg" />'+
-        '                        </div>'+
-        '                    </div>'+
-        '                    <div v-else>'+
-        '                        <p>{{santeMentale}}</p>'+
-        '                    </div>'+
-        '                </div>'+
-'                        <div class="main" id="'+numero+'">'+
-/*'                            <img class="carte" src="assets/images/arkham.png" />'+
-'                            <img class="carte" src="assets/images/innsmouth.png" />'+
-'                            <img class="carte" src="assets/images/arkham.png" />'+
-'                            <img class="carte" src="assets/images/kingsport.png" />'+
-'                            <img class="carte" src="assets/images/innsmouth.png" />'+
-'                            <img class="carte" src="assets/images/innsmouth.png" />'+
-'                            <img class="carte" src="assets/images/oeil_mi_go.jpg" />'+
-'                            <img class="carte" src="assets/images/arkham.png" />'+*/
-'                        </div>';
-        document.getElementById("joueurs").appendChild(this.div);
-        this.setActif();
-        this.vue = new Vue({
-            data: {
-                nom: this.nomJoueur,
-                role: this.nomPersonnage,
-                effet: this.effet,
-                image: this.image,
-                imageFou: this.imageFou,
-                nbActions: this.nbAction,
-                santeMentale: this.santeMentale,
-                actif: this.actif
-            }
-        });
+        //Remplissage de l'élément du DOM
+        let id = this.nomJoueur.toLowerCase().replace(/('|"|<!--|\/\*| |\/\/|\+)*/,"");
+        let html =
+        `<div class="investigateur">
+                <img class="portrait" src="`+this.image+`" />
+                <p>${this.nomJoueur}</p>
+                <p>${this.nomPersonnage}</p>
+                <p>${this.effet}</p>
+            </div>
+            <div class="nbActions">
+                <p>${this.nbAction}</p>
+            </div>
+            <div class="santeMentale">
+                <div>
+                    <p>4</p>
+                </div>
+                <img src="assets/images/backgrounds/folie.jpg" />
+                <img src="assets/images/backgrounds/folie.jpg" />
+                <img src="assets/images/backgrounds/folie.jpg" />
+                <img src="assets/images/backgrounds/folie.jpg" />
+            </div>
+            <div class="main">
+        </div>
+        `;
+        const joueurDOM = document.createElement("div");
+        joueurDOM.id = id;
+        joueurDOM.className = "joueurActif interface";
+        joueurDOM.innerHTML = html;
+        document.getElementById("joueurs").appendChild(joueurDOM);
+
+        //Objet JSON contenant des pointeurs vers les éléments du DOM devant être modifiés
+        this.dom = {  //FIXME
+            root: document.getElementById(id),
+            portrait: document.querySelector("#"+id+" .portrait"),
+            effet: document.querySelector("#"+id+" .investigateur p:last-child"),
+            actions: document.querySelector("#"+id+" .nbActions p"),
+            smDiv: document.querySelector("#"+id+" .santeMentale"),
+            main: document.querySelector('#'+id+" .main")
+        };
+        console.log(this.dom);
     }
 
-    setActif() {
-        let div = document.getElementById(this.nomJoueur.toLowerCase().replace(/("|'| |<!--)/g, ""));
-        if(this.actif == null) {
-            div.classList.add("joueurActif");
-            this.actif = true;
+    /*
+    * Permet de passer l'investigateur de sain à fou, et inversement
+    */
+    toggleFolie(nvNbA, nvEffet) {
+        this.estFou = !this.estFou;
+        if(this.estFou)
+            this.dom.portrait.src= this.imageFou;
+        else this.dom.portrait.src=this.image;
+
+        this.nbActionMax = nvNbA;
+        this.effet = nvEffet;
+    }
+
+    /*
+    * Passer le joueur d'actif à passif et inversement
+    * @param rang (optionel) : Le rang à accorder. 0 si il est passif
+    */
+    toggleActif(rang=0) {
+        if (this.actif && rang>=2 && rang<=4) {
+            this.rang = rang;
+            this.dom.root.className = "interface joueurPassif j"+this.rang;
+        } else if (!this.actif) {
+            this.rang = 0;
+            this.dom.root.className = "interface joueurActif";
         }
-        else if(!this.actif) {
-            div.className = '';
-            div.classList.add("interface");
-            div.classList.add("joueurActif");
-            this.actif = true;
-        }
-        else console.log("Erreur : Le Joueur "+this.nomJoueur+" est déjà actif");
-    }
-    //FIXME setPassif et setActif
-    setPassif(rang){
-        let div = document.getElementById(this.nomJoueur.toLowerCase().replace(/("|'| |<!--)/g, ""));
-        if(rang<5 && rang>1)
-            if (this.actif  == null) {
-                div.classList.add("joueurPassif");
-                div.classList.add("j"+rang);
-                this.actif = false;
-            }
-            else if (this.actif || !this.div.className.match(/( j\d)|(j\d )|(j\d)/)) {
-                div.classList.add("joueurPassif");
-                div.classList.remove("joueurActif");
-                div.classList.add("j"+rang);
-                this.actif = false;
-            }
-            else if (!this.actif || !this.div.className.match(/( j\d)|(j\d )|(j\d)/)) {
-                div.classList.add("joueurPassif");
-                div.classList.remove("joueurActif");
-                div.classList.add("j"+rang);
-                this.actif = false;
-            }
-            else console.log("Erreur : Le joueur "+this.nomJoueur+" n'a pas été mis passif");
-        else console.log("Le rang doit être compris entre 1 et 3");
     }
 
-    afficherDOM() {
-        this.vue.$mount("#"+this.div.id);
+    ajouterSanteMentale(nb) {
+        if((nb>0 && nb <=4) || (nb>=-4 && nb<0) &&
+        (nb+this.santeMentale<=4 || nb+this.santeMentale >0)) {
+            this.santeMentale -= nb;
+            this.dom.smDiv.innerHTML =
+            `<p>`+this.santeMentale+`</p>`;
+            for(let i=0; i<this.santeMentale; i++) {
+                let img = document.createElement("img");
+                img.src = "assets/images/backgrounds/folie.jpg";
+                this.dom.smDiv.appendChild(img);
+            }
+        } else console.log('Erreur : mauvaises valeurs');
     }
-    
-    ajouterActions(actionsAAjouter) {
-        this.nbAction = actionsAAjouter;
+
+    ajouterActions(nb) {
+        this.nbAction = this.nbAction + nb;
+        this.dom.actions.textContent = this.nbAction;
     }
 }
 
 class Detective extends Investigateur{
-    constructor(nomJoueur, numero){
+    constructor(nomJoueur){
         super(nomJoueur,
               4,
               "Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail.",
               "./assets/images/investigateurs/detective.jpg",
               "detective.babylon",
               7,
-             "Détective", numero);
-    }
-
-    devenirFou(){
-        this.estFou=true;
-        this.nbAction = 3;
-        this.nbActionMax = 3;
-        this.effet = "Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail. De plus, si vous participez à l'action prendre ou donner une carte indice, cela coute 2 actions au joueur actif";
-        this.image = "./images/detectiveFou.jpg";
-    }
-    seRetablirDeFolie(){
-        this.estFou=false;
-        this.nbAction = 4;
-        this.effet="Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail."
-        this.image="./images/detective.jpg";
+             "Détective");
     }
 
     ajusterMesh() {

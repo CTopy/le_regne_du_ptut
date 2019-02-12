@@ -31,6 +31,7 @@ class Jeu {
         this.shoggoths = new Array();
         this.nbCultistes = 0;
         this.nbShoggoth = 0;
+        new Popup();
     }
 
     async afficherModeles() {
@@ -43,16 +44,15 @@ class Jeu {
     }
 
     async mettreEnPlaceJeu() {
-        let j1=new Detective("Anne-Sophie", 0);
-        let j2=new Detective("Clément Topy", 1);
-        let j3=new Detective("Romain Namor", 2);
-        let j4=new Detective("Ludo BroZ", 3);
-        this.investigateurs = [j1,j2,j3,j4];
+        const j1 = new Detective("Anne-Sophie");
+        const j2 = new Detective("Clément Topy");
+        const j3 = new Detective("Ludo BroZ");
+        const j4 = new Detective("Romain Namor");
+        this.investigateurs = [j1, j2, j3, j4];
 
         //Choisir un joueur qui commence
-        //melanger(this.investigateurs);
+        melanger(this.investigateurs);
         this.joueurActif = this.investigateurs[0];
-        this.joueurActif.afficherDOM();
 
         let joueursPassifs = [
             this.investigateurs[1],
@@ -61,8 +61,7 @@ class Jeu {
         ];
         let rang = 2;
         for (let j of joueursPassifs) {
-            j.setPassif(rang);
-            j.afficherDOM();
+            j.toggleActif(rang);
             rang++;
         }
 
@@ -99,18 +98,18 @@ class Jeu {
         //********* SELECTION DES PERSONNAGES **********//
 
         //********* AFFICHER TOUS LES MODELES 3D **********//
-        
-        
+
+
         //********* MISE EN PLACE DES DECKS ***************//
-        
+
     }
 
     async tourDeJeu() {
 
         //Au début de chaque tour, on affiche toutes les actions
         for(var uneAction of this.actions) {
-            uneAction.setJoueurActif(this.joueurActif);
-            uneAction.afficher();
+/*            uneAction.setJoueurActif(this.joueurActif);
+            uneAction.afficher();*/
         }
         /*
         //A chaque fois que le joueur joue on réévalue les actions
@@ -133,7 +132,7 @@ class Jeu {
         //Si on clique sur le bouton de passer son tour, on passe son tour
         var passerTour = document.getElementById("passerTour");
         passerTour.addEventListener("click", this.passerTour.bind(this));
-        
+
     }
 
     passerTour() {
@@ -182,7 +181,7 @@ class Jeu {
         let nbAlea = null, lieuInvoc = null;
         nbAlea = Math.floor(alea(0,5));
         lieuInvoc = lieux[nbAlea];
-        
+
             //On invoque le nombre de shoggoths ou de cultistes demandé
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
