@@ -501,7 +501,7 @@ p {
 .ancien--cache{
     background-image: url(../assets/images/grandsAnciens/tableau_grand_ancien_resume_cacher.png);
     background-repeat: no-repeat;
-    background-size: 140px;
+    background-size: 140px 300px;
     background-position: center;
     height: 40px;
     top: -79px;
@@ -509,12 +509,11 @@ p {
 
 .ancien--decouvert{
     cursor: pointer;
-    top: -79px;
+    top: -170px;
     background-image: url(../assets/images/grandsAnciens/tableau_grand_ancien_resume_decouvert.png);
     background-repeat: no-repeat;
-    background-size: cover;
     height: 50px;
-    background-size: 140px;
+    background-size: 140px 300px;
     background-position: center;
     transition : top 0.5s;
 }
@@ -524,26 +523,29 @@ p {
     transition : top 0.5s;
 }
 .ancien {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    padding-top: 110px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-top: 200px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .ancien p {
-
-    font-family: 'Built';
-    text-shadow: 2px 2px 3px black;
-    margin-top: -96%;
+  font-size: 2em;
+  font-family: 'Built';
+  text-shadow: 2px 2px 3px black;
+  margin-top: -96%;
 
 }
 
 .ancien p:nth-of-type(2) {
     position: absolute;
     max-width: 7vw;
-    font-size: 9.5px;
-    top: 14.3vh;
+    font-size: 1em;
+    top: 17vh;
     width: 80%;
     font-family: 'Oswald';
     text-shadow: 2px 2px 1px black;

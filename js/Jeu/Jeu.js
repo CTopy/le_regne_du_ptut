@@ -19,6 +19,9 @@ class Jeu {
     constructor() {
         //Déclaration des données membres
         this.actions = [new Marcher()];
+        this.grandsAnciens = [
+            new Azathoth(), new Yig(), new Dagon()
+        ];
         this.nbJoueur = 4;
         this.grandsAnciens = [new Azathoth(), new Yig(), new Dagon()];
         this.paquetIndice = new PaquetIndice();
