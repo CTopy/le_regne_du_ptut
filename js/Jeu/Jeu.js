@@ -19,19 +19,17 @@ class Jeu {
     constructor() {
         //Déclaration des données membres
         this.actions = [new Marcher()];
+        this.grandsAnciens = [
+            new Azathoth(), new Yig(), new Dagon()
+        ];
         this.nbJoueur = 4;
-        this.grandsAnciens = [new Azathoth(), new Yig(), new Dagon()];
         this.paquetIndice = new PaquetIndice("paquetIndice");
 //        this.paquetRelique = new Deck();
-//        this.defausseIndice = new Deck();
-//        this.defausseRelique = new Deck();
 //        this.paquetInvocation = new Deck();
-//        this.defausseInvocation = new Deck();
         this.cultistes = new Array();
         this.shoggoths = new Array();
         this.nbCultistes = 0;
         this.nbShoggoth = 0;
-        new Popup();
     }
 
     async afficherModeles() {
