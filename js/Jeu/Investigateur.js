@@ -129,7 +129,6 @@ class Investigateur extends Entite{
             new Indice(INNSMOUTH),
             new Indice(DUNWICH)
         ], this);
-        console.log(this.dom);
     }
 
     /*

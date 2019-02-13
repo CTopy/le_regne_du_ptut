@@ -3,14 +3,11 @@
 
 class Carte{
 
-    constructor(nom,image){
-        this.popup = new Popup();
-        this.nom=nom;
+    constructor(image){
         this.image=image; //src de l'image
         this.dom = document.createElement("img");
         this.dom.src=image;
         this.dom.className="carte affichable";
-        this.popup.ecouteur(this.dom);
     }
 }
 
@@ -20,20 +17,22 @@ class Indice extends Carte{
         /*Selon la ville, on prend l'image qui correspond*/
         switch (ville) {
             case KINGSPORT:
-                super("Kingsport", "assets/images/kingsport.png");
+                super("assets/images/kingsport.png");
                 break;
             case INNSMOUTH:
-                super("Innsmouth", "assets/images/innsmouth.png");
+                super("assets/images/innsmouth.png");
                 break;
             case DUNWICH:
-                super("Dunwich", "assets/images/dunwich.png");
+                super("assets/images/dunwich.png");
                 break;
             case ARKHAM:
-                super("Arkham", "assets/images/arkham.png");
+                super("assets/images/arkham.png");
                 break;
-            default: super("ERREUR", "assets/images/dos_indice.jpg");
+            default: super("assets/images/dos_indice.jpg");
             break;
         }
+        this.popup = new Popup();
+        this.popup.ecouteur(this.dom);
         this.ville = ville;
     }
 }
@@ -48,12 +47,15 @@ class Relique extends Carte{
         super(image);
         this.popup = new Popup();
 
-        this.domPopup = document.createElement("div");
-        this.domPopup.className = "relique";
+        let div = document.createElement("div");
+        div.className = "relique";
         let bouton = document.createElement("button");
         bouton.textContent = "Utiliser";
         bouton.id = "relique--utiliser";
-        this.domPopup.appendChild(bouton);
+        div.appendChild(this.dom.cloneNode(true));
+        div.appendChild(bouton);
+
+        this.domPopup = div;
         bouton.addEventListener("click", (evt) => {
             evt.preventDefault();
             this.utiliser();

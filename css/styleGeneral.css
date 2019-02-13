@@ -414,7 +414,8 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-item: center;
+  align-items: center;
+  max-width: 800px;
 }
 
 #dark .relique button {
@@ -424,8 +425,12 @@ p {
   font-family: 'Built';
   margin: 0;
   padding: 0;
-  width: auto;
+  width: 7vw;
   overflow: visible;
+}
+
+#dark .relique img {
+  width: auto;
 }
 
 #dark .select:hover {

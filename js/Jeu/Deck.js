@@ -35,7 +35,7 @@ class Deck{
     *
     **/
     ajouter(cartes, display=false) {
-      if(!cartes.isArray)
+      if(!Array.isArray(cartes))
         cartes = [cartes];
       let deck = new Deck(cartes);
       this.piocher(deck, cartes.length, display);
@@ -79,6 +79,7 @@ class Deck{
             }
             this.popup.afficher(affichage);
         }
+        this.contenu = this.contenu.concat(cartes);    //Ajouter les cartes finalement
         if(deckEmetteur instanceof Main)
             deckEmetteur.render(deckEmetteur.proprietaire.dom.main);
     }
@@ -98,8 +99,12 @@ class Main extends Deck {
         this.render(this.proprietaire.dom.main);
     }
 
+    ajouter(cartes) {
+        Deck.prototype.ajouter.call(this, cartes);
+    }
+
     piocher(deckEmetteur,nb=1, display=false) {
-        Deck.prototype.piocher.call(deckEmetteur, nb, display, this);
+        Deck.prototype.piocher.call(this, deckEmetteur, nb, display);
         this.render(this.proprietaire.dom.main);
     }
 
