@@ -30,7 +30,19 @@ class Deck{
         }
     }
 
+    /** Ajouter une carte au dessus du paquet
+    *   @param cartes : Un tableau de cartes ou une seule carte
+    *
+    **/
+    ajouter(cartes, display=false) {
+      if(!cartes.isArray)
+        cartes = [cartes];
+      let deck = new Deck(cartes);
+      this.piocher(deck, cartes.length, display);
+    }
+
     piocher(deckEmetteur,nb=1, display=false){
+
         let cartes = [];
         for(let i = 0; i<nb; i++) {
             cartes.push(deckEmetteur.contenu.pop());
@@ -46,6 +58,7 @@ class Deck{
                         white-space: nowrap;
                         width: 80vw;
                         display: table;
+                        position: relative;
                     }
 
                     #dark div img {
@@ -66,7 +79,8 @@ class Deck{
             }
             this.popup.afficher(affichage);
         }
-        deckEmetteur.render(deckEmetteur.proprietaire.dom.main);
+        if(deckEmetteur instanceof Main)
+            deckEmetteur.render(deckEmetteur.proprietaire.dom.main);
     }
 
     afficher(div) {
@@ -81,6 +95,11 @@ class Main extends Deck {
     constructor(contenu=false, investigateur) {
         super(contenu);
         this.proprietaire = investigateur;
+        this.render(this.proprietaire.dom.main);
+    }
+
+    piocher(deckEmetteur,nb=1, display=false) {
+        Deck.prototype.piocher.call(deckEmetteur, nb, display, this);
         this.render(this.proprietaire.dom.main);
     }
 

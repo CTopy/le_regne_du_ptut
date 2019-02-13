@@ -80,7 +80,7 @@ class Jeu {
             j.toggleActif(rang);
             rang++;
         }
-        this.paquetIndice.piocher(this.investigateurs[0].main, 3, true);
+        this.investigateurs[0].main.ajouter(new SablierFinal(),false);
 
 
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//

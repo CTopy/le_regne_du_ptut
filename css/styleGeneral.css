@@ -410,7 +410,31 @@ p {
   width: 100px;
 }
 
+#dark .relique {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-item: center;
+}
 
+#dark .relique button {
+  border: 5px solid red;
+  border-radius: 10px;
+  font-size: 3em;
+  font-family: 'Built';
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+}
+
+#dark .select:hover {
+  transform: scale(1.2);
+  box-shadow: 10px 10px 10px rgb(0, 163, 255),
+        -10px 10px 10px rgb(0, 163, 255),
+        -10px -10px 10px rgb(0, 163, 255),
+        10px -10px 10px rgb(0, 163, 255);
+}
  /* GRANDS ANCIENS */
 
 #gdAnciens {
@@ -440,8 +464,6 @@ p {
     background-position: center;
     height: 40px;
     top: -79px;
-
-
 }
 
 .ancien--decouvert{

@@ -37,11 +37,42 @@ class Indice extends Carte{
         this.ville = ville;
     }
 }
+/**
+*********************************************************
+******   RELIQUES
+*********************************************************
+**/
 
 class Relique extends Carte{
-    constructor(nom, effet, image){
-        super(nom, image);
-        this.effet = effet;
+    constructor(image){
+        super(image);
+        this.popup = new Popup();
+
+        this.domPopup = document.createElement("div");
+        this.domPopup.className = "relique";
+        let bouton = document.createElement("button");
+        bouton.textContent = "Utiliser";
+        bouton.id = "relique--utiliser";
+        this.domPopup.appendChild(bouton);
+        bouton.addEventListener("click", (evt) => {
+            evt.preventDefault();
+            this.utiliser();
+        }, true);
+
+        this.dom.addEventListener("click", (evt) => {
+            this.popup.afficher(this.domPopup);
+        }, true);
+    }
+}
+
+class SablierFinal extends Relique {
+    constructor() {
+        super("./assets/images/cartes/sablier-final.png");
+    }
+
+    utiliser() {
+        this.popup.effacerDialogue();
+        alert("La carte a été utilisée");
     }
 }
 

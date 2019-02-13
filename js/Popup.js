@@ -14,6 +14,9 @@ class Popup {
         }, true);
     }
 
+    /** Afficher une popup contenant element
+    * @param element : Un élément unique à mettre dans la popup
+    **/
     afficher(element) {
         //Ajouter le fond noir au canvas
         this.fond.style.display = "flex";
