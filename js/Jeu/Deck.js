@@ -84,6 +84,10 @@ class Deck{
             deckEmetteur.render(deckEmetteur.proprietaire.dom.main);
     }
 
+    prendre(deckEmetteur, carte) {
+
+    }
+
     afficher(div) {
 
     }

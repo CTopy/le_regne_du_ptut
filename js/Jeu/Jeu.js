@@ -22,24 +22,9 @@ class Jeu {
         this.nbJoueur = 4;
         this.grandsAnciens = [new Azathoth(), new Yig(), new Dagon()];
         this.paquetIndice = new Deck([
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(ARKHAM)
         ]);
+        this.defausseIndice = new Deck();
 //        this.paquetRelique = new Deck();
-//        this.defausseIndice = new Deck();
 //        this.defausseRelique = new Deck();
 //        this.paquetInvocation = new Deck();
 //        this.defausseInvocation = new Deck();
@@ -79,9 +64,7 @@ class Jeu {
             j.toggleActif(rang);
             rang++;
         }
-        this.investigateurs[0].main.ajouter(new SablierFinal(),false);
-        this.investigateurs[0].main.piocher(this.investigateurs[1].main, 5, true);
-
+        this.investigateurs[0].main.ajouter(new SablierFinal(this.defausseIndice),false);
 
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//
         //Mélanger les grands anciens

@@ -404,22 +404,17 @@ p {
   object-fit: contain;
 }
 
-.popup-container.flex-column {
+.flex-column, #dark .relique {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.popup-container.flex-row {
+.flex-row {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.popup-container {
-  display: grid;
-  overflow-x: scroll;
 }
 
 .popup-container .effet {
@@ -442,8 +437,6 @@ p {
 
 #dark .carte {
   max-height: 80vh;  /* INDISPENSABLE */
-  flex-basis: 0;
-  flex-grow: 1;
   max-width: 100%;
 }
 
@@ -456,6 +449,12 @@ p {
   padding: 0;
   width: 7vw;
   overflow: visible;
+  transition: all 0.5s;
+}
+
+#dark button:hover {
+  transform: scale(1.1);
+  transition: all 0.8s;
 }
 
 #dark .select:hover {

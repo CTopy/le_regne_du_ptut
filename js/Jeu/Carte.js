@@ -3,19 +3,24 @@
 
 class Carte{
 
-    constructor(image){
+    constructor(image, defausse=new Deck()){
         this.image=image; //src de l'image
         this.dom = document.createElement("img");
         this.dom.src=image;
         this.dom.className="carte";
+        this.defausse = defausse;
+    }
+
+    defausser() {
+        this.defausse.piocher(this.proprietaire.main)
     }
 }
 
 class Indice extends Carte{
 
-    constructor(ville){
+    constructor(ville, defausse){
         /*Selon la ville, on prend l'image qui correspond*/
-        switch (ville) {
+        switch (ville, defausse) {
             case KINGSPORT:
                 super("assets/images/kingsport.png");
                 break;
@@ -43,8 +48,8 @@ class Indice extends Carte{
 **/
 
 class Relique extends Carte{
-    constructor(image){
-        super(image);
+    constructor(image, defausse){
+        super(image, defausse);
         this.popup = new Popup();
 
         let div = document.createElement("div");
@@ -56,20 +61,20 @@ class Relique extends Carte{
         div.appendChild(bouton);
 
         this.domPopup = div;
-        bouton.addEventListener("click", (evt) => {
-            evt.preventDefault();
-            this.utiliser();
-        }, true);
 
         this.dom.addEventListener("click", (evt) => {
-            this.popup.afficher(this.domPopup);
+            this.popup.afficher(this.domPopup, 2);
+            document.querySelector("#dark .relique button").addEventListener("click", (evt) => {
+                evt.preventDefault();
+                this.utiliser();
+            }, true);
         }, true);
     }
 }
 
 class SablierFinal extends Relique {
-    constructor() {
-        super("./assets/images/cartes/sablier-final.png");
+    constructor(defausse) {
+        super("./assets/images/cartes/sablier-final.png", defausse);
     }
 
     utiliser() {
@@ -79,7 +84,7 @@ class SablierFinal extends Relique {
 }
 
 class Invocation extends Carte{
-    constructor(nom, lieu, image){
+    constructor(lieu, image){
         super(nom, image);
         this.ville = lieu;
     }
