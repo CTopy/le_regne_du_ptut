@@ -121,6 +121,13 @@ class Investigateur extends Entite{
             smDiv: document.querySelector("#"+id+" .santeMentale"),
             main: document.querySelector('#'+id+" .main")
         };
+
+        const effetPopup = new Popup();
+        this.dom.effet.className = "effet";
+        this.dom.effet.addEventListener("click", (e) => {
+            effetPopup.afficher(e.target, 1);
+        });
+
         const carte = new Indice(ARKHAM);
         this.main = new Main([
             new Indice(ARKHAM),

@@ -7,7 +7,7 @@ class Carte{
         this.image=image; //src de l'image
         this.dom = document.createElement("img");
         this.dom.src=image;
-        this.dom.className="carte affichable";
+        this.dom.className="carte";
     }
 }
 
