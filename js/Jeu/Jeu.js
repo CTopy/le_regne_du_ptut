@@ -47,7 +47,6 @@ class Jeu {
         this.shoggoths = [];
         this.nbCultistes = 0;
         this.nbShoggoth = 0;
-        const popup = new Popup(true);
     }
 
     async afficherModeles() {
@@ -81,6 +80,7 @@ class Jeu {
             rang++;
         }
         this.investigateurs[0].main.ajouter(new SablierFinal(),false);
+        this.investigateurs[0].main.piocher(this.investigateurs[1].main, 5, true);
 
 
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//

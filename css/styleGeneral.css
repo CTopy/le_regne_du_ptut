@@ -135,7 +135,7 @@ p {
     margin-top: -9px;
 }
 
-.joueurActif .investigateur p:last-child {
+.joueurActif .effet, .effet {
     font-size: 0.6vw;
     font-family: 'Oswald';
     width: 100%;
@@ -148,12 +148,6 @@ p {
     transition: all 1s;
     z-index: 3;
     cursor: pointer;
-}
-
-.joueurActif .investigateur p:last-child:hover {
-  transform-origin: bottom;
-  transform: scale(2);
-  transition: all 0.5s;
 }
 
 .joueurActif .investigateur div{
@@ -312,7 +306,7 @@ p {
   color: #BCCA9B;
 }
 
-.joueurPassif .investigateur p:last-child {
+.joueurPassif .effet {
   display: none;
 }
 
@@ -403,22 +397,57 @@ p {
     justify-content: center;
 }
 
-#dark .quitter {
-  position: absolute;
-  z-index: 7;
-  height: 100px;
-  width: 100px;
+#dark .popup-container {
+  max-height: 80vh;
+  max-width: 80vw;
+  position: relative;
+  object-fit: contain;
 }
 
-#dark .relique {
+.popup-container.flex-column {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 800px;
 }
 
-#dark .relique button {
+.popup-container.flex-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-container {
+  display: grid;
+  overflow-x: scroll;
+}
+
+.popup-container .effet {
+  font-size: 30pt;
+  z-index: 7;
+}
+
+#dark .quitter {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -80px;
+  margin-right: -80px;
+
+  z-index: 7;
+  height: 100px;
+  width: 100px;
+  cursor: pointer;
+}
+
+#dark .carte {
+  max-height: 80vh;  /* INDISPENSABLE */
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+#dark button {
   border: 5px solid red;
   border-radius: 10px;
   font-size: 3em;
@@ -427,10 +456,6 @@ p {
   padding: 0;
   width: 7vw;
   overflow: visible;
-}
-
-#dark .relique img {
-  width: auto;
 }
 
 #dark .select:hover {
