@@ -20,7 +20,7 @@ class Indice extends Carte{
 
     constructor(ville, defausse){
         /*Selon la ville, on prend l'image qui correspond*/
-        switch (ville, defausse) {
+        switch (ville) {
             case KINGSPORT:
                 super("assets/images/kingsport.png");
                 break;

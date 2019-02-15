@@ -48,38 +48,14 @@ class Deck{
             cartes.push(deckEmetteur.contenu.pop());
         }
         if (display) {
-            if(nb>1) {
-                var affichage = document.createElement("div");
-                affichage.innerHTML += `
-                <style>
-                    #dark div {
-                        display: table;
-                        text-align: center;
-                        white-space: nowrap;
-                        width: 80vw;
-                        display: table;
-                        position: relative;
-                    }
-
-                    #dark div img {
-                        display: table-cell;
-                        max-height: 80vh;
-                    }
-
-                    .quitter {
-                        bottom: 80vh !important;
-                    }
-                </style>
-                `;
-                cartes.forEach((carte) => {
-                    affichage.appendChild(carte.dom);
-                });
-            } else {
-                var affichage = cartes[0].dom;
-            }
-            this.popup.afficher(affichage);
+            const cartesDom = [];
+            cartes.forEach((elt) => {
+                cartesDom.push(elt.dom);
+            });
+            this.popup.afficher(cartesDom, 1);
         }
         this.contenu = this.contenu.concat(cartes);    //Ajouter les cartes finalement
+        //Si le deck dont on prends est une main, on ré-affiche cette main
         if(deckEmetteur instanceof Main)
             deckEmetteur.render(deckEmetteur.proprietaire.dom.main);
     }
@@ -110,12 +86,45 @@ class Main extends Deck {
     piocher(deckEmetteur,nb=1, display=false) {
         Deck.prototype.piocher.call(this, deckEmetteur, nb, display);
         this.render(this.proprietaire.dom.main);
+
+        if(nb+this.proprietaire.main.contenu.length > this.proprietaire.cartesMax)
     }
 
     render(container) {
         container.innerHTML = "";
-        this.contenu.forEach((carte) => {
+        this.contenu.forEach((carte, index) => {
+            carte.dom.dataset.index = index;
             container.appendChild(carte.dom);
+        });
+    }
+
+    demanderDefausse(nb=0) {
+        const h1 = document.createElement("h1"),
+        button = document.createElement("button"),
+        div = document.createElement("div"),
+        selected = [];
+        let nbSelected = 0;
+
+        h1.textContent = "Défaussez "+nb+" cartes, puis validez";
+        button.type = "button";
+        button.textContent("Valider");
+        button.disabled = "disabled";
+        div.className = "popup-container flex-row";
+        this.render(div);
+
+        this.popup.afficher([h1, div, button], 2);
+
+        div.childNodes.forEach((carte) => {
+            carte.addEventListener("click", (evt) => {
+                if(evt.target.className.contains("select"))
+                    nbSelected--
+                else nbSelected++;
+                evt.target.toggleClass("select");
+
+                if(selected === nb) {
+
+                }
+            });
         });
     }
 }

@@ -134,7 +134,9 @@ class Investigateur extends Entite{
             new Indice(ARKHAM),
             new Indice(KINGSPORT),
             new Indice(INNSMOUTH),
-            new Indice(DUNWICH)
+            new Indice(DUNWICH),
+            new Indice(KINGSPORT),
+            new Indice(ARKHAM)
         ], this);
     }
 

@@ -398,10 +398,9 @@ p {
 }
 
 #dark .popup-container {
-  max-height: 80vh;
-  max-width: 80vw;
+  height: 80vh;
+  width: 80vw;
   position: relative;
-  object-fit: contain;
 }
 
 .flex-column, #dark .relique {
@@ -436,8 +435,7 @@ p {
 }
 
 #dark .carte {
-  max-height: 80vh;  /* INDISPENSABLE */
-  max-width: 100%;
+  max-height: 80%;  /* INDISPENSABLE */
 }
 
 #dark button {

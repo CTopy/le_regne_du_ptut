@@ -16,10 +16,13 @@ class Popup {
     }
 
     /** Afficher une popup contenant element
-    * @param element : Un élément unique à mettre dans la popup
+    * @param element : Un ou plusieurs éléments à mettre dans la popup
     * @param flextype : 0 = aucun, 1 = row, 2 = column
     **/
     afficher(element, flextype=0) {
+        if(!Array.isArray(element))
+          element = [element]
+
         //Ajouter le fond noir au canvas
         this.fond.style.display = "flex";
         switch (flextype) {
@@ -30,8 +33,11 @@ class Popup {
             default: break;
         }
 
-        //Clone l'élément cliqué'
-        let clone = element.cloneNode(true);
+        //Clone les éléments à afficher
+        const clone = [];
+        element.forEach((elt) => {
+            clone.push(elt.cloneNode(true));
+        });
 
         //Créer la croix
         const quitter = document.createElement("img");
@@ -39,8 +45,10 @@ class Popup {
         quitter.className = "quitter";
 
         //Afficher l'élément et la croix
-        this.container.append(clone);
-        this.container.append(quitter);
+        clone.forEach((elt) => {
+            this.container.appendChild(elt);
+        })
+        this.container.appendChild(quitter);
 
         //Ajouter l'écouteur à la croix
         this.ecouteurQuitter(quitter);
