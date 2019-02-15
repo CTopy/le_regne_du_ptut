@@ -88,6 +88,7 @@ class Main extends Deck {
         this.render(this.proprietaire.dom.main);
 
         if(nb+this.proprietaire.main.contenu.length > this.proprietaire.cartesMax)
+            this.demanderDefausse(nb+this.proprietaire.main.contenu.length-this.proprietaire.cartesMax);
     }
 
     render(container) {
@@ -98,33 +99,50 @@ class Main extends Deck {
         });
     }
 
-    demanderDefausse(nb=0) {
+    demanderDefausse(nb=1) {
         const h1 = document.createElement("h1"),
-        button = document.createElement("button"),
         div = document.createElement("div"),
         selected = [];
-        let nbSelected = 0;
+        let nbSelected = 0,
+        button = document.createElement("button");
 
         h1.textContent = "Défaussez "+nb+" cartes, puis validez";
         button.type = "button";
-        button.textContent("Valider");
-        button.disabled = "disabled";
+        button.textContent = "Valider";
+        button.disabled = true;
         div.className = "popup-container flex-row";
         this.render(div);
 
         this.popup.afficher([h1, div, button], 2);
-
-        div.childNodes.forEach((carte) => {
+        button = document.querySelector("#dark button");
+        const cartes = document.querySelectorAll("#dark .carte");
+        cartes.forEach((carte) => {
             carte.addEventListener("click", (evt) => {
-                if(evt.target.className.contains("select"))
-                    nbSelected--
+                console.log("click ! " + evt.target.dataset.index + " " + nbSelected + " " + nb);
+                if(evt.target.classList.contains("select"))
+                    nbSelected--;
                 else nbSelected++;
-                evt.target.toggleClass("select");
+                evt.target.classList.toggle("select");
 
-                if(selected === nb) {
-
+                if(nbSelected === nb) {
+                    button.removeAttribute("disabled");
+                } else {
+                    button.disabled = true;
                 }
             });
+        });
+
+        button.addEventListener("click", (evt) => {
+            let c = 0;
+            selected.sort((a,b) => {
+                return a - b;
+            });
+            selected.forEach((index)=> {
+                this.contenu.splice(index,1);
+                c++;
+            });
+            this.popup.effacerDialogue();
+            this.render(this.proprietaire.dom.main);
         });
     }
 }

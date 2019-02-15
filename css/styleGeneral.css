@@ -33,6 +33,13 @@ body {
     position : relative;
 }
 
+h1 {
+  font-family: 'Built';
+  color: whitesmoke;
+  font-size: 48pt;
+  text-shadow: -10px -10px 0 black;
+}
+
 /**************************************************************
 ************************* INTERFACE ***************************/
 
@@ -436,6 +443,13 @@ p {
 
 #dark .carte {
   max-height: 80%;  /* INDISPENSABLE */
+  transition: all 0.5s;
+}
+
+#dark .carte:hover {
+  z-index: 8;
+  transform: scale(1.1);
+  transition: all 0.5s;
 }
 
 #dark button {
@@ -455,7 +469,7 @@ p {
   transition: all 0.8s;
 }
 
-#dark .select:hover {
+#dark .select {
   transform: scale(1.2);
   box-shadow: 10px 10px 10px rgb(0, 163, 255),
         -10px 10px 10px rgb(0, 163, 255),
