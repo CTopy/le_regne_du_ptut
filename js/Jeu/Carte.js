@@ -3,7 +3,7 @@
 
 class Carte{
 
-    constructor(image, defausse=new Deck()){
+    constructor(image, defausse=false){
         this.image=image; //src de l'image
         this.dom = document.createElement("img");
         this.dom.src=image;
@@ -12,7 +12,7 @@ class Carte{
     }
 
     defausser() {
-        this.defausse.piocher(this.proprietaire.main)
+        this.defausse.piocher(this.proprietaire.main);
     }
 }
 
@@ -77,6 +77,7 @@ class Relique extends Carte{
 class SablierFinal extends Relique {
     constructor(defausse) {
         super("./assets/images/cartes/sablier-final.png", defausse);
+        this.dom.classList.add("lmsr");
     }
 
     utiliser() {
@@ -89,5 +90,31 @@ class Invocation extends Carte{
     constructor(lieu, image){
         super(nom, image);
         this.ville = lieu;
+    }
+}
+
+class MalSeRepand extends Carte {
+    constructor(defausse, partie) {
+        super("./assets/images/cartes/mal-se-repand.png", defausse);
+        this.dom.classList.add("lmsr");
+        this.popup = new Popup();
+        this.partie = partie;
+        this.audio = new Audio();
+    }
+    
+    afficher() {
+        return new Promise (resolve => {
+            this.popup.afficher(this.dom, 2, false);
+            this.audio.src = "./assets/audio/interface/le_mal_se_repand.ogg";
+            this.audio.play();
+            window.setTimeout(() => {
+                this.popup.effacerDialogue();
+                resolve("Resolved");
+            }, 8000);
+        });
+    }
+    
+    utiliser() {
+        this.partie.invoquer
     }
 }

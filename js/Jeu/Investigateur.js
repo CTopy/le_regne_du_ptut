@@ -68,7 +68,7 @@ class Entite {
 }
 
 class Investigateur extends Entite{
-    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage, imageFou, defausse){
+    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage, imageFou, defausse, partie){
         super(nomModele, GARE);
         this.nomJoueur=nomJoueur;
         this.nbAction = nbAction;
@@ -81,6 +81,8 @@ class Investigateur extends Entite{
         this.nomPersonnage = nomPersonnage;
         this.actif = true;
         this.rang = 0;
+        this.partie = partie;
+        this.audio = new Audio();
 
         //Remplissage de l'élément du DOM
         let id = this.nomJoueur.toLowerCase().replace(/('|"|<!--|\/\*| |\/\/|\+)*/g,"");
@@ -150,7 +152,12 @@ class Investigateur extends Entite{
         else this.dom.portrait.src=this.image;
 
         this.nbActionMax = nvNbA;
+        if (this.nbAction > this.nbActionMax)
+            this.nbAction = this.nbActionMax
         this.effet = nvEffet;
+        
+        this.dom.actions.innerHTML = this.nbAction;
+        this.dom.effet.innerHTML = this.effet;
     }
 
     /*
@@ -168,27 +175,62 @@ class Investigateur extends Entite{
     }
 
     ajouterSanteMentale(nb) {
-        if((nb>0 && nb <=4) || (nb>=-4 && nb<0) &&
-        (nb+this.santeMentale<=4 || nb+this.santeMentale >0)) {
-            this.santeMentale -= nb;
-            this.dom.smDiv.innerHTML =
-            `<p>`+this.santeMentale+`</p>`;
-            for(let i=0; i<this.santeMentale; i++) {
-                let img = document.createElement("img");
-                img.src = "assets/images/backgrounds/folie.jpg";
-                this.dom.smDiv.appendChild(img);
-            }
-        } else console.log('Erreur : mauvaises valeurs');
+        let tempSm = this.santeMentale + nb;
+        if(tempSm > 4)
+            this.santeMentale = 4
+        else if (tempSm <= 0)
+            this.santeMentale = 0
+        else 
+            this.santeMentale = tempSm;
+        
+        this.dom.smDiv.innerHTML = `<p>${this.santeMentale}</p>`;
+        for(let i = 0; i<this.santeMentale; i++) {
+            let img = document.createElement("img");
+            img.src = "assets/images/backgrounds/folie.jpg";
+            this.dom.smDiv.appendChild(img);
+        }
     }
 
     ajouterActions(nb) {
         this.nbAction = this.nbAction + nb;
         this.dom.actions.textContent = this.nbAction;
     }
+    
+    jetterLesDes() {
+        let rnd = Math.floor((Math.random()*5)+1),
+            src;
+        console.log(rnd);
+        if(rnd <= 2) {
+            this.ajouterSanteMentale(-1);
+            src = "./assets/images/dé/1sm.jpeg";
+        } else if (rnd == 5) {
+            this.ajouterSanteMentale(-2);
+            src = "./assets/images/dé/2sm.jpeg";
+        } else if(rnd == 6) {
+            this.partie.invoquer(2, CULTISTE);
+            src = "./assets/images/dé/2invoc.jpeg";
+        } else {
+            src = "./assets/images/dé/rien.jpeg";
+        }
+        
+        return new Promise(resolve => {
+            this.audio.src = "./assets/audio/jeu/lancer-dé.ogg";
+            this.audio.play();
+            const popup = new Popup();
+            let img = document.createElement("img");
+            img.src = src;
+            popup.afficher(img, 1, false);
+            window.setTimeout(() => {
+                popup.effacerDialogue();
+                resolve("Resolved");
+            }, 2000);
+
+        });
+    }
 }
 
 class Detective extends Investigateur{
-    constructor(nomJoueur, defausse){
+    constructor(nomJoueur, defausse, partie){
         super(nomJoueur,
               4,
               "Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail.",
@@ -196,10 +238,17 @@ class Detective extends Investigateur{
               "detective.babylon",
               7,
              "Détective",
-             defausse);
+             defausse,
+             partie);
     }
 
     ajusterMesh() {
         this.mesh.scaling = new BABYLON.Vector3(0.005, 0.005, 0.005);
+    }
+    
+    ajouterSanteMentale(nb) {
+        Investigateur.prototype.ajouterSanteMentale.call(this, nb);
+        if(this.santeMentale == 0)
+            this.toggleFolie(3, "Vous n'avez besoin que de 4 cartes de la même couleur pour <em>Sceller un portail</em>.<br>Si vous participez à l'action <em>Prendre</em> ou <em>Donner</em>, cela coûte 2 actions au joueur actif.");
     }
 }

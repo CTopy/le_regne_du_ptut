@@ -48,11 +48,18 @@ class Jeu {
     }
 
     async mettreEnPlaceJeu() {
-        const j1 = new Detective("Anne-Sophie");
-        const j2 = new Detective("Clément Topy");
-        const j3 = new Detective("Ludo BroZ");
-        const j4 = new Detective("Romain Namor");
+        const j1 = new Detective("Anne-Sophie", this.defausseIndice, this);
+        const j2 = new Detective("Clément Topy", this.defausseIndice, this);
+        const j3 = new Detective("Ludo BroZ", this.defausseIndice, this);
+        const j4 = new Detective("Romain Namor", this.defausseIndice, this);
         this.investigateurs = [j1, j2, j3, j4];
+        
+        document.body.addEventListener("click", () => {
+            this.joueurActif.jetterLesDes()
+            .then(mess => {
+                alert("Done");
+            });
+        });
 
         //Choisir un joueur qui commence
         melanger(this.investigateurs);
@@ -68,7 +75,6 @@ class Jeu {
             j.toggleActif(rang);
             rang++;
         }
-        this.investigateurs[0].main.ajouter(new SablierFinal(this.defausseIndice),false);
 
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//
         //Mélanger les grands anciens
