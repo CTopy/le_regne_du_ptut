@@ -1,7 +1,8 @@
 "use strict";
 
 class GrandAncien{
-    constructor(nom, effet, img){
+    constructor(partie, nom, effet, img){
+        this.partie = partie;
         this.nom = nom;
         this.effet = effet;
         this.estReveille = false; //boolean
@@ -9,7 +10,7 @@ class GrandAncien{
     }
     
     reveiller(){
-        //lancer la video?
+        
         //affichage pop-up
         let sectionReveil = document.createElement("section");
         sectionReveil.id = "sectionReveil"
@@ -77,43 +78,37 @@ class GrandAncien{
 }
 
 class Azathoth extends GrandAncien{
-    constructor(){
-        super("Azathoth", "Retirez de la parie 3 cultistes de la réserve.", "assets/images/grandsAnciens/azathoth.jpg")
+    constructor(partie){
+        super(partie, "Azathoth", "Retirez de la parie 3 cultistes de la réserve.", "assets/images/grandsAnciens/azathoth.jpg")
     }
     reveiller(){
         GrandAncien.prototype.reveiller.call(this);
         this.estReveille = true;
-    }
-    
-    if(this.estReveille){
         nbCultisteMax=nbCultisteMax-3;
     }
 }
 
 class Yig extends GrandAncien{
-    constructor(){
-        super("Yig", "Sceller un portail nécessite une carte indice supplémentaire d'une ville reliée.", "assets/images/grandsAnciens/yig.jpg")
+    constructor(partie){
+        super(partie, "Yig", "Sceller un portail nécessite une carte indice supplémentaire d'une ville reliée.", "assets/images/grandsAnciens/yig.jpg")
     }
     reveiller(){
         GrandAncien.prototype.reveiller.call(this);
         //lancer la video?
         this.estReveille = true;
     }
-    
 }
 
 class Dagon extends GrandAncien{
-    constructor(){
-        super("Dagon", "Placez un cultiste sur chaque portail qu'il soit ouvert ou fermé.", "assets/images/grandsAnciens/dagon.jpg")
+    constructor(partie){
+        super(partie, "Dagon", "Placez un cultiste sur chaque portail qu'il soit ouvert ou fermé.", "assets/images/grandsAnciens/dagon.jpg")
     }
     reveiller(){
         GrandAncien.prototype.reveiller.call(this);
         //lancer la video?
         this.estReveille = true;
-    }
-    if(this.estReveille){
         for(let unLieuPortail of lieuxPortail){
-            invoquer(1, CULTISTE, unLieuPortail);
+            this.partie.invoquer(1, CULTISTE, unLieuPortail);
         }
     }
 }
