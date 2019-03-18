@@ -33,6 +33,13 @@ body {
     position : relative;
 }
 
+h1 {
+  font-family: 'Built';
+  color: whitesmoke;
+  font-size: 48pt;
+  text-shadow: -10px -10px 0 black;
+}
+
 /**************************************************************
 ************************* INTERFACE ***************************/
 
@@ -135,7 +142,7 @@ p {
     margin-top: -9px;
 }
 
-.joueurActif .investigateur p:last-child {
+.joueurActif .effet, .effet {
     font-size: 0.6vw;
     font-family: 'Oswald';
     width: 100%;
@@ -148,12 +155,6 @@ p {
     transition: all 1s;
     z-index: 3;
     cursor: pointer;
-}
-
-.joueurActif .investigateur p:last-child:hover {
-  transform-origin: bottom;
-  transform: scale(2);
-  transition: all 0.5s;
 }
 
 .joueurActif .investigateur div{
@@ -312,7 +313,7 @@ p {
   color: #BCCA9B;
 }
 
-.joueurPassif .investigateur p:last-child {
+.joueurPassif .effet {
   display: none;
 }
 
@@ -403,14 +404,78 @@ p {
     justify-content: center;
 }
 
+#dark .popup-container {
+  height: 80vh;
+  width: 80vw;
+  position: relative;
+}
+
+.flex-column, #dark .relique {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-container .effet {
+  font-size: 30pt;
+  z-index: 7;
+}
+
 #dark .quitter {
   position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -80px;
+  margin-right: -80px;
+
   z-index: 7;
   height: 100px;
   width: 100px;
+  cursor: pointer;
 }
 
+#dark .carte {
+  max-height: 80%;  /* INDISPENSABLE */
+  transition: all 0.5s;
+}
 
+#dark .carte:hover {
+  z-index: 8;
+  transform: scale(1.1);
+  transition: all 0.5s;
+}
+
+#dark button {
+  border: 5px solid red;
+  border-radius: 10px;
+  font-size: 3em;
+  font-family: 'Built';
+  margin: 0;
+  padding: 0;
+  width: 7vw;
+  overflow: visible;
+  transition: all 0.5s;
+}
+
+#dark button:hover {
+  transform: scale(1.1);
+  transition: all 0.8s;
+}
+
+#dark .select {
+  transform: scale(1.2);
+  box-shadow: 10px 10px 10px rgb(0, 163, 255),
+        -10px 10px 10px rgb(0, 163, 255),
+        -10px -10px 10px rgb(0, 163, 255),
+        10px -10px 10px rgb(0, 163, 255);
+}
  /* GRANDS ANCIENS */
 
 #gdAnciens {
@@ -438,8 +503,8 @@ p {
     background-repeat: no-repeat;
     background-size: 140px 300px;
     background-position: center;
-    height: 50px;
-    top: -170px;
+    height: 40px;
+    top: -79px;
 }
 
 .ancien--decouvert{

@@ -23,11 +23,17 @@ class Jeu {
             new Azathoth(), new Yig(), new Dagon()
         ];
         this.nbJoueur = 4;
-        this.paquetIndice = new PaquetIndice("paquetIndice");
+        this.grandsAnciens = [new Azathoth(), new Yig(), new Dagon()];
+        
+        this.defausseIndice = new Deck();
+        this.paquetIndice = new Deck([
+        ], this.defausseIndice);
 //        this.paquetRelique = new Deck();
+//        this.defausseRelique = new Deck();
 //        this.paquetInvocation = new Deck();
-        this.cultistes = new Array();
-        this.shoggoths = new Array();
+//        this.defausseInvocation = new Deck();
+        this.cultistes = [];
+        this.shoggoths = [];
         this.nbCultistes = 0;
         this.nbShoggoth = 0;
     }
@@ -62,6 +68,7 @@ class Jeu {
             j.toggleActif(rang);
             rang++;
         }
+        this.investigateurs[0].main.ajouter(new SablierFinal(this.defausseIndice),false);
 
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//
         //Mélanger les grands anciens

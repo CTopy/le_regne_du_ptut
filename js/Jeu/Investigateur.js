@@ -68,7 +68,7 @@ class Entite {
 }
 
 class Investigateur extends Entite{
-    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage, imageFou){
+    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage, imageFou, defausse){
         super(nomModele, GARE);
         this.nomJoueur=nomJoueur;
         this.nbAction = nbAction;
@@ -78,13 +78,12 @@ class Investigateur extends Entite{
         this.imageFou = imageFou;
         this.cartesMax = cartesMax;
         this.santeMentale = 4;
-//        this.main = new Main();
         this.nomPersonnage = nomPersonnage;
         this.actif = true;
         this.rang = 0;
 
         //Remplissage de l'élément du DOM
-        let id = this.nomJoueur.toLowerCase().replace(/('|"|<!--|\/\*| |\/\/|\+)*/,"");
+        let id = this.nomJoueur.toLowerCase().replace(/('|"|<!--|\/\*| |\/\/|\+)*/g,"");
         let html =
         `<div class="investigateur">
                 <img class="portrait" src="`+this.image+`" />
@@ -107,14 +106,14 @@ class Investigateur extends Entite{
             <div class="main">
         </div>
         `;
-        const joueurDOM = document.createElement("div");
+        let joueurDOM = document.createElement("div");
         joueurDOM.id = id;
         joueurDOM.className = "joueurActif interface";
         joueurDOM.innerHTML = html;
         document.getElementById("joueurs").appendChild(joueurDOM);
 
         //Objet JSON contenant des pointeurs vers les éléments du DOM devant être modifiés
-        this.dom = {  //FIXME
+        this.dom = {
             root: document.getElementById(id),
             portrait: document.querySelector("#"+id+" .portrait"),
             effet: document.querySelector("#"+id+" .investigateur p:last-child"),
@@ -122,7 +121,23 @@ class Investigateur extends Entite{
             smDiv: document.querySelector("#"+id+" .santeMentale"),
             main: document.querySelector('#'+id+" .main")
         };
-        console.log(this.dom);
+
+        const effetPopup = new Popup();
+        this.dom.effet.className = "effet";
+        this.dom.effet.addEventListener("click", (e) => {
+            effetPopup.afficher(e.target, 1);
+        });
+
+        const carte = new Indice(ARKHAM);
+        this.main = new Main([
+            new Indice(ARKHAM),
+            new Indice(ARKHAM),
+            new Indice(KINGSPORT),
+            new Indice(INNSMOUTH),
+            new Indice(DUNWICH),
+            new Indice(KINGSPORT),
+            new Indice(ARKHAM)
+        ], this, defausse);
     }
 
     /*
@@ -173,14 +188,15 @@ class Investigateur extends Entite{
 }
 
 class Detective extends Investigateur{
-    constructor(nomJoueur){
+    constructor(nomJoueur, defausse){
         super(nomJoueur,
               4,
               "Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail.",
               "./assets/images/investigateurs/detective.jpg",
               "detective.babylon",
               7,
-             "Détective");
+             "Détective",
+             defausse);
     }
 
     ajusterMesh() {

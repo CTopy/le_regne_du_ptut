@@ -3,24 +3,41 @@
 class Popup {
     constructor() {
         //Définition du fond pour les boites de dialogue
-        this.fond = document.createElement("div");
-        this.fond.id="dark";
+        this.fond = document.getElementById("dark");
+        this.container = document.querySelector(".popup-container");
         this.canvas = document.getElementById("renderCanvas");
         this.scene = JEU.scene;
-
-        document.querySelectorAll(".affichable").forEach((elt) => {
-            elt.addEventListener("click", (evt) => {
-                this.afficher(evt.target);
-            }, true);
-        });
     }
 
-    afficher(element) {
-        //Ajouter le fond noir au canvas
-        this.canvas.parentNode.appendChild(this.fond);
+    ecouteur(elt) {
+        elt.addEventListener("click", (e) => {
+            this.afficher(elt);
+        }, true);
+    }
 
-        //Clone l'élément cliqué'
-        let clone = element.cloneNode(true);
+    /** Afficher une popup contenant element
+    * @param element : Un ou plusieurs éléments à mettre dans la popup
+    * @param flextype : 0 = aucun, 1 = row, 2 = column
+    **/
+    afficher(element, flextype=0, addQuitter=true) {
+        if(!Array.isArray(element))
+          element = [element]
+
+        //Ajouter le fond noir au canvas
+        this.fond.style.display = "flex";
+        switch (flextype) {
+            case 1: this.container.className = "popup-container flex-row";
+            break;
+            case 2: this.container.className = "popup-container flex-column";
+            break;
+            default: break;
+        }
+
+        //Clone les éléments à afficher
+        const clone = [];
+        element.forEach((elt) => {
+            clone.push(elt.cloneNode(true));
+        });
 
         //Créer la croix
         const quitter = document.createElement("img");
@@ -28,29 +45,16 @@ class Popup {
         quitter.className = "quitter";
 
         //Afficher l'élément et la croix
-        this.fond.append(clone);
-        this.fond.append(quitter);
+        clone.forEach((elt) => {
+            this.container.appendChild(elt);
+        })
+        if(addQuitter) {
+            this.container.appendChild(quitter);
+            
+            //Ajouter l'écouteur à la croix
+            this.ecouteurQuitter(quitter);
+        }
 
-        if (clone.clientHeight !== undefined && clone.clientWidth !== undefined)
-            if (element.clientHeight > element.clientWidth) {
-                clone.style.height = '80vh';
-            } else {
-                clone.style.width = '80vw';
-            }
-        const h = clone.clientHeight;
-        const w = clone.clientWidth;
-
-        const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-        const r = ((vw-(((vw-w)/2)+w))/vw)*100-2;
-        const t = ((vh-(((vh-h)/2)+h))/vh)*100-5;
-
-        quitter.style.right = r+"%";
-        quitter.style.top = t+"%";
-
-        //Ajouter l'écouteur à la croix
-        this.ecouteurQuitter(quitter);
     }
 
     afficherCultiste(nbCultistes, lieuCultistes) {
@@ -85,7 +89,8 @@ class Popup {
     }
 
     effacerDialogue() {
-        this.fond.innerHTML = "";
-        this.fond.remove();
+        this.container.innerHTML = "";
+        this.container.className = "popup-container";
+        this.fond.style.display = "none";
     }
 }
