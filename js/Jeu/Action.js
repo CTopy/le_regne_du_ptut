@@ -130,6 +130,7 @@ class scellerPortail extends Action {
         let nbCarteNecessaire = 5;
     }
     
+
 /*
     if(Yig.estReveille){
         nbCarteNecessaire++;
