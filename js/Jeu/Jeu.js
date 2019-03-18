@@ -9,7 +9,7 @@ $("document").ready(async function(){
     var partie = new Jeu();
     await partie.mettreEnPlaceJeu();
     //await partie.afficherModeles();
-    partie.grandsAnciens[0].reveil();
+    partie.grandsAnciens[0].reveiller();
     await partie.tourDeJeu();
 
 });
@@ -99,7 +99,6 @@ class Jeu {
 
 
         //********* MISE EN PLACE DES DECKS ***************//
-
     }
 
     async tourDeJeu() {

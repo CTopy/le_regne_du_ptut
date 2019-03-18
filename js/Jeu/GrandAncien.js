@@ -8,11 +8,45 @@ class GrandAncien{
         this.img = img;
     }
     
-    reveil(){
+    reveiller(){
         //lancer la video?
+        //affichage pop-up
+        let sectionReveil = document.createElement("section");
+        sectionReveil.id = "sectionReveil"
+        
+        let divSectionReveil = document.createElement("div");        
+        let titreSectionReveil = document.createElement("p");
+        let imageSectionReveil = document.createElement("div");
+        let textSectionReveil = document.createElement("p");
+        let quitteSectionReveil = document.createElement("button");
+        
+        titreSectionReveil.textContent = this.nom + " se réveille !";
+        imageSectionReveil.style.backgroundImage = "url("+this.img+")";
+        textSectionReveil.textContent = this.effet;
+        quitteSectionReveil.textContent = "OK";
+        
+        sectionReveil.appendChild(divSectionReveil);
+        divSectionReveil.appendChild(titreSectionReveil);
+        divSectionReveil.appendChild(imageSectionReveil);
+        divSectionReveil.appendChild(textSectionReveil);
+        divSectionReveil.appendChild(quitteSectionReveil);
+        
+        quitteSectionReveil.addEventListener("click", function(){
+            sectionReveil.remove();
+            titreSectionReveil.remove();
+            imageSectionReveil.remove();
+            textSectionReveil.remove();
+            textSectionReveil.remove();
+            quitteSectionReveil.remove();
+            divSectionReveil.remove();
+        })
+        
+        document.querySelector("body").appendChild(sectionReveil);
+        
+        //gestion de l'affichage css
         this.estReveille = true;
         this.div.classList = "ancien ancien--decouvert";
-        this.div.firstElementChild.src = this.img
+        this.div.firstElementChild.src = this.img;
     }
     
     afficherDOM() {
@@ -46,8 +80,8 @@ class Azathoth extends GrandAncien{
     constructor(){
         super("Azathoth", "Retirez de la parie 3 cultistes de la réserve.", "assets/images/grandsAnciens/azathoth.jpg")
     }
-    reveil(){
-        GrandAncien.prototype.reveil.call(this);
+    reveiller(){
+        GrandAncien.prototype.reveiller.call(this);
         //lancer la video?
         this.estReveille = true;
         //jeu.reserveCultiste-3;
@@ -58,8 +92,8 @@ class Yig extends GrandAncien{
     constructor(){
         super("Yig", "Sceller un portail nécessite une carte indice supplémentaire d'une ville reliée.", "assets/images/grandsAnciens/yig.jpg")
     }
-    reveil(){
-        GrandAncien.prototype.reveil.call(this);
+    reveiller(){
+        GrandAncien.prototype.reveiller.call(this);
         //lancer la video?
         this.estReveille = true;
         //jeu.reserveCultiste-3;
@@ -70,8 +104,8 @@ class Dagon extends GrandAncien{
     constructor(){
         super("Dagon", "Placez un cultiste sur chaque portail qu'il soit ouvert ou fermé.", "assets/images/grandsAnciens/dagon.jpg")
     }
-    reveil(){
-        GrandAncien.prototype.reveil.call(this);
+    reveiller(){
+        GrandAncien.prototype.reveiller.call(this);
         //lancer la video?
         this.estReveille = true;
         //jeu.reserveCultiste-3;
@@ -82,7 +116,7 @@ class Cthulhu extends GrandAncien{
     constructor(){
         super("Cthulhu", "Le monde est plongé dans la folie, le chaos et la destruction. Vous avez perdu la partie.", "assets/images/grandsAnciens/cthulhu.jpg")
     }
-    reveil(){
+    reveiller(){
         //lancer la video?
         this.estReveille = true;
         //jeu.reserveCultiste-3;

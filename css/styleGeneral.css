@@ -496,6 +496,52 @@ p {
     display: block;
 }
 
+
+/*travail de Ludovic sur la pop-up d'affichage de grand ancien. Sans doute à revoir*/
+
+#sectionReveil{
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    position: absolute;
+    background-color: rgba(15, 45, 3, 0.23);
+    display: flex;
+    justify-content:center;
+}
+
+#sectionReveil>div{
+    position: relative;
+    width: 50%;
+    height: 80%;
+    background-color: #686157;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px;
+    margin-top: 5%;
+}
+
+#sectionReveil>div>div{
+    margin: 10px 5%;
+    width: 90%;
+    height: 50%;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 20px;
+}
+
+#sectionReveil>div>p:first-of-type{
+    font-size: 200%;
+}
+
+#sectionReveil>div>p{
+    text-align: center;
+}
+
+#sectionReveil button{
+    margin-left: 10%;
+}
+
 /* ACTIONS */
 
 #actions {
