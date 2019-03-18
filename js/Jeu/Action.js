@@ -122,3 +122,16 @@ class VaincreCultiste extends Action {
         super("assets/images/actions/vaincre_cultiste.png", "Vaincre un cultiste");
     }
 }
+
+class scellerPortail extends Action {
+    let nbCarteNecessaire = 5;
+    if(Yig.estReveille){
+        nbCarteNecessaire++;
+    }
+/*
+    if(joueur est detective){
+        nbCarteNecessaire++;
+    }
+*/
+    
+}

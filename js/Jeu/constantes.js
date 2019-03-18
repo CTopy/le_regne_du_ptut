@@ -12,3 +12,8 @@ const SIGNE_ANCIENS = 3;
 const EASTER_EGG = true;        //SI jamais on décide d'implémenter un easter egg
 const CULTISTE = false;
 const SHOGGOTH = true;
+
+
+//variables globales
+
+var nbCultisteMax = 26;
