@@ -20,10 +20,9 @@ class Jeu {
         //Déclaration des données membres
         this.actions = [new Marcher()];
         this.grandsAnciens = [
-            new Azathoth(), new Yig(), new Dagon()
+            new Azathoth(this), new Yig(this), new Dagon(this)
         ];
         this.nbJoueur = 4;
-        this.grandsAnciens = [new Azathoth(), new Yig(), new Dagon()];
         
         this.defausseIndice = new Deck();
         this.paquetIndice = new Deck([
@@ -182,7 +181,7 @@ class Jeu {
 //            this.defausseInvocation.piocher(this.paquetInvocation);
 //            let lieuInvoc = this.defausseInvocation[(this.defausseInvocation.length)-1].lieu;
         //TEMPORAIRE : Choisir un lieu aléatoire
-        let nbAlea = null, lieuInvoc = null;
+        let nbAlea = null;
         nbAlea = Math.floor(alea(0,5));
         if(lieuInvoc==null){
             lieuInvoc = lieux[nbAlea];

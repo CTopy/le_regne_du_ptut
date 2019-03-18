@@ -124,11 +124,17 @@ class VaincreCultiste extends Action {
 }
 
 class scellerPortail extends Action {
-    let nbCarteNecessaire = 5;
+    
+    constructor() {
+        super("assets/images/WIP.jpg", "Sceller un portail");
+        let nbCarteNecessaire = 5;
+    }
+    
+
+/*
     if(Yig.estReveille){
         nbCarteNecessaire++;
-    }
-/*
+        }
     if(joueur est detective){
         nbCarteNecessaire++;
     }
