@@ -21,9 +21,10 @@ class Jeu {
         this.actions = [new Marcher()];
         this.nbJoueur = 4;
         this.grandsAnciens = [new Azathoth(), new Yig(), new Dagon()];
-        this.paquetIndice = new Deck([
-        ]);
+        
         this.defausseIndice = new Deck();
+        this.paquetIndice = new Deck([
+        ], this.defausseIndice);
 //        this.paquetRelique = new Deck();
 //        this.defausseRelique = new Deck();
 //        this.paquetInvocation = new Deck();

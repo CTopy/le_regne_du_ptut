@@ -7,10 +7,11 @@
 */
 
 class Deck{
-    constructor(contenu=false){
+    constructor(contenu=false, defausse=false){
         this.contenu = contenu || new Array();
         this.melanger();
         this.popup = new Popup();
+        this.defausse = defausse;
     }
 
     melanger(){
@@ -59,6 +60,15 @@ class Deck{
         if(deckEmetteur instanceof Main)
             deckEmetteur.render(deckEmetteur.proprietaire.dom.main);
     }
+    
+    defausser(indexes) {
+        let carte;
+        indexes.forEach((elt) => {
+            carte = this.contenu.splice(elt, 1);
+            if(this.defausse)
+                this.defausse.ajouter(carte);
+        });
+    }
 
     prendre(deckEmetteur, carte) {
 
@@ -73,7 +83,7 @@ class Deck{
 }
 
 class Main extends Deck {
-    constructor(contenu=false, investigateur) {
+    constructor(contenu=false, investigateur, defausse) {
         super(contenu);
         this.proprietaire = investigateur;
         this.render(this.proprietaire.dom.main);
@@ -99,6 +109,7 @@ class Main extends Deck {
         });
     }
 
+    //Si l'utilisateur a trop de cartes
     demanderDefausse(nb=1) {
         const h1 = document.createElement("h1"),
         div = document.createElement("div"),
@@ -113,15 +124,20 @@ class Main extends Deck {
         div.className = "popup-container flex-row";
         this.render(div);
 
-        this.popup.afficher([h1, div, button], 2);
+        this.popup.afficher([h1, div, button], 2, false);
         button = document.querySelector("#dark button");
         const cartes = document.querySelectorAll("#dark .carte");
         cartes.forEach((carte) => {
             carte.addEventListener("click", (evt) => {
                 console.log("click ! " + evt.target.dataset.index + " " + nbSelected + " " + nb);
-                if(evt.target.classList.contains("select"))
+                if(evt.target.classList.contains("select")) {
                     nbSelected--;
-                else nbSelected++;
+                    selected.splice( selected.indexOf(evt.target.dataset.index), 1 );
+                }
+                else {
+                    nbSelected++;
+                    selected.push(evt.target.dataset.index);
+                }
                 evt.target.classList.toggle("select");
 
                 if(nbSelected === nb) {
@@ -131,26 +147,11 @@ class Main extends Deck {
                 }
             });
         });
-
+        
         button.addEventListener("click", (evt) => {
-            let c = 0;
-            selected.sort((a,b) => {
-                return a - b;
-            });
-            selected.forEach((index)=> {
-                this.contenu.splice(index,1);
-                c++;
-            });
+            this.defausser(selected);
             this.popup.effacerDialogue();
             this.render(this.proprietaire.dom.main);
         });
-    }
-}
-
-class PaquetIndice extends Deck {
-    constructor(n) {
-        super(n);
-        /*pour l'instant, pour le test, je crée une carte de chaque ville dans le paquet*/
-        this.contenu = new Array(new Indice("carte1","Kingsport"), new Indice("carte2","Dunwich"), new Indice("carte3","Innsmouth"), new Indice("carte4","Arkham"));
     }
 }

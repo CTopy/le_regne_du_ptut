@@ -19,7 +19,7 @@ class Popup {
     * @param element : Un ou plusieurs éléments à mettre dans la popup
     * @param flextype : 0 = aucun, 1 = row, 2 = column
     **/
-    afficher(element, flextype=0) {
+    afficher(element, flextype=0, addQuitter=true) {
         if(!Array.isArray(element))
           element = [element]
 
@@ -48,10 +48,13 @@ class Popup {
         clone.forEach((elt) => {
             this.container.appendChild(elt);
         })
-        this.container.appendChild(quitter);
+        if(addQuitter) {
+            this.container.appendChild(quitter);
+            
+            //Ajouter l'écouteur à la croix
+            this.ecouteurQuitter(quitter);
+        }
 
-        //Ajouter l'écouteur à la croix
-        this.ecouteurQuitter(quitter);
     }
 
     afficherCultiste(nbCultistes, lieuCultistes) {

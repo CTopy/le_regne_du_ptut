@@ -68,7 +68,7 @@ class Entite {
 }
 
 class Investigateur extends Entite{
-    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage, imageFou){
+    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage, imageFou, defausse){
         super(nomModele, GARE);
         this.nomJoueur=nomJoueur;
         this.nbAction = nbAction;
@@ -137,7 +137,7 @@ class Investigateur extends Entite{
             new Indice(DUNWICH),
             new Indice(KINGSPORT),
             new Indice(ARKHAM)
-        ], this);
+        ], this, defausse);
     }
 
     /*
@@ -188,14 +188,15 @@ class Investigateur extends Entite{
 }
 
 class Detective extends Investigateur{
-    constructor(nomJoueur){
+    constructor(nomJoueur, defausse){
         super(nomJoueur,
               4,
               "Vous n'avez besoin que de 4 cartes de la même couleur pour sceller un portail.",
               "./assets/images/investigateurs/detective.jpg",
               "detective.babylon",
               7,
-             "Détective");
+             "Détective",
+             defausse);
     }
 
     ajusterMesh() {

@@ -37,7 +37,9 @@ class Indice extends Carte{
             break;
         }
         this.popup = new Popup();
-        this.popup.ecouteur(this.dom);
+        this.dom.addEventListener("click", (evt) => {
+            this.popup.afficher(this.dom, 2);
+        });
         this.ville = ville;
     }
 }
