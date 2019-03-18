@@ -9,8 +9,8 @@ $("document").ready(async function(){
     var partie = new Jeu();
     await partie.mettreEnPlaceJeu();
     //await partie.afficherModeles();
-    partie.grandsAnciens[this.compteurGdAncien].reveil();
-    this.compteurGdAncien = this.compteurGdAncien+1;
+    partie.grandsAnciens[partie.compteurGdAncien].reveiller();
+    partie.compteurGdAncien = partie.compteurGdAncien+1;
     await partie.tourDeJeu();
 
 });
@@ -188,11 +188,13 @@ class Jeu {
 //            this.defausseInvocation.piocher(this.paquetInvocation);
 //            let lieuInvoc = this.defausseInvocation[(this.defausseInvocation.length)-1].lieu;
         //TEMPORAIRE : Choisir un lieu aléatoire
-        nbAlea = Math.floor(alea(0,this.paquetInvocation.length-1));
-        lieuInvoc = this.paquetInvocation[nbAlea];
-        //On stock les lieux déjà invoqués
-        this.defausseInvocation = this.paquetInvocation.splice(nbAlea,1);
-        //Si la carte déplace le Shoggoth, on le déplace
+        let nbAlea = Math.floor(alea(0,this.paquetInvocation.length-1));
+        if(lieuInvoc==null){
+            lieuInvoc = this.paquetInvocation[nbAlea];
+            //On stock les lieux déjà invoqués
+            this.defausseInvocation = this.paquetInvocation.splice(nbAlea,1);
+            //Si la carte déplace le Shoggoth, on le déplace 
+        }
         if (lieuInvoc.deplaceShoggoth) {
             for(let unShoggoth of this.shoggoths) {
                 unShoggoth.seDeplacer();
@@ -203,11 +205,8 @@ class Jeu {
                         this.compteurGdAncien = this.compteurGdAncien+1;
                     }
                 }
-                
+
             }
-        }
-        if(lieuInvoc==null){
-            lieuInvoc = lieux[nbAlea];
         }
             //On invoque le nombre de shoggoths ou de cultistes demandé
             if (!onInvoqueUnShoggoth) {
@@ -229,7 +228,7 @@ class Jeu {
                 }
             }
         //Si le paquet d'invocation est vide, on le rempli/remélange
-        if(this.paquetInvocation.length = 0) {
+        if(this.paquetInvocation.length == 0) {
             this.paquetInvocation = lieux;
             this.defausseInvocation.splice(0, this.defausseInvocation.lenght);
         }
