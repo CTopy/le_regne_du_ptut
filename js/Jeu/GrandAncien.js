@@ -82,9 +82,11 @@ class Azathoth extends GrandAncien{
     }
     reveiller(){
         GrandAncien.prototype.reveiller.call(this);
-        //lancer la video?
         this.estReveille = true;
-        //jeu.reserveCultiste-3;
+    }
+    
+    if(this.estReveille){
+        nbCultisteMax=nbCultisteMax-3;
     }
 }
 
@@ -96,8 +98,8 @@ class Yig extends GrandAncien{
         GrandAncien.prototype.reveiller.call(this);
         //lancer la video?
         this.estReveille = true;
-        //jeu.reserveCultiste-3;
     }
+    
 }
 
 class Dagon extends GrandAncien{
@@ -108,7 +110,11 @@ class Dagon extends GrandAncien{
         GrandAncien.prototype.reveiller.call(this);
         //lancer la video?
         this.estReveille = true;
-        //jeu.reserveCultiste-3;
+    }
+    if(this.estReveille){
+        for(let unLieuPortail of lieuxPortail){
+            invoquer(1, CULTISTE, unLieuPortail);
+        }
     }
 }
 

@@ -177,15 +177,16 @@ class Jeu {
     * param1 : Nombre d'entités à invoquer
     * param2 : Est-ce qu'on invoque un Shoggoth ? (sinon un cultiste)
     **/
-    async invoquer(nbEntiteAInvoc, onInvoqueUnShoggoth) {
+    async invoquer(nbEntiteAInvoc, onInvoqueUnShoggoth, lieuInvoc) {
 
 //            this.defausseInvocation.piocher(this.paquetInvocation);
 //            let lieuInvoc = this.defausseInvocation[(this.defausseInvocation.length)-1].lieu;
         //TEMPORAIRE : Choisir un lieu aléatoire
         let nbAlea = null, lieuInvoc = null;
         nbAlea = Math.floor(alea(0,5));
-        lieuInvoc = lieux[nbAlea];
-
+        if(lieuInvoc==null){
+            lieuInvoc = lieux[nbAlea];
+        }
             //On invoque le nombre de shoggoths ou de cultistes demandé
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
