@@ -94,11 +94,48 @@ class Main extends Deck {
     }
 
     piocher(deckEmetteur,nb=1, display=false) {
-        Deck.prototype.piocher.call(this, deckEmetteur, nb, display);
-        this.render(this.proprietaire.dom.main);
+        let malSeRepand = false,
+            carteLmsr,
+            cartes = [];
+        for(let i = 0; i<nb; i++) {
+            let carte = deckEmetteur.contenu.pop();
+            
+            if(carte instanceof MalSeRepand) {
+                malSeRepand = true;
+                carteLmsr = carte;
+            } else {
+                cartes.push(carte);
+            }
+        }
+        
+        new Promise(resolve => {
+            if(!carteLmsr)
+                resolve("Resolved");
+            else {
+                carteLmsr.afficher()
+                .then(message => {
+                    carteLmsr.utiliser();
+                });
+            }
+        })
+        .then(value => {
+            if (display) {
+                const cartesDom = [];
+                cartes.forEach((elt) => {
+                    cartesDom.push(elt.dom);
+                });
+                this.popup.afficher(cartesDom, 1);
+            }
+            this.contenu = this.contenu.concat(cartes);    //Ajouter les cartes finalement
+            //Si le deck dont on prends est une main, on ré-affiche cette main
+            if(deckEmetteur instanceof Main)
+                deckEmetteur.render(deckEmetteur.proprietaire.dom.main);
 
-        if(nb+this.proprietaire.main.contenu.length > this.proprietaire.cartesMax)
-            this.demanderDefausse(nb+this.proprietaire.main.contenu.length-this.proprietaire.cartesMax);
+            this.render(this.proprietaire.dom.main);
+
+            if(nb+this.proprietaire.main.contenu.length > this.proprietaire.cartesMax)
+                this.demanderDefausse(nb+this.proprietaire.main.contenu.length-this.proprietaire.cartesMax);
+        });
     }
 
     render(container) {

@@ -68,7 +68,7 @@ class Entite {
 }
 
 class Investigateur extends Entite{
-    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage, imageFou, defausse){
+    constructor(nomJoueur, nbAction, effet, image, nomModele, cartesMax, nomPersonnage, imageFou, defausse, partie){
         super(nomModele, GARE);
         this.nomJoueur=nomJoueur;
         this.nbAction = nbAction;
@@ -81,6 +81,7 @@ class Investigateur extends Entite{
         this.nomPersonnage = nomPersonnage;
         this.actif = true;
         this.rang = 0;
+        this.partie = partie;
 
         //Remplissage de l'élément du DOM
         let id = this.nomJoueur.toLowerCase().replace(/('|"|<!--|\/\*| |\/\/|\+)*/g,"");
@@ -185,6 +186,18 @@ class Investigateur extends Entite{
         this.nbAction = this.nbAction + nb;
         this.dom.actions.textContent = this.nbAction;
     }
+    
+    jetterLesDes() {
+        let rnd = Math.floor((Math.random()*5)+1);
+        if(rnd <= 2) {
+            this.ajouterSanteMentale(-1);
+        } else if (rnd == 5) {
+            this.ajouterSanteMentale(-2);
+        } else if(rnd == 6) {
+            this.partie.invoquer(2, CULTISTE)
+        }
+            
+    }
 }
 
 class Detective extends Investigateur{
@@ -196,7 +209,8 @@ class Detective extends Investigateur{
               "detective.babylon",
               7,
              "Détective",
-             defausse);
+             defausse,
+             partie);
     }
 
     ajusterMesh() {
