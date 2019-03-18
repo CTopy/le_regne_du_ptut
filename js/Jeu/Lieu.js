@@ -3,7 +3,7 @@
 class Lieu {  
 
     //Constructeur
-    constructor(nom, origine, ville) {
+    constructor(nom, origine, ville, deplaceShoggoth) {
 
         //Récupération de la scene 3D
         let scene = JEU.scene;
@@ -11,6 +11,7 @@ class Lieu {
         this.nom = nom;
         this.ville = ville;       //Constante : ARKHAM, KINGSPORT, INNSMOUTH, DUNWICH
         this.portail = NON;             //0 : NON, 1 : OUI, 2 : SCELLE
+        this.deplaceShoggoth = deplaceShoggoth;     //Si la carte piochée déplace un                                                    Shoggoth (boolean)
 
         //Si l'origine n'est pas de type BABYLON.Vector3 on renvoie une erreur;
         if (typeof origine === typeof new BABYLON.Vector3(0,0,0))
@@ -20,6 +21,8 @@ class Lieu {
 
         //Le nombre d'entités qui sont sur le lieu
         this.nbEntites = 0;
+        //Le nombre de cultistes qui sont sur le lieu
+        this.nbCultistesLieu = 0;
         
         //Contient toutes les entités dans ce lieu
         this.entites = new Array();
@@ -118,12 +121,12 @@ class Lieu {
 };
 
 //********** DEFINITION DES LIEUX **********//
-var GARE = new Lieu('Gare', new BABYLON.Vector3(-23.6,0.1,5.4),ARKHAM);
-var RESTAURANT = new Lieu('Restaurant', new BABYLON.Vector3(-6.1,0.1,4.3),ARKHAM);
-var LOGE_SECRETE = new Lieu('Loge Secrète', new BABYLON.Vector3(-11.9,0.1,2.8),ARKHAM);
-var UNIVERSITE = new Lieu('Université', new BABYLON.Vector3(-19.4,0.1,7.7),ARKHAM);
-var COMMISSARIAT = new Lieu('Commissariat', new BABYLON.Vector3(-11.4,0.1,7.9),ARKHAM);
-var PARC = new Lieu('Parc', new BABYLON.Vector3(-18.0,0.1,0.4),ARKHAM);
+var GARE = new Lieu('Gare', new BABYLON.Vector3(-23.6,0.1,5.4),ARKHAM, false);
+var RESTAURANT = new Lieu('Restaurant', new BABYLON.Vector3(-6.1,0.1,4.3),ARKHAM, false);
+var LOGE_SECRETE = new Lieu('Loge Secrète', new BABYLON.Vector3(-11.9,0.1,2.8),ARKHAM, true);
+var UNIVERSITE = new Lieu('Université', new BABYLON.Vector3(-19.4,0.1,7.7),ARKHAM, true);
+var COMMISSARIAT = new Lieu('Commissariat', new BABYLON.Vector3(-11.4,0.1,7.9),ARKHAM, false);
+var PARC = new Lieu('Parc', new BABYLON.Vector3(-18.0,0.1,0.4),ARKHAM, false);
 
 GARE.definir(new Array(UNIVERSITE), UNIVERSITE);
 UNIVERSITE.definir(new Array(GARE, PARC, COMMISSARIAT),PARC);
