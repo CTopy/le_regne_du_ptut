@@ -9,7 +9,8 @@ $("document").ready(async function(){
     var partie = new Jeu();
     await partie.mettreEnPlaceJeu();
     //await partie.afficherModeles();
-    partie.grandsAnciens[0].reveil();
+    partie.grandsAnciens[this.compteurGdAncien].reveil();
+    this.compteurGdAncien = this.compteurGdAncien+1;
     await partie.tourDeJeu();
 
 });
@@ -28,14 +29,15 @@ class Jeu {
         this.defausseIndice = new Deck();
 //        this.paquetRelique = new Deck();
 //        this.defausseRelique = new Deck();
-//        this.paquetInvocation = new Deck();
-//        this.defausseInvocation = new Deck();
+        this.defausseInvocation = new Array();
+        this.paquetInvocation = lieux;
         this.cultistes = [];
         this.shoggoths = [];
         this.nbCultistes = 0;
         this.nbShoggoth = 0;
         // n'y touchez pas, ça me sert à passer d'un joueur à l'autre dans la fonction passerTour()
         this.compteurJoueur = 0;
+        this.compteurGdAncien = 0;
     }
 
     async afficherModeles() {
@@ -140,7 +142,7 @@ class Jeu {
 
     }
 
-    passerTour() {
+    async passerTour() {
         this.phasePioche();
         /*
             this.checkFin();
@@ -148,7 +150,7 @@ class Jeu {
             this.checkFin();
         */
         //phase d'invocation
-        this.invoquer(2, CULTISTE);
+        await this.invoquer(2, CULTISTE);
         //phase changement joueur
         this.joueurActif.ajouterActions(this.joueurActif.nbActionMax);
         
@@ -187,15 +189,31 @@ class Jeu {
 //            let lieuInvoc = this.defausseInvocation[(this.defausseInvocation.length)-1].lieu;
         //TEMPORAIRE : Choisir un lieu aléatoire
         let nbAlea = null, lieuInvoc = null;
-        nbAlea = Math.floor(alea(0,5));
-        lieuInvoc = lieux[nbAlea];
-
+        nbAlea = Math.floor(alea(0,this.paquetInvocation.length-1));
+        lieuInvoc = this.paquetInvocation[nbAlea];
+        //On stock les lieux déjà invoqués
+        this.defausseInvocation = this.paquetInvocation.splice(nbAlea,1);
+        //Si la carte déplace le Shoggoth, on le déplace
+        if (lieuInvoc.deplaceShoggoth) {
+            for(let unShoggoth of this.shoggoths) {
+                unShoggoth.seDeplacer();
+                for(let unLieu of lieuxPortail) {
+                    if (unShoggoth.lieu == unLieu) {
+                        unShoggoth.mourir();
+                        this.grandsAnciens[this.compteurGdAncien].reveil();
+                        this.compteurGdAncien = this.compteurGdAncien+1;
+                    }
+                }
+                
+            }
+        }
             //On invoque le nombre de shoggoths ou de cultistes demandé
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
                     let unCultiste = new Cultiste(lieuInvoc);
                     lieuInvoc.ajouterEntite(unCultiste);
                     this.cultistes.push(unCultiste);
+                    lieuInvoc.nbCultistesLieu = lieuInvoc.nbCultistesLieu+1;
                     this.nbCultistes++;
                 }
             }
@@ -208,6 +226,12 @@ class Jeu {
                     this.nbShoggoth++;
                 }
             }
+        //Si le paquet d'invocation est vide, on le rempli/remélange
+        if(this.paquetInvocation.length = 0) {
+            this.paquetInvocation = lieux;
+            this.defausseInvocation.splice(0, this.defausseInvocation.lenght);
+        }
+        
         //On crée une popup pour indiquer à l'utilisateur ce qui a été invoqué et sur quel lieu
         /*let popup = new Popup();
         popup.afficherCultiste(nbEntiteAInvoc, lieuInvoc.nom);*/
