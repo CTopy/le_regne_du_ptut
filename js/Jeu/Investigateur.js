@@ -205,3 +205,110 @@ class Detective extends Investigateur{
         this.mesh.scaling = new BABYLON.Vector3(0.005, 0.005, 0.005);
     }
 }
+
+class Docteur extends Investigateur{
+    constructor(nomJoueur, defausse){
+        super(nomJoueur,
+              5,
+              "Vous pouvez effectuer jusqu'à 5 actions par tour.",
+              "./assets/images/investigateurs/docteur.jpg",
+              "docteur.babylon",
+              7,
+             "Docteur",
+             defausse);
+    }
+
+    ajusterMesh() {
+        this.mesh.scaling = new BABYLON.Vector3(0.005, 0.005, 0.005);
+    }
+}
+
+//Effet encore à programmer pour le conducteur.
+class Conducteur extends Investigateur{
+    constructor(nomJoueur, defausse){
+        super(nomJoueur,
+              4,
+              "Lors de l'action 'Marcher', vous POUVEZ vous déplacer de 2 lieux au lieu de 1. Vous êtes immunisé contre les effets d'Ithaqua.",
+              "./assets/images/investigateurs/conducteur.jpg",
+              "conducteur.babylon",
+              7,
+             "Conducteur",
+             defausse);
+    }
+
+    ajusterMesh() {
+        this.mesh.scaling = new BABYLON.Vector3(0.005, 0.005, 0.005);
+    }
+}
+
+//Effet encore à programmer pour la chasseresse
+class Chasseresse extends Investigateur{
+    constructor(nomJoueur, defausse){
+        super(nomJoueur,
+              4,
+              "Retirez tous les cultistes de votre lieu lors de l'action 'Vaincre un cultiste'. Une fois par tour, vous pouvez pour 1 seule action 'Vaincre un Shoggoth' de votre lieu.",
+              "./assets/images/investigateurs/chasseresse.jpg",
+              "chasseresse.babylon",
+              7,
+             "Chasseresse",
+             defausse);
+    }
+
+    ajusterMesh() {
+        this.mesh.scaling = new BABYLON.Vector3(0.005, 0.005, 0.005);
+    }
+}
+
+//Effet encore à programmer pour l'occultiste
+class Occultiste extends Investigateur{
+    constructor(nomJoueur, defausse){
+        super(nomJoueur,
+              4,
+              "Pour 1 action, déplacez 1 cultiste jusqu'à 2 lieux. Pour 2 actions, déplacez 1 Shoggoth d'1 lieu.",
+              "./assets/images/investigateurs/occultiste.jpg",
+              "occultiste.babylon",
+              7,
+             "Occultiste",
+             defausse);
+    }
+
+    ajusterMesh() {
+        this.mesh.scaling = new BABYLON.Vector3(0.005, 0.005, 0.005);
+    }
+}
+
+//Effet encore à programmer pour le magicien
+class Magicien extends Investigateur{
+    constructor(nomJoueur, defausse){
+        super(nomJoueur,
+              4,
+              "Vous commencez la partie avec une Relique du paquet Relique. Votre limite de cartes en main est de 8. A tout moment, en tant qu'action gratuite, vous pouvez 'Donner' ou 'Prendre' 1 carte Relique avec un investigateur sur votre lieu.",
+              "./assets/images/investigateurs/magicien.jpg",
+              "magicien.babylon",
+              8,
+             "Magicien",
+             defausse);
+    }
+
+    ajusterMesh() {
+        this.mesh.scaling = new BABYLON.Vector3(0.005, 0.005, 0.005);
+    }
+}
+
+//Effet encore à programmer pour la journaliste
+class Journaliste extends Investigateur{
+    constructor(nomJoueur, defausse){
+        super(nomJoueur,
+              4,
+              "Lorsque vous 'Prenez le bus', défaussez la carte Indice de votre choix pour vous rendre dans un lieu de n'importe quelle ville. Pour une action, déplacez-vous d'une gare routière jusqu'à une autre gare routière.",
+              "./assets/images/investigateurs/journaliste.jpg",
+              "journaliste.babylon",
+              8,
+             "Journaliste",
+             defausse);
+    }
+
+    ajusterMesh() {
+        this.mesh.scaling = new BABYLON.Vector3(0.005, 0.005, 0.005);
+    }
+}

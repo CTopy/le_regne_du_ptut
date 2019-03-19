@@ -26,7 +26,7 @@ class Jeu {
         this.nbJoueur = 4;
         
         this.defausseIndice = new Deck();
-        this.paquetIndice = new Deck([
+        this.paquetIndice = new Deck([new Indice(DUNWICH), new Indice(ARKHAM), new Indice(KINGSPORT)
         ], this.defausseIndice);
 //        this.paquetRelique = new Deck();
 //        this.defausseRelique = new Deck();
@@ -195,6 +195,7 @@ class Jeu {
             this.defausseInvocation = this.paquetInvocation.splice(nbAlea,1);
             //Si la carte déplace le Shoggoth, on le déplace 
         }
+        console.log(lieuInvoc);
         if (lieuInvoc.deplaceShoggoth) {
             for(let unShoggoth of this.shoggoths) {
                 unShoggoth.seDeplacer();
@@ -216,6 +217,15 @@ class Jeu {
                     this.cultistes.push(unCultiste);
                     lieuInvoc.nbCultistesLieu = lieuInvoc.nbCultistesLieu+1;
                     this.nbCultistes++;
+                    if(lieuInvoc.nbCultistesLieu === 4) {
+                        for(let uneEntite of lieuInvoc.entites){
+                            if(typeof uneEntite === typeof (new Cultiste())) {
+                                uneEntite.mourir();
+                            }
+                        }
+                        this.grandsAnciens[this.compteurGdAncien].reveil();
+                        this.compteurGdAncien = this.compteurGdAncien+1;
+                    }
                 }
             }
 
