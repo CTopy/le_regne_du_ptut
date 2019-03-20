@@ -26,7 +26,7 @@ class Jeu {
         this.nbJoueur = 4;
         
         this.defausseIndice = new Deck();
-        this.paquetIndice = new Deck([new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH), new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM), new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH)
+        this.paquetIndice = new Deck([new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH), new MalSeRepand(), new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM), new MalSeRepand(), new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT), new MalSeRepand(), new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH), new MalSeRepand()
         ], this.defausseIndice);
         this.paquetIndice.melanger();
 //        this.paquetRelique = new Deck();
@@ -68,7 +68,7 @@ class Jeu {
         //Choisir un joueur qui commence
         melanger(this.investigateurs);
         this.joueurActif = this.investigateurs[0];
-        this.joueurActif.main.piocher(new Deck([new Indice(ARKHAM, this.defausseIndice)]));
+        this.joueurActif.main.piocher(this.paquetIndice, 2);
 
         let joueursPassifs = [
             this.investigateurs[1],
@@ -202,7 +202,6 @@ class Jeu {
             //On stock les lieux déjà invoqués
             this.defausseInvocation = this.paquetInvocation.splice(nbAlea,1);
         }
-        console.log(lieuInvoc);
         //Si la carte déplace le Shoggoth, on le déplace 
         if (lieuInvoc.deplaceShoggoth) {
             for(let unShoggoth of this.shoggoths) {
