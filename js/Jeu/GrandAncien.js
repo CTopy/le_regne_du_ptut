@@ -114,8 +114,8 @@ class Dagon extends GrandAncien{
 }
 
 class Cthulhu extends GrandAncien{
-    constructor(){
-        super("Cthulhu", "Le monde est plongé dans la folie, le chaos et la destruction. Vous avez perdu la partie.", "assets/images/grandsAnciens/cthulhu.jpg")
+    constructor(partie){
+        super(partie, "Cthulhu", "Le monde est plongé dans la folie, le chaos et la destruction. Vous avez perdu la partie.", "assets/images/grandsAnciens/cthulhu.jpg")
     }
     reveiller(){
         //lancer la video?
