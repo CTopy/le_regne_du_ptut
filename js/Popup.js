@@ -54,6 +54,8 @@ class Popup {
             //Ajouter l'écouteur à la croix
             this.ecouteurQuitter(quitter);
         }
+        
+        return new Promise(resolve => resolve('resolved'));
 
     }
 
