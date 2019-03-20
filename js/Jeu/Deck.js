@@ -114,9 +114,6 @@ class Main extends Deck {
             else {
                 carteLmsr.afficher()
                 .then(message => {
-                    this.proprietaire.jetterLesDes();
-                })
-                .then(message => {
                     carteLmsr.utiliser();
                 });
             }
