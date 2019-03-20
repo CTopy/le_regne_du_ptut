@@ -64,6 +64,7 @@ class Jeu {
         //Choisir un joueur qui commence
         melanger(this.investigateurs);
         this.joueurActif = this.investigateurs[0];
+        this.joueurActif.main.piocher(new Deck([new Indice(ARKHAM, this.defausseIndice)]));
 
         let joueursPassifs = [
             this.investigateurs[1],
