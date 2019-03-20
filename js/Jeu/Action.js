@@ -44,6 +44,11 @@ class Action {
             }
         }.bind(this));
     }
+    
+    setJoueurActif(investigateur) {
+        this.joueurActif = investigateur;
+    }
+    
     //définition des méthodes de la classe mère
     cacher() {
         this.eltDOM.classList = "action action--cache";
@@ -60,10 +65,6 @@ class Marcher extends Action {
     
     ecouteurClick() {
         
-    }
-    
-    setJoueurActif(investigateur) {
-        this.joueurActif = investigateur;
     }
     
     afficher() {
@@ -104,8 +105,9 @@ class Marcher extends Action {
     }
     
     faireAction(lieu) {
+    
         this.joueurActif.deplacer(lieu);
-        this.joueurActif.nbAction--;
+        this.joueurActif.ajouterActions(-1);
         //s'il reste des actions au joueur, on revient à l'étape de sélection du lieu
         if (this.joueurActif.nbAction>0){
             //On repropose au joueur de marcher
@@ -114,6 +116,7 @@ class Marcher extends Action {
         } else {
             this.annuler();
         }
+        this.afficher();
     }
 }
 
