@@ -90,7 +90,7 @@ class Jeu {
         }
 
         //On ajoute Cthulhu à la fin
-        this.grandsAnciens.push(new Cthulhu());
+        this.grandsAnciens.push(new Cthulhu(this));
         let cthulhu = this.grandsAnciens[this.grandsAnciens.length-1];
         cthulhu.afficherDOM();
         cthulhu.div.dataset.num = "cthulhu";
