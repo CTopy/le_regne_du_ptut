@@ -26,8 +26,9 @@ class Jeu {
         this.nbJoueur = 4;
         
         this.defausseIndice = new Deck();
-        this.paquetIndice = new Deck([new Indice(DUNWICH), new Indice(ARKHAM), new Indice(KINGSPORT)
+        this.paquetIndice = new Deck([new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH),new Indice(DUNWICH), new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM),new Indice(ARKHAM), new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(KINGSPORT),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH),new Indice(INNSMOUTH)
         ], this.defausseIndice);
+        this.paquetIndice.melanger();
 //        this.paquetRelique = new Deck();
 //        this.defausseRelique = new Deck();
         this.defausseInvocation = new Array();
@@ -193,9 +194,9 @@ class Jeu {
             lieuInvoc = this.paquetInvocation[nbAlea];
             //On stock les lieux déjà invoqués
             this.defausseInvocation = this.paquetInvocation.splice(nbAlea,1);
-            //Si la carte déplace le Shoggoth, on le déplace 
         }
         console.log(lieuInvoc);
+        //Si la carte déplace le Shoggoth, on le déplace 
         if (lieuInvoc.deplaceShoggoth) {
             for(let unShoggoth of this.shoggoths) {
                 unShoggoth.seDeplacer();
@@ -217,6 +218,9 @@ class Jeu {
                     this.cultistes.push(unCultiste);
                     lieuInvoc.nbCultistesLieu = lieuInvoc.nbCultistesLieu+1;
                     this.nbCultistes++;
+                    //On crée une popup pour indiquer à l'utilisateur ce qui a été invoqué et sur quel lieu
+                    let popup = new Popup();
+                    popup.afficherCultistes(nbEntiteAInvoc, lieuInvoc.nom);
                     if(lieuInvoc.nbCultistesLieu === 4) {
                         for(let uneEntite of lieuInvoc.entites){
                             if(typeof uneEntite === typeof (new Cultiste())) {
@@ -242,10 +246,6 @@ class Jeu {
             this.paquetInvocation = lieux;
             this.defausseInvocation.splice(0, this.defausseInvocation.lenght);
         }
-        
-        //On crée une popup pour indiquer à l'utilisateur ce qui a été invoqué et sur quel lieu
-        /*let popup = new Popup();
-        popup.afficherCultiste(nbEntiteAInvoc, lieuInvoc.nom);*/
         //on affiche les modèles 3D sur le plateau de jeu
         await this.afficherModeles();
         this.checkFin();

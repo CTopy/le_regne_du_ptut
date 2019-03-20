@@ -130,13 +130,6 @@ class Investigateur extends Entite{
 
         const carte = new Indice(ARKHAM);
         this.main = new Main([
-            new Indice(ARKHAM),
-            new Indice(ARKHAM),
-            new Indice(KINGSPORT),
-            new Indice(INNSMOUTH),
-            new Indice(DUNWICH),
-            new Indice(KINGSPORT),
-            new Indice(ARKHAM)
         ], this, defausse);
     }
 

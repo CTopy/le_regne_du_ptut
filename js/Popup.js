@@ -57,7 +57,7 @@ class Popup {
 
     }
 
-    afficherCultiste(nbCultistes, lieuCultistes) {
+    afficherCultistes(nbCultistes, lieuCultistes) {
         //Ajouter le fond noir au canvas
         this.canvas.after(this.fond);
 
