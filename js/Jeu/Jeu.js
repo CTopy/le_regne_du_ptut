@@ -98,7 +98,7 @@ class Jeu {
         }
 
         //On ajoute Cthulhu à la fin
-        this.grandsAnciens.push(new Cthulhu());
+        this.grandsAnciens.push(new Cthulhu(this));
         let cthulhu = this.grandsAnciens[this.grandsAnciens.length-1];
         cthulhu.afficherDOM();
         cthulhu.div.dataset.num = "cthulhu";
@@ -123,12 +123,13 @@ class Jeu {
 
         //Au début de chaque tour, on affiche toutes les actions
         for(var uneAction of this.actions) {
-/*            uneAction.setJoueurActif(this.joueurActif);
-            uneAction.afficher();*/
+            uneAction.setJoueurActif(this.joueurActif);
+            uneAction.afficher();
         }
+        
         /*
         //A chaque fois que le joueur joue on réévalue les actions
-        this.joueurActif.watch(nbAction, function() {
+        this.joueurActif.watch(this.joueurActif.nbAction, function() {
             //Si le joueur est fou, on vérifie si c'est la fin (si tous les joueurs sont fous)
             //ou
             //Si le joueur est sur un portail et que ce portail est scellé
@@ -144,6 +145,7 @@ class Jeu {
             }
         });
         */
+        
         //Si on clique sur le bouton de passer son tour, on passe son tour
         var passerTour = document.getElementById("passerTour");
         passerTour.addEventListener("click", this.passerTour.bind(this));
