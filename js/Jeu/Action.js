@@ -1,6 +1,7 @@
 class Action {
     //constructeur de la classe mère
-    constructor (URLimage, nom) {
+    constructor (partie, URLimage, nom) {
+        this.partie = partie;
         this.image = URLimage;
         this.nom = nom;
         //Créer la div qui va contenir l'action
@@ -59,8 +60,8 @@ class Action {
 
 class Marcher extends Action {
     //constructeur de la classe fille - Marcher
-    constructor () {
-        super("assets/images/actions/marcher.png", "Marcher");
+    constructor (partie) {
+        super(partie, "assets/images/actions/marcher.png", "Marcher");
     }
     
     ecouteurClick() {
@@ -116,20 +117,31 @@ class Marcher extends Action {
         } else {
             this.annuler();
         }
-        this.afficher();
+        for(var uneAction of this.partie.actions) {
+            uneAction.setJoueurActif(this.joueurActif);
+            uneAction.afficher();
+        }
     }
 }
 
 class VaincreCultiste extends Action {
-    constructor() {
-        super("assets/images/actions/vaincre_cultiste.png", "Vaincre un cultiste");
+    constructor(partie) {
+        super(partie, "assets/images/actions/vaincre_cultiste.png", "Vaincre un cultiste");
+    }
+    
+    afficher(){
+        if(this.joueurActif.lieu.nbCultistesLieu > 0){
+            this.eltDOM.classList = "action";
+        }else{
+            this.cacher(null);
+        }
     }
 }
 
-class scellerPortail extends Action {
+class ScellerPortail extends Action {
     
-    constructor() {
-        super("assets/images/WIP.jpg", "Sceller un portail");
+    constructor(partie) {
+        super(partie, "assets/images/WIP.jpg", "Sceller un portail");
         let nbCarteNecessaire = 5;
     }
     

@@ -19,7 +19,8 @@ class Jeu {
     //Début du jeu
     constructor() {
         //Déclaration des données membres
-        this.actions = [new Marcher()];
+        this.actions = [
+            new Marcher(this), new VaincreCultiste(this)];
         this.grandsAnciens = [
             new Azathoth(this), new Yig(this), new Dagon(this)
         ];
