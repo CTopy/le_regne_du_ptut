@@ -190,9 +190,41 @@ class Investigateur extends Entite{
         this.nbAction = this.nbAction + nb;
         this.dom.actions.textContent = this.nbAction;
     }
+    
+    jeterLesDes() {
+        let rnd = Math.floor((Math.random()*5)+1),
+            src;
+        console.log(rnd);
+        if(rnd <= 2) {
+            this.ajouterSanteMentale(-1);
+            src = "./assets/images/dé/1sm.jpeg";
+        } else if (rnd == 5) {
+            this.ajouterSanteMentale(-2);
+            src = "./assets/images/dé/2sm.jpeg";
+        } else if(rnd == 6) {
+            this.partie.invoquer(2, CULTISTE);
+            src = "./assets/images/dé/2invoc.jpeg";
+        } else {
+            src = "./assets/images/dé/rien.jpeg";
+        }
+        
+        return new Promise(resolve => {
+            this.audio.src = "./assets/audio/jeu/lancer-dé.ogg";
+            this.audio.play();
+            const popup = new Popup();
+            let img = document.createElement("img");
+            img.src = src;
+            popup.afficher(img, 1, false);
+            window.setTimeout(() => {
+                popup.effacerDialogue();
+                resolve("Resolved");
+            }, 2000);
+
+        });
+    }
 }
 
-class Detective extends Investigateur{
+class Detective extends Investigateur {
     constructor(nomJoueur, defausse, partie){
         super(nomJoueur,
               4,

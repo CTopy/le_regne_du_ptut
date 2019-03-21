@@ -9,8 +9,6 @@ $("document").ready(async function(){
     var partie = new Jeu();
     await partie.mettreEnPlaceJeu();
     //await partie.afficherModeles();
-    partie.grandsAnciens[partie.compteurGdAncien].reveiller();
-    partie.compteurGdAncien = partie.compteurGdAncien+1;
     await partie.tourDeJeu();
 
 });
@@ -57,13 +55,6 @@ class Jeu {
         const j3 = new Detective("Ludo BroZ", this.defausseIndice, this);
         const j4 = new Detective("Romain Namor", this.defausseIndice, this);
         this.investigateurs = [j1, j2, j3, j4];
-        
-        document.body.addEventListener("click", () => {
-            this.joueurActif.jetterLesDes()
-            .then(mess => {
-                alert("Done");
-            });
-        });
 
         //Choisir un joueur qui commence
         melanger(this.investigateurs);
@@ -218,6 +209,11 @@ class Jeu {
 
             }
         }
+        
+        //On crée une popup pour indiquer à l'utilisateur ce qui a été invoqué et sur quel lieu
+        let popup = new Popup();
+        popup.afficherCultistes(nbEntiteAInvoc, 1, lieuInvoc.nom);
+        
             //On invoque le nombre de shoggoths ou de cultistes demandé
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
@@ -226,9 +222,6 @@ class Jeu {
                     this.cultistes.push(unCultiste);
                     lieuInvoc.nbCultistesLieu = lieuInvoc.nbCultistesLieu+1;
                     this.nbCultistes++;
-                    //On crée une popup pour indiquer à l'utilisateur ce qui a été invoqué et sur quel lieu
-                    let popup = new Popup();
-                    popup.afficherCultistes(nbEntiteAInvoc, lieuInvoc.nom);
                     if(lieuInvoc.nbCultistesLieu === 4) {
                         for(let uneEntite of lieuInvoc.entites){
                             if(typeof uneEntite === typeof (new Cultiste())) {

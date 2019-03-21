@@ -59,22 +59,41 @@ class Popup {
 
     }
 
-    afficherCultistes(nbCultistes, lieuCultistes) {
+    afficherCultistes(nbCultistes, flextype=0, lieuCultistes) {
+        
         //Ajouter le fond noir au canvas
-        this.canvas.after(this.fond);
+        this.fond.style.display = "flex";
+        switch (flextype) {
+            case 1: this.container.className = "popup-container flex-row";
+            break;
+            case 2: this.container.className = "popup-container flex-column";
+            break;
+            default: break;
+        }
 
         //Création de l'image du cultiste
-        let cultiste = $(document.createElement("img"));
-        cultiste.attr("src", "./assets/images/cultiste.jpg");
+        let cultiste = document.createElement("img");
+        cultiste.src = "./assets/images/cultiste.jpg";
+        
+        //Création de la légende
+        let pCultiste = document.createElement("p");
+        let text = document.createTextNode(nbCultistes+" ont été invoqué à la case : "+lieuCultistes);
+        pCultiste.appendChild(text);
 
-        //Afficher l'image du cultistes, son nombre et son lieu puis effacement
-        this.fond.append(cultiste);
-        this.fond.append("<p>"+nbCultistes+" ont été invoqués à "+lieuCultistes+"</p>");
-        console.log(this.fond);
-        setTimeout(function(){
-            this.fond.empty();
-            this.fond.remove();
-        }, 5000);
+        //Créer la croix
+        const quitter = document.createElement("img");
+        quitter.src = "./assets/images/quitter.png";
+        quitter.className = "quitter";
+
+        //Afficher le cultiste, son nombre et la croix
+        this.container.appendChild(cultiste);
+        this.container.appendChild(pCultiste);
+        this.container.appendChild(quitter);
+        //Ajouter l'écouteur à la croix
+        this.ecouteurQuitter(quitter);
+        
+        return new Promise(resolve => resolve('resolved'));
+
     }
 
     ecouteurQuitter(quitter) {

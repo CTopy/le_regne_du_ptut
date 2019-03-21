@@ -476,6 +476,10 @@ p {
         -10px -10px 10px rgb(0, 163, 255),
         10px -10px 10px rgb(0, 163, 255);
 }
+
+#dark p {
+    color:white;
+}
  /* GRANDS ANCIENS */
 
 #gdAnciens {
