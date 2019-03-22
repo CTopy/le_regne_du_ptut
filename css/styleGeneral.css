@@ -442,7 +442,7 @@ p {
 }
 
 #dark .carte {
-  max-height: 80%;  /* INDISPENSABLE */
+  max-height: 65%;  /* INDISPENSABLE */
   transition: all 0.5s;
 }
 
@@ -453,15 +453,21 @@ p {
 }
 
 #dark button {
-  border: 5px solid red;
+  color: white;
   border-radius: 10px;
   font-size: 3em;
   font-family: 'Built';
   margin: 0;
   padding: 0;
-  width: 7vw;
+  width: 15vw;
+  height: 2em;
   overflow: visible;
   transition: all 0.5s;
+  background-image: url(../assets/images/boutton_valider.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  
 }
 
 #dark button:hover {
@@ -471,10 +477,10 @@ p {
 
 #dark .select {
   transform: scale(1.2);
-  box-shadow: 10px 10px 10px rgb(0, 163, 255),
-        -10px 10px 10px rgb(0, 163, 255),
-        -10px -10px 10px rgb(0, 163, 255),
-        10px -10px 10px rgb(0, 163, 255);
+  box-shadow: 10px 10px 10px rgb(130, 241, 217),
+        -10px 10px 10px rgb(130, 241, 217),
+        -10px -10px 10px rgb(130, 241, 217),
+        10px -10px 10px rgb(130, 241, 217);
 }
  /* GRANDS ANCIENS */
 
