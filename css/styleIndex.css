@@ -18,31 +18,77 @@
 }
 
 body{
-    background-color: black;
+    background-color: midnightblue;
+    overflow: hidden;
 }
 
 main{
     height: 100vh;
     width: 100vw;
-    position: fixed;
-    background-image: url(../assets/images/backgrounds/menu.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    overflow: hidden;
+}
+
+#elementsGraphiques{
+    height: 100%;
+}
+
+#elementsGraphiques>img{
+    position: absolute;
+    z-index: -1;
+}
+
+#elementsGraphiques>img:first-child{
+    width: 17%;
+    left: 45%;
+    top: 2%;
+}
+
+#elementsGraphiques>img:nth-child(2){
+    width: 50vw;
+    left: -60vw;
+    animation: glissementNuage 70s linear 0s infinite;
+}
+
+#elementsGraphiques>img:nth-child(3){
+    width: 60vw;
+    top: -10%;
+    left: -60vw;
+    animation: glissementNuage 80s linear 30s infinite;
+}
+
+#elementsGraphiques>img:nth-child(4){
+    width: 50vw;
+    left: -60vw;
+    animation: glissementNuage 90s linear 50s infinite;
+}
+
+@keyframes glissementNuage {
+    0%{
+        left: -60vw;
+    }
+    100%{
+        left: 100%;
+    }
+}
+
+#elementsGraphiques>img:last-child{
+    min-width:100vw;
+    min-height:100vh;
+    padding: 0;
 }
 
 #menu{
+    position: absolute;
+    top: 0;
     height: 100%;
     width: 50%;
     padding-top: 10%;
-    margin-left: 50%;
 }
 
 #menu>div{
     height: auto;
     margin: 4vh 0;
     width: 50%;
-    margin-left: 40%;
     text-align: center;
     transition: all 0.2s linear;
 }
@@ -68,25 +114,6 @@ a {
     transition: all 0.3s cubic-bezier(.87, -0.01, .51, 1.01);
     color: #c7c013;
     text-shadow: 0 0 5px #767600;
-}
-
-#temporaire{
-    text-align: center;
-    font-family: Oswald;
-    font-size: 2vw;
-    color : whitesmoke;
-    position: absolute;
-    left: 20%;
-    transform: rotate(-3deg);
-    animation: 1.3s infinite cubic-bezier(.68, .01, .23, 1.01) alternate temporaire;
-}
-#temporaire>p:nth-child(2){
-    color: aqua;
-}
-
-@keyframes temporaire{
-    0%{top : 82%;}
-    100%{top : 78%;}
 }
 
 /**************REGLE**************/
