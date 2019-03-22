@@ -79,7 +79,7 @@ class GrandAncien{
 
 class Azathoth extends GrandAncien{
     constructor(partie){
-        super(partie, "Azathoth", "Retirez de la parie 3 cultistes de la réserve.", "assets/images/grandsAnciens/azathoth.jpg")
+        super(partie, "Azathoth", "Retirez de la partie 3 cultistes de la réserve.", "assets/images/grandsAnciens/azathoth.jpg")
     }
     reveiller(){
         GrandAncien.prototype.reveiller.call(this);
