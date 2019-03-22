@@ -84,6 +84,9 @@ class Lieu {
     
     retirerEntite(entite){
         this.nbEntites--;
+        if(entite instanceof Cultiste){
+            this.nbCultistesLieu--;
+        }
         for( var i = 0; i < this.entites.length-1; i++){ 
            if (this.entites[i] === entite) {
              this.entites.splice(i, 1); 

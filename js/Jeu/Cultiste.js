@@ -2,12 +2,19 @@
 
 class Cultiste extends Entite{
     
-    constructor(lieu){
+    constructor(partie, lieu){
         super("cultiste.babylon", lieu);
+        this.partie = partie;
     }
     
     mourir(){
-        this.destroy();
+        this.lieu.nbEntites--;
+        for( var i = 0; i < this.partie.entites.length-1; i++){ 
+           if (this.partie.entites[i] === entite) {
+             this.partie.entites.splice(i, 1); 
+           }
+        }
+        
     }
     
     async afficherMesh() {

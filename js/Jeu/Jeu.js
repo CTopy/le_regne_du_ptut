@@ -214,7 +214,7 @@ class Jeu {
             //On invoque le nombre de shoggoths ou de cultistes demandé
             if (!onInvoqueUnShoggoth) {
                 for (var i=0 ; i<nbEntiteAInvoc ; i++) {
-                    let unCultiste = new Cultiste(lieuInvoc);
+                    let unCultiste = new Cultiste(this, lieuInvoc);
                     lieuInvoc.ajouterEntite(unCultiste);
                     this.cultistes.push(unCultiste);
                     lieuInvoc.nbCultistesLieu = lieuInvoc.nbCultistesLieu+1;

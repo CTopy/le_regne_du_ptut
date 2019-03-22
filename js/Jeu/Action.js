@@ -35,13 +35,17 @@ class Action {
         
         //Placer l'écouteur de click sur l'action
         this.eltDOM.addEventListener("click", function() {
-            this.click = !this.click;
-            if(this.click && this.joueurActif.nbAction > 0) {
-                //Empêcher de sélectionner d'autres actions
-                document.getElementById("actions").addEventListener("click", this.empecherAutresActions);
-                this.preaction();
-            } else {
-                this.annuler();
+            if(this.needPreaction){
+                this.click = !this.click;
+                if(this.click && this.joueurActif.nbAction > 0) {
+                    //Empêcher de sélectionner d'autres actions
+                    document.getElementById("actions").addEventListener("click", this.empecherAutresActions);
+                    this.preaction();
+                } else {
+                    this.annuler();
+                }
+            }else{
+                this.faireAction();
             }
         }.bind(this));
     }
@@ -62,6 +66,7 @@ class Marcher extends Action {
     //constructeur de la classe fille - Marcher
     constructor (partie) {
         super(partie, "assets/images/actions/marcher.png", "Marcher");
+        this.needPreaction = true;
     }
     
     ecouteurClick() {
@@ -127,13 +132,30 @@ class Marcher extends Action {
 class VaincreCultiste extends Action {
     constructor(partie) {
         super(partie, "assets/images/actions/vaincre_cultiste.png", "Vaincre un cultiste");
+        this.needPreaction = false;
     }
     
     afficher(){
-        if(this.joueurActif.lieu.nbCultistesLieu > 0){
+        if(this.joueurActif.lieu.nbCultistesLieu > 0 && this.joueurActif.nbAction>0){
             this.eltDOM.classList = "action";
         }else{
             this.cacher(null);
+        }
+    }
+    
+    faireAction(){
+        this.joueurActif.ajouterActions(-1);
+        let entiteLieu = this.joueurActif.lieu.entites;
+        for(let uneEntiteLieu of entiteLieu){
+            if(uneEntiteLieu instanceof Cultiste){
+                uneEntiteLieu.mourir();
+                this.joueurActif.lieu.retirerEntite(uneEntiteLieu);
+                break;
+            }
+        }
+        for(var uneAction of this.partie.actions) {
+            uneAction.setJoueurActif(this.joueurActif);
+            uneAction.afficher();
         }
     }
 }
