@@ -59,7 +59,6 @@ class Jeu {
         //Choisir un joueur qui commence
         melanger(this.investigateurs);
         this.joueurActif = this.investigateurs[0];
-        this.joueurActif.main.piocher(this.paquetIndice, 2);
 
         let joueursPassifs = [
             this.investigateurs[1],
@@ -71,6 +70,18 @@ class Jeu {
             j.toggleActif(rang);
             rang++;
         }
+        
+        /*Phase de Pioche*/
+        for(let i=0; i<=3; i++) {
+            this.investigateurs[i].main.piocher(this.paquetIndice, 2);
+            //ensuite, on affiche sa main
+            let main = "";
+            for(let carte of this.investigateurs[i].main.contenu) {
+                main = main+'<img class="carte" src="'+carte.image+'" />'
+            }
+            $("#"+this.investigateurs[i].numero).append(main);
+        }
+        
 
         //********** MISE EN PLACE DES GRANDS ANCIENS **********//
         //Mélanger les grands anciens
@@ -145,6 +156,7 @@ class Jeu {
 
     async passerTour() {
         this.phasePioche();
+        this.phasePioche();
         /*
             this.checkFin();
             this.invoquer();
@@ -171,7 +183,7 @@ class Jeu {
 
     phasePioche() {
         //Le joueur actif pioche deux fois
-        this.joueurActif.main.piocher(this.paquetIndice);
+        this.joueurActif.main.piocher(this.paquetIndice, 2);
         //ensuite, on affiche sa main
         let main = "";
         for(let carte of this.joueurActif.main.contenu) {
