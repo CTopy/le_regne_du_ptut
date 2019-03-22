@@ -156,7 +156,6 @@ class Jeu {
 
     async passerTour() {
         this.phasePioche();
-        this.phasePioche();
         /*
             this.checkFin();
             this.invoquer();

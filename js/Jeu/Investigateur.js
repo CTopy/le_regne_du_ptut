@@ -187,7 +187,7 @@ class Investigateur extends Entite{
     }
 
     ajouterActions(nb) {
-        this.nbAction = this.nbAction + nb;
+        this.nbAction = nb;
         this.dom.actions.textContent = this.nbAction;
     }
     
